@@ -479,6 +479,36 @@ function selectWinner(matchIndex, playerNumber) {
     const match = rounds[currentRound].matches[matchIndex];
 
     if (!match) {
+        alert("المباراة غير موجودة");
+        return;
+    }
+
+    if (match.winner !== null) {
+        return;
+    }
+
+    if (playerNumber === 1) {
+        match.winner = match.player1;
+    } else if (playerNumber === 2) {
+        match.winner = match.player2;
+    }
+
+    renderRound();
+
+    const finished = rounds[currentRound].matches.every(function(m) {
+        return m.winner !== null;
+    });
+
+    if (finished) {
+        setTimeout(function() {
+            nextRound();
+        }, 500);
+    }
+}{
+
+    const match = rounds[currentRound].matches[matchIndex];
+
+    if (!match) {
         alert("حدث خطأ: المباراة غير موجودة");
         return;
     }
