@@ -435,13 +435,13 @@ function renderRound() {
             </div>
 
             <button
-                class="success"
-                onclick="selectWinner(${index}, 1)"
-                ${match.winner ? "disabled" : ""}
-            >
-                فوز اللاعب الأول
-            </button>
-
+    class="success"
+    data-match="${index}"
+    data-player="1"
+    ${match.winner ? "disabled" : ""}
+>
+    فوز اللاعب الأول
+</button>
             <div style="text-align:center">
                 VS
             </div>
@@ -454,13 +454,13 @@ function renderRound() {
             </div>
 
             <button
-                class="success"
-                onclick="selectWinner(${index}, 2)"
-                ${match.winner ? "disabled" : ""}
-            >
-                فوز اللاعب الثاني
-            </button>
-
+    class="success"
+    data-match="${index}"
+    data-player="2"
+    ${match.winner ? "disabled" : ""}
+>
+    فوز اللاعب الثاني
+</button>
         `;
 
         matchesContainer.appendChild(div);
@@ -652,7 +652,28 @@ function updateStatus() {
 /*
     تشغيل البرنامج عند فتح الصفحة
 */
+document.addEventListener("click", function(event) {
+
+    const button = event.target.closest("button[data-match]");
+
+    if (!button) {
+        return;
+    }
+
+    const matchIndex = Number(button.dataset.match);
+    const playerNumber = Number(button.dataset.player);
+
+    selectWinner(matchIndex, playerNumber);
+
+});
+
 createPlayerInputs();
+
+</script>
+
+</body>
+</html>
+   createPlayerInputs();
 
 </script>
 
