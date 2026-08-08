@@ -474,3 +474,128 @@ function renderRound() {
 
 /*
    
+function selectWinner(matchIndex, playerNumber) {
+
+    const match = rounds[currentRound].matches[matchIndex];
+
+    if (match.winner) {
+        return;
+    }
+
+    if (playerNumber === 1) {
+        match.winner = match.player1;
+    } else {
+        match.winner = match.player2;
+    }
+
+    renderRound();
+
+    const allFinished =
+        rounds[currentRound].matches.every(
+            m => m.winner !== null
+        );
+
+    if (allFinished) {
+        setTimeout(() => {
+            nextRound();
+        }, 500);
+    }
+}
+
+
+/*
+    الانتقال للدور التالي
+*/
+function nextRound() {
+
+    const winners =
+        rounds[currentRound].matches.map(
+            m => m.winner
+        );
+
+    /*
+        إذا وصلنا إلى المباراة النهائية
+        فلدينا بطل
+    */
+
+    if (winners.length === 1) {
+
+        document.getElementById("championSection")
+            .classList.remove("hidden");
+
+        document.getElementById("championName")
+            .textContent = winners[0].name;
+
+        return;
+    }
+
+
+    const roundNames = [
+        "دور الـ16",
+        "ربع النهائي",
+        "نصف النهائي",
+        "النهائي"
+    ];
+
+    const nextName = roundNames[currentRound];
+
+    const matches = [];
+
+    for (let i = 0; i < winners.length; i += 2) {
+
+        matches.push({
+
+            number: (i / 2) + 1,
+
+            player1: winners[i],
+
+            player2: winners[i + 1],
+
+            winner: null
+
+        });
+
+    }
+
+    rounds.push({
+
+        name: nextName,
+
+        matches: matches
+
+    });
+
+    currentRound++;
+
+    renderRound();
+}
+
+
+/*
+    تحديث حالة الجولة
+*/
+function updateStatus() {
+
+    const round = rounds[currentRound];
+
+    const total = round.matches.length;
+
+    const finished =
+        round.matches.filter(
+            m => m.winner !== null
+        ).length;
+
+    document.getElementById("status").textContent =
+        `تم حسم ${finished} من ${total} مباريات في ${round.name}.`;
+}
+
+
+/*
+    تشغيل البرنامج عند فتح الصفحة
+*/
+createPlayerInputs();
+
+</script>
+
+</body>
+</html>
