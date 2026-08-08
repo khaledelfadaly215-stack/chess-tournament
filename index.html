@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chess Tournament Manager</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f2f4f7;
+        color: #222;
+    }
+
+    header {
+        background: #20232a;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0 0 5px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    .players-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 10px;
+    }
+
+    .player-input {
+        display: grid;
+        grid-template-columns: 45px 1fr 90px;
+        gap: 6px;
+        align-items: center;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 7px;
+        font-size: 15px;
+    }
+
+    button {
+        border: none;
+        border-radius: 8px;
+        padding: 11px 16px;
+        cursor: pointer;
+        font-size: 15px;
+        margin: 5px;
+    }
+
+    .primary {
+        background: #2563eb;
+        color: white;
+    }
+
+    .success {
+        background: #16a34a;
+        color: white;
+    }
+
+    .danger {
+        background: #dc2626;
+        color: white;
+    }
+
+    .secondary {
+        background: #64748b;
+        color: white;
+    }
+
+    .matches {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 15px;
+    }
+
+    .match {
+        background: #f8fafc;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .match-title {
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+
+    .player {
+        padding: 10px;
+        background: white;
+        border-radius: 7px;
+        margin: 5px 0;
+        border: 1px solid #ddd;
+    }
+
+    .winner {
+        border: 2px solid #16a34a;
+        background: #ecfdf5;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .champion {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        padding: 30px;
+    }
+
+    .status {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 7px;
+        background: #eef2ff;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>♟️ Chess Tournament Manager</h1>
+    <div>32 Players Knockout Tournament</div>
+</header>
+
+<div class="container">
+
+    <!-- PLAYERS -->
+    <section class="card" id="playersSection">
+
+        <h2>👥 إدخال اللاعبين</h2>
+
+        <p>
+            أدخل أسماء اللاعبين وترتيبهم النهائي في مرحلة الـSwiss.
+        </p>
+
+        <div class="players-grid" id="players"></div>
+
+        <br>
+
+        <button class="primary" onclick="createTournament()">
+            🎯 إنشاء البطولة
+        </button>
+
+        <button class="secondary" onclick="fillExample()">
+            🧪 تعبئة تجريبية
+        </button>
+
+    </section>
+
+
+    <!-- TOURNAMENT -->
+    <section class="card hidden" id="tournamentSection">
+
+        <h2 id="roundTitle">دور الـ32</h2>
+
+        <div class="status" id="status">
+            اختر الفائز في كل مباراة.
+        </div>
+
+        <br>
+
+        <div class="matches" id="matches"></div>
+
+    </section>
+
+
+    <!-- CHAMPION -->
+    <section class="card hidden" id="championSection">
+
+        <div class="champion">
+            🏆<br>
+            بطل البطولة
+            <br><br>
+            <span id="championName"></span>
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+let players = [];
+let rounds = [];
+let currentRound = 0;
+
+
+/*
+    إنشاء خانات الـ32 لاعب
+*/
+function createPlayerInputs() {
+
+    const container = document.getElementById("players");
+
+    container.innerHTML = "";
+
+    for (let i = 1; i <= 32; i++) {
+
+        const div = document.createElement("div");
+
+        div.className = "player-input";
+
+        div.innerHTML = `
+            <strong>${i}</strong>
+
+            <input
+                type="text"
+                id="name${i}"
+                placeholder="اسم اللاعب"
+            >
+
+            <input
+                type="number"
+                id="rating${i}"
+                placeholder="Rating"
+            >
+        `;
+
+        container.appendChild(div);
+    }
+}
+
+
+/*
+    تعبئة أسماء تجريبية
+*/
+function fillExample() {
+
+    for (let i = 1; i <= 32; i++) {
+
+        document.getElementById("name" + i).value =
+            "Player " + i;
+
+        document.getElementById("rating" + i).value =
+            2100 - ((i - 1) * 15);
+    }
+}
+
+
+/*
+    إنشاء البطولة
+*/
+function createTournament() {
+
+    players = [];
+
+    for (let i = 1; i <= 32; i++) {
+
+        const name =
+            document.getElementById("name" + i).value.trim();
+
+        const rating =
+            Number(document.getElementById("rating" + i).value);
+
+        if (!name) {
+
+            alert("من فضلك أدخل اسم اللاعب رقم " + i);
+            return;
+        }
+
+        players.push({
+            seed: i,
+            name: name,
+            rating: rating,
+            eliminated: false
+        });
+    }
+
+    /*
+        إنشاء أول دور حسب الـSeeding
+
+        1 × 32
+        16 × 17
+        8 × 25
+        9 × 24
+        ...
+    */
+
+    const pairings = createBracketPairings(players);
+
+    rounds = [];
+
+    rounds.push({
+        name: "دور الـ32",
+        matches: pairings
+    });
+
+    currentRound = 0;
+
+    document.getElementById("tournamentSection")
+        .classList.remove("hidden");
+
+    document.getElementById("playersSection")
+        .classList.add("hidden");
+
+    renderRound();
+}
+
+
+/*
+    إنشاء مباريات دور الـ32
+*/
+function createBracketPairings(list) {
+
+    /*
+        ترتيب قياسي بسيط:
+
+        1-32
+        16-17
+        8-25
+        9-24
+        4-29
+        13-20
+        5-28
+        12-21
+        2-31
+        15-18
+        7-26
+        10-23
+        3-30
+        14-19
+        6-27
+        11-22
+    */
+
+    const pairs = [
+        [1,32],
+        [16,17],
+        [8,25],
+        [9,24],
+        [4,29],
+        [13,20],
+        [5,28],
+        [12,21],
+
+        [2,31],
+        [15,18],
+        [7,26],
+        [10,23],
+        [3,30],
+        [14,19],
+        [6,27],
+        [11,22]
+    ];
+
+    return pairs.map((pair, index) => {
+
+        return {
+            number: index + 1,
+            player1: list[pair[0] - 1],
+            player2: list[pair[1] - 1],
+            winner: null
+        };
+
+    });
+}
+
+
+/*
+    عرض الجولة الحالية
+*/
+function renderRound() {
+
+    const round = rounds[currentRound];
+
+    document.getElementById("roundTitle").textContent =
+        round.name;
+
+    const matchesContainer =
+        document.getElementById("matches");
+
+    matchesContainer.innerHTML = "";
+
+    round.matches.forEach((match, index) => {
+
+        const div = document.createElement("div");
+
+        div.className = "match";
+
+        let p1Class = "player";
+        let p2Class = "player";
+
+        if (match.winner === match.player1) {
+            p1Class += " winner";
+        }
+
+        if (match.winner === match.player2) {
+            p2Class += " winner";
+        }
+
+        div.innerHTML = `
+
+            <div class="match-title">
+                المباراة ${index + 1}
+            </div>
+
+            <div class="${p1Class}">
+                <strong>${match.player1.seed}.</strong>
+                ${match.player1.name}
+                <br>
+                <small>Rating: ${match.player1.rating}</small>
+            </div>
+
+            <button
+                class="success"
+                onclick="selectWinner(${index}, 1)"
+                ${match.winner ? "disabled" : ""}
+            >
+                فوز اللاعب الأول
+            </button>
+
+            <div style="text-align:center">
+                VS
+            </div>
+
+            <div class="${p2Class}">
+                <strong>${match.player2.seed}.</strong>
+                ${match.player2.name}
+                <br>
+                <small>Rating: ${match.player2.rating}</small>
+            </div>
+
+            <button
+                class="success"
+                onclick="selectWinner(${index}, 2)"
+                ${match.winner ? "disabled" : ""}
+            >
+                فوز اللاعب الثاني
+            </button>
+
+        `;
+
+        matchesContainer.appendChild(div);
+
+    });
+
+    updateStatus();
+
+}
+
+
+/*
+   
