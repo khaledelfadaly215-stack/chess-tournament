@@ -635,45 +635,115 @@ function nextRound() {
 */
 function updateStatus() {
 
-    const round = rounds[currentRound];
+function selectWinner(matchIndex, playerNumber) {
 
-    const total = round.matches.length;
+    const match = rounds[currentRound].matches[matchIndex];
 
-    const finished =
-        round.matches.filter(
-            m => m.winner !== null
-        ).length;
+    if (!match) {
+        alert("المباراة غير موجودة");
+        return;
+    }
 
-    document.getElementById("status").textContent =
-        `تم حسم ${finished} من ${total} مباريات في ${round.name}.`;
+    if (match.winner !== null) {
+        return;
+    }
+
+    if (playerNumber === 1) {
+        match.winner = match.player1;
+    } else {
+        match.winner = match.player2;
+    }
+
+    renderRound();
+
+    const finished = rounds[currentRound].matches.every(function(m) {
+        return m.winner !== null;
+    });
+
+    if (finished) {
+        setTimeout(function() {
+            nextRound();
+        }, 500);
+    }
 }
 
 
 /*
-    تشغيل البرنامج عند فتح الصفحة
+    الانتقال للدور التالي
 */
-document.addEventListener("click", function(event) {
+function nextRound() {
 
-    const button = event.target.closest("button[data-match]");
+    const winners = rounds[currentRound].matches.map(function(m) {
+        return m.winner;
+    });
 
-    if (!button) {
+    if (winners.length === 1) {
+
+        document.getElementById("championSection")
+            .classList.remove("hidden");
+
+        document.getElementById("championName")
+            .textContent = winners[0].name;
+
         return;
     }
 
-    const matchIndex = Number(button.dataset.match);
-    const playerNumber = Number(button.dataset.player);
+    const roundNames = [
+        "دور الـ16",
+        "ربع النهائي",
+        "نصف النهائي",
+        "النهائي"
+    ];
 
-    selectWinner(matchIndex, playerNumber);
+    const nextName = roundNames[currentRound];
 
-});
+    const matches = [];
 
+    for (let i = 0; i < winners.length; i += 2) {
+
+        matches.push({
+            number: (i / 2) + 1,
+            player1: winners[i],
+            player2: winners[i + 1],
+            winner: null
+        });
+
+    }
+
+    rounds.push({
+        name: nextName,
+        matches: matches
+    });
+
+    currentRound++;
+
+    renderRound();
+}
+
+
+/*
+    تحديث حالة الجولة
+*/
+function updateStatus() {
+
+    const round = rounds[currentRound];
+
+    const total = round.matches.length;
+
+    const finished = round.matches.filter(function(m) {
+        return m.winner !== null;
+    }).length;
+
+    document.getElementById("status").textContent =
+        "تم حسم " + finished + " من " + total +
+        " مباريات في " + round.name + ".";
+}
+
+
+/*
+    تشغيل البرنامج
+*/
 createPlayerInputs();
-
-</script>
-
-</body>
-</html>
-   createPlayerInputs();
 
 </script>
 
