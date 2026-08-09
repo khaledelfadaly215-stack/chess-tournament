@@ -6,10 +6,7 @@
 <title>AKRAM E4 E5 | Chess Tournament Manager</title>
 
 <style>
-
-*{
-box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 body{
 margin:0;
@@ -347,37 +344,29 @@ margin:10px 0
 }
 
 
-/* =====================================================
+/* =========================================================
    شاشة الاحتفال
-===================================================== */
+========================================================= */
 
 #celebrationOverlay{
 position:fixed;
 inset:0;
-
 background:
 radial-gradient(
-circle at 50% 35%,
-#fffde7 0%,
-#fef3c7 12%,
-#92400e 38%,
-#1e293b 70%,
+circle at center,
+#fff9c4 0%,
+#fef3c7 15%,
+#172033 55%,
 #020617 100%
 );
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 z-index:9999;
 overflow:hidden;
-
 opacity:0;
 visibility:hidden;
-
-transition:
-opacity .6s ease,
-visibility .6s ease;
+transition:opacity .6s ease
 }
 
 #celebrationOverlay.show{
@@ -386,238 +375,138 @@ visibility:visible
 }
 
 
-/* طبقة الوميض */
+/* طبقة الألعاب النارية */
 
-#celebrationOverlay::before{
-content:"";
+#fireworksCanvas{
 position:absolute;
-inset:-50%;
-
-background:
-radial-gradient(
-circle,
-rgba(255,255,255,.25) 0%,
-transparent 22%
-);
-
-animation:
-backgroundPulse 3s ease-in-out infinite;
-
+inset:0;
+width:100%;
+height:100%;
+z-index:1;
 pointer-events:none
 }
 
 
-/* دوائر ضوئية */
+/* وهج الشاشة عند الانفجار */
 
-.light-ring{
+#fireworkFlash{
 position:absolute;
-width:180px;
-height:180px;
-
-border:2px solid #facc15;
-border-radius:50%;
-
-box-shadow:
-0 0 15px #facc15,
-0 0 40px #f59e0b,
-0 0 80px #facc1588;
-
-opacity:0;
-
-animation:ringExplosion 2.2s ease-out forwards;
-pointer-events:none
-}
-
-
-/* انفجار ضوئي */
-
-.flash{
-position:absolute;
-width:40px;
-height:40px;
-border-radius:50%;
-
+inset:0;
+z-index:2;
+pointer-events:none;
 background:#fff;
-
-box-shadow:
-0 0 30px #fff,
-0 0 70px #facc15,
-0 0 130px #f59e0b;
-
-transform:scale(.1);
 opacity:0;
+mix-blend-mode:screen
+}
 
-animation:
-flashExplosion 1.2s ease-out forwards;
+#celebrationOverlay.flash #fireworkFlash{
+animation:fireworkFlash .28s ease-out
+}
 
-pointer-events:none
+@keyframes fireworkFlash{
+
+0%{
+opacity:.55
+}
+
+100%{
+opacity:0
+}
+
 }
 
 
-/* صندوق الاحتفال */
+/* صندوق التتويج */
 
 .celebration-box{
-width:min(90%,720px);
-
+width:min(90%,700px);
 text-align:center;
 color:#fff;
-
 position:relative;
-z-index:20;
-
+z-index:10;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-
-animation:
-championZoom 1.2s cubic-bezier(.17,.67,.25,1.2) forwards;
+animation:championZoom 1.1s ease forwards
 }
 
 
 /* الكأس */
 
 .trophy{
-font-size:115px;
-
+font-size:110px;
 filter:
-drop-shadow(0 0 12px #facc15)
-drop-shadow(0 0 30px #f59e0b)
-drop-shadow(0 0 60px #fde047);
-
-animation:
-trophyFloat 2s ease-in-out infinite,
-trophyGlow 1.8s ease-in-out infinite;
-
-position:relative;
-z-index:25;
-}
-
-
-/* هالة خلف الكأس */
-
-.trophy::after{
-content:"";
-
-position:absolute;
-
-width:180px;
-height:180px;
-
-left:50%;
-top:50%;
-
-transform:translate(-50%,-50%);
-
-border-radius:50%;
-
-background:
-radial-gradient(
-circle,
-#facc1544,
-transparent 65%
-);
-
-z-index:-1;
-
-animation:
-haloPulse 1.5s ease-in-out infinite;
+drop-shadow(0 0 15px #facc15)
+drop-shadow(0 0 35px #f59e0b);
+animation:trophyFloat 2s ease-in-out infinite
 }
 
 
 /* مبروك */
 
 .celebration-title{
-font-size:27px;
+font-size:25px;
 font-weight:bold;
-
 margin-top:10px;
-
 text-shadow:
 0 2px 8px #000,
-0 0 15px #fff;
-
-animation:
-titleGlow 2s ease-in-out infinite;
+0 0 15px #fff
 }
 
 
 /* اسم البطل */
 
 .celebration-name{
-font-size:55px;
+font-size:52px;
 font-weight:900;
-
 color:#facc15;
-
+text-shadow:
+0 0 10px #facc15,
+0 0 25px #f59e0b,
+0 0 45px #f59e0b,
+0 4px 8px #000;
 margin:15px 0;
-
 text-align:center;
 width:100%;
+animation:nameGlow 2s ease-in-out infinite
+}
 
-position:relative;
+@keyframes nameGlow{
 
+0%,100%{
 text-shadow:
-0 0 8px #facc15,
-0 0 18px #f59e0b,
-0 0 35px #f59e0b,
-0 0 60px #fde047,
-0 5px 10px #000;
+0 0 10px #facc15,
+0 0 25px #f59e0b,
+0 0 45px #f59e0b,
+0 4px 8px #000
+}
 
-animation:
-championNameGlow 1.8s ease-in-out infinite;
+50%{
+text-shadow:
+0 0 15px #fff7a8,
+0 0 35px #facc15,
+0 0 65px #f59e0b,
+0 4px 8px #000
+}
+
 }
 
 
-/* خط ضوء يمر على اسم البطل */
-
-.celebration-name::after{
-content:"";
-
-position:absolute;
-
-top:0;
-left:-100%;
-
-width:60%;
-height:100%;
-
-background:
-linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,.8),
-transparent
-);
-
-transform:skewX(-25deg);
-
-animation:
-nameLight 2.5s linear infinite;
-
-pointer-events:none
-}
-
-
-/* =====================================================
-   عبارة الـ200K
-===================================================== */
+/* =========================================================
+   عبارة بطل بطولة الـ200K
+========================================================= */
 
 .celebration-subtitle{
 position:relative;
-
 display:block;
-
 width:max-content;
 max-width:90%;
-
 margin:5px auto 0;
-
 padding:13px 28px;
 
 font-size:21px;
 font-weight:800;
-
 line-height:1.5;
 
 color:#fff8dc;
@@ -625,13 +514,12 @@ color:#fff8dc;
 background:
 linear-gradient(
 135deg,
-rgba(30,41,59,.96),
-rgba(120,83,7,.82),
-rgba(30,41,59,.96)
+rgba(120,83,7,.72),
+rgba(245,158,11,.22),
+rgba(120,83,7,.72)
 );
 
 border:2px solid #facc15;
-
 border-radius:14px;
 
 text-align:center;
@@ -639,7 +527,6 @@ text-align:center;
 box-shadow:
 0 0 8px #facc15,
 0 0 18px #f59e0b88,
-0 0 35px #facc1544,
 inset 0 0 15px #facc1533;
 
 text-shadow:
@@ -649,19 +536,16 @@ text-shadow:
 overflow:hidden;
 
 animation:
-subtitleGlow 2.5s ease-in-out infinite;
+subtitleGlow 2.5s ease-in-out infinite
 }
 
 
-/* الإضاءة المتحركة حول الحواف */
+/* الضوء المتحرك */
 
 .celebration-subtitle::before{
 content:"";
-
 position:absolute;
-
 inset:-3px;
-
 border-radius:16px;
 
 background:
@@ -684,8 +568,7 @@ borderLightMove 2.2s linear infinite;
 z-index:-1;
 
 filter:blur(3px);
-
-opacity:.95;
+opacity:.95
 }
 
 
@@ -693,32 +576,59 @@ opacity:.95;
 
 .celebration-subtitle::after{
 content:"";
-
 position:absolute;
-
 inset:2px;
-
 border-radius:11px;
 
 background:
 linear-gradient(
 135deg,
-rgba(30,41,59,.97),
-rgba(120,83,7,.72),
-rgba(30,41,59,.97)
+rgba(30,41,59,.95),
+rgba(120,83,7,.65),
+rgba(30,41,59,.95)
 );
 
-z-index:-1;
+z-index:-1
+}
+
+@keyframes subtitleGlow{
+
+0%,100%{
+box-shadow:
+0 0 8px #facc15,
+0 0 18px #f59e0b88,
+inset 0 0 15px #facc1533
+}
+
+50%{
+box-shadow:
+0 0 14px #fde047,
+0 0 32px #f59e0bcc,
+0 0 55px #facc1566,
+inset 0 0 22px #facc1555
+}
+
+}
+
+@keyframes borderLightMove{
+
+0%{
+background-position:200% 0
+}
+
+100%{
+background-position:-200% 0
+}
+
 }
 
 
-/* =====================================================
+/* =========================================================
    زر المتابعة
-===================================================== */
+========================================================= */
 
 .close-celebration{
 display:block;
-
 margin:28px auto 0;
 
 background:
@@ -730,457 +640,99 @@ linear-gradient(
 
 color:#111827;
 
-padding:13px 38px;
+padding:13px 35px;
 
 font-size:17px;
 font-weight:800;
 
-border-radius:11px;
+border-radius:10px;
 
 box-shadow:
 0 0 10px #facc15,
-0 0 25px #f59e0b88,
-0 0 45px #facc1533;
+0 0 25px #f59e0b88;
 
 transition:
 transform .2s ease,
 box-shadow .2s ease;
 
-text-align:center;
-
-position:relative;
-
-z-index:30;
+text-align:center
 }
 
 .close-celebration:hover{
-transform:
-translateY(-3px)
-scale(1.05);
+transform:translateY(-3px) scale(1.04);
 
 box-shadow:
 0 0 15px #fde047,
-0 0 35px #f59e0bcc,
-0 0 55px #facc1566;
+0 0 35px #f59e0bcc
 }
 
 
-/* زر الصوت */
-
-.sound-toggle{
-position:fixed;
-
-top:20px;
-left:20px;
-
-z-index:100;
-
-background:
-rgba(15,23,42,.82);
-
-color:#fff;
-
-border:1px solid #facc1588;
-
-border-radius:50%;
-
-width:48px;
-height:48px;
-
-padding:0;
-margin:0;
-
-font-size:20px;
-
-display:grid;
-place-items:center;
-
-box-shadow:
-0 0 12px #facc1555;
-
-backdrop-filter:blur(8px);
-
-transition:.25s;
-}
-
-.sound-toggle:hover{
-transform:scale(1.1);
-
-box-shadow:
-0 0 20px #facc15;
-}
-
-
-/* =====================================================
+/* =========================================================
    Confetti
-===================================================== */
+========================================================= */
 
 .confetti{
 position:absolute;
-
-top:-40px;
-
+top:-30px;
 width:10px;
 height:18px;
-
-opacity:.95;
-
-animation:
-fall linear forwards;
-
-z-index:8;
+opacity:.9;
+animation:fall linear forwards;
+z-index:3
 }
 
 
-/* =====================================================
-   الجزيئات الذهبية
-===================================================== */
-
-.spark{
-position:absolute;
-
-width:5px;
-height:5px;
-
-border-radius:50%;
-
-background:#fde047;
-
-box-shadow:
-0 0 8px #facc15,
-0 0 16px #f59e0b;
-
-animation:
-sparkFloat linear forwards;
-
-z-index:6;
-}
-
-
-/* =====================================================
-   النجوم
-===================================================== */
-
-.star{
-position:absolute;
-
-color:#fff8b0;
-
-font-size:18px;
-
-text-shadow:
-0 0 8px #fff,
-0 0 18px #facc15;
-
-animation:
-starBurst 2.5s ease-out forwards;
-
-z-index:7;
-}
-
-
-/* =====================================================
+/* =========================================================
    الحركات
-===================================================== */
+========================================================= */
 
 @keyframes championZoom{
 
 0%{
-transform:scale(.25);
-opacity:0;
+transform:scale(.3);
+opacity:0
 }
 
-55%{
+60%{
 transform:scale(1.12);
-opacity:1;
-}
-
-75%{
-transform:scale(.96);
+opacity:1
 }
 
 100%{
 transform:scale(1);
-opacity:1;
+opacity:1
 }
 
 }
-
 
 @keyframes trophyFloat{
 
 0%,100%{
-transform:
-translateY(0)
-rotate(-3deg);
+transform:translateY(0) rotate(-2deg)
 }
 
 50%{
-transform:
-translateY(-16px)
-rotate(3deg);
+transform:translateY(-15px) rotate(2deg)
 }
 
 }
-
-
-@keyframes trophyGlow{
-
-0%,100%{
-filter:
-drop-shadow(0 0 12px #facc15)
-drop-shadow(0 0 30px #f59e0b)
-drop-shadow(0 0 50px #fde047);
-}
-
-50%{
-filter:
-drop-shadow(0 0 25px #fff)
-drop-shadow(0 0 50px #facc15)
-drop-shadow(0 0 90px #f59e0b);
-}
-
-}
-
-
-@keyframes haloPulse{
-
-0%,100%{
-transform:
-translate(-50%,-50%)
-scale(.8);
-
-opacity:.5;
-}
-
-50%{
-transform:
-translate(-50%,-50%)
-scale(1.3);
-
-opacity:1;
-}
-
-}
-
-
-@keyframes titleGlow{
-
-0%,100%{
-text-shadow:
-0 2px 8px #000,
-0 0 10px #fff;
-}
-
-50%{
-text-shadow:
-0 2px 8px #000,
-0 0 25px #fff,
-0 0 40px #facc15;
-}
-
-}
-
-
-@keyframes championNameGlow{
-
-0%,100%{
-transform:scale(1);
-
-text-shadow:
-0 0 8px #facc15,
-0 0 18px #f59e0b,
-0 0 35px #f59e0b,
-0 4px 8px #000;
-}
-
-50%{
-transform:scale(1.04);
-
-text-shadow:
-0 0 15px #fff,
-0 0 30px #facc15,
-0 0 55px #f59e0b,
-0 0 80px #facc15,
-0 5px 10px #000;
-}
-
-}
-
-
-@keyframes nameLight{
-
-0%{
-left:-100%;
-}
-
-100%{
-left:150%;
-}
-
-}
-
-
-@keyframes subtitleGlow{
-
-0%,100%{
-box-shadow:
-0 0 8px #facc15,
-0 0 18px #f59e0b88,
-inset 0 0 15px #facc1533;
-}
-
-50%{
-box-shadow:
-0 0 14px #fde047,
-0 0 32px #f59e0bcc,
-0 0 55px #facc1566,
-inset 0 0 22px #facc1555;
-}
-
-}
-
-
-@keyframes borderLightMove{
-
-0%{
-background-position:
-200% 0;
-}
-
-100%{
-background-position:
--200% 0;
-}
-
-}
-
 
 @keyframes fall{
 
 0%{
-transform:
-translateY(-30px)
-rotate(0deg)
-rotateX(0deg);
+transform:translateY(-30px) rotate(0deg)
 }
 
 100%{
-transform:
-translateY(110vh)
-rotate(720deg)
-rotateX(720deg);
+transform:translateY(110vh) rotate(720deg)
 }
 
 }
 
 
-@keyframes backgroundPulse{
-
-0%,100%{
-transform:scale(1);
-opacity:.3;
-}
-
-50%{
-transform:scale(1.15);
-opacity:.7;
-}
-
-}
-
-
-@keyframes ringExplosion{
-
-0%{
-transform:scale(.1);
-opacity:1;
-}
-
-100%{
-transform:scale(8);
-opacity:0;
-}
-
-}
-
-
-@keyframes flashExplosion{
-
-0%{
-transform:scale(.1);
-opacity:0;
-}
-
-20%{
-transform:scale(2);
-opacity:1;
-}
-
-100%{
-transform:scale(25);
-opacity:0;
-}
-
-}
-
-
-@keyframes sparkFloat{
-
-0%{
-transform:
-translateY(20px)
-scale(.5);
-
-opacity:0;
-}
-
-15%{
-opacity:1;
-}
-
-100%{
-transform:
-translateY(-100vh)
-translateX(var(--moveX))
-scale(0);
-
-opacity:0;
-}
-
-}
-
-
-@keyframes starBurst{
-
-0%{
-transform:
-translate(0,0)
-scale(.2)
-rotate(0deg);
-
-opacity:0;
-}
-
-20%{
-opacity:1;
-}
-
-100%{
-transform:
-translate(var(--x),var(--y))
-scale(1.5)
-rotate(360deg);
-
-opacity:0;
-}
-
-}
-
-
-/* =====================================================
+/* =========================================================
    Responsive
-===================================================== */
+========================================================= */
 
 @media(max-width:900px){
 
@@ -1205,7 +757,7 @@ font-size:22px
 }
 
 .celebration-name{
-font-size:40px
+font-size:38px
 }
 
 .celebration-subtitle{
@@ -1214,7 +766,6 @@ padding:11px 20px
 }
 
 }
-
 
 @media(max-width:600px){
 
@@ -1231,11 +782,11 @@ padding:0 10px
 }
 
 .celebration-name{
-font-size:31px
+font-size:30px
 }
 
 .trophy{
-font-size:82px
+font-size:80px
 }
 
 .celebration-title{
@@ -1252,13 +803,6 @@ max-width:92%
 font-size:16px;
 padding:12px 30px;
 margin-top:22px
-}
-
-.sound-toggle{
-top:12px;
-left:12px;
-width:44px;
-height:44px
 }
 
 }
@@ -1305,9 +849,9 @@ Chess Tournament Manager
 <div class="container">
 
 
-<!-- =================================
+<!-- =====================================================
      شاشة اللاعبين
-================================= -->
+===================================================== -->
 
 <div
 id="playersScreen"
@@ -1356,9 +900,9 @@ class="players-grid"
 </div>
 
 
-<!-- =================================
+<!-- =====================================================
      شاشة البطولة
-================================= -->
+===================================================== -->
 
 <div
 id="tournamentScreen"
@@ -1381,7 +925,6 @@ class="hidden"
 
 </div>
 
-
 <div class="stat">
 
 المباريات
@@ -1396,7 +939,6 @@ class="hidden"
 
 </div>
 
-
 <div class="stat">
 
 المحسومة
@@ -1410,7 +952,6 @@ class="hidden"
 </span>
 
 </div>
-
 
 <div class="stat">
 
@@ -1447,7 +988,6 @@ class="status"
 </div>
 
 </div>
-
 
 <button
 class="red"
@@ -1509,9 +1049,9 @@ class="summary"
 </div>
 
 
-<!-- =================================
+<!-- =====================================================
      شاشة البطل
-================================= -->
+===================================================== -->
 
 <div
 id="championScreen"
@@ -1546,61 +1086,48 @@ onclick="newTournament()"
 
 </div>
 
-
 </div>
 
 
-<!-- =================================
+<!-- =====================================================
      شاشة الاحتفال
-================================= -->
+===================================================== -->
 
 <div
 id="celebrationOverlay"
 >
 
-<!-- زر الصوت -->
+<!-- Canvas الألعاب النارية -->
 
-<button
-id="soundToggle"
-class="sound-toggle"
-onclick="toggleCelebrationSound()"
-title="تشغيل / كتم الصوت"
->
-🔊
-</button>
+<canvas
+id="fireworksCanvas"
+></canvas>
 
-
-<!-- مؤثرات الخلفية -->
+<!-- وميض الانفجار -->
 
 <div
-class="flash"
-id="celebrationFlash"
+id="fireworkFlash"
 ></div>
 
 
 <div class="celebration-box">
 
-
 <div class="trophy">
 🏆
 </div>
 
-
 <div class="celebration-title">
 🎉 مبروك! 🎉
 </div>
-
 
 <div
 class="celebration-name"
 id="celebrationName"
 ></div>
 
-
 <div class="celebration-subtitle">
 هو بطل بطولة الـ200K
 </div>
-
 
 <button
 class="close-celebration"
@@ -1608,7 +1135,6 @@ onclick="closeCelebration()"
 >
 متابعة
 </button>
-
 
 </div>
 
@@ -1623,310 +1149,18 @@ let currentRound=0;
 
 
 /* =====================================================
-   الصوت
+   متغيرات الألعاب النارية
 ===================================================== */
 
-let celebrationAudioContext=null;
-let celebrationMasterGain=null;
-let celebrationSoundEnabled=true;
-let celebrationSoundTimer=null;
+let fireworksAnimation=null;
 
+let fireworksParticles=[];
 
-/*
-   إنشاء AudioContext عند الحاجة
-*/
+let fireworksRockets=[];
 
-function initCelebrationAudio(){
+let fireworksRunning=false;
 
-try{
-
-if(!celebrationAudioContext){
-
-celebrationAudioContext=
-new (
-window.AudioContext ||
-window.webkitAudioContext
-)();
-
-celebrationMasterGain=
-celebrationAudioContext.createGain();
-
-celebrationMasterGain.gain.value=.12;
-
-celebrationMasterGain.connect(
-celebrationAudioContext.destination
-);
-
-}
-
-if(
-celebrationAudioContext.state==="suspended"
-){
-
-celebrationAudioContext.resume();
-
-}
-
-}catch(e){
-
-console.log(
-"Audio not supported",
-e
-);
-
-}
-
-}
-
-
-/*
-   نغمة واحدة
-*/
-
-function playCelebrationTone(
-frequency,
-startTime,
-duration,
-volume=.08
-){
-
-if(
-!celebrationSoundEnabled ||
-!celebrationAudioContext ||
-!celebrationMasterGain
-){
-
-return;
-
-}
-
-const osc=
-celebrationAudioContext
-.createOscillator();
-
-const gain=
-celebrationAudioContext
-.createGain();
-
-
-osc.type="sine";
-
-osc.frequency.setValueAtTime(
-frequency,
-startTime
-);
-
-gain.gain.setValueAtTime(
-0,
-startTime
-);
-
-gain.gain.linearRampToValueAtTime(
-volume,
-startTime+.03
-);
-
-gain.gain.exponentialRampToValueAtTime(
-.001,
-startTime+duration
-);
-
-osc.connect(gain);
-
-gain.connect(
-celebrationMasterGain
-);
-
-osc.start(startTime);
-
-osc.stop(
-startTime+duration+.05
-);
-
-}
-
-
-/*
-   الموسيقى الاحتفالية
-*/
-
-function playCelebrationMusic(){
-
-if(!celebrationSoundEnabled){
-
-return;
-
-}
-
-initCelebrationAudio();
-
-if(!celebrationAudioContext){
-
-return;
-
-}
-
-
-if(celebrationSoundTimer){
-
-clearTimeout(
-celebrationSoundTimer
-);
-
-}
-
-
-const now=
-celebrationAudioContext.currentTime;
-
-
-/*
-   بداية قوية
-*/
-
-playCelebrationTone(
-523.25,
-now,
-.45,
-.12
-);
-
-playCelebrationTone(
-659.25,
-now+.16,
-.45,
-.11
-);
-
-playCelebrationTone(
-783.99,
-now+.32,
-.65,
-.12
-);
-
-playCelebrationTone(
-1046.50,
-now+.55,
-.9,
-.13
-);
-
-
-/*
-   لحن الاحتفال
-*/
-
-const melody=[
-
-[783.99,.95],
-[880,.20],
-[987.77,.20],
-[1046.50,.65],
-[1174.66,.25],
-[1046.50,.25],
-[1318.51,.9]
-
-];
-
-
-let offset=1.25;
-
-
-melody.forEach(
-note=>{
-
-playCelebrationTone(
-note[0],
-now+offset,
-note[1],
-.075
-);
-
-offset+=note[1]+.07;
-
-});
-
-}
-
-
-/*
-   تشغيل / كتم الصوت
-*/
-
-function toggleCelebrationSound(){
-
-celebrationSoundEnabled=
-!celebrationSoundEnabled;
-
-
-const button=
-document.getElementById(
-"soundToggle"
-);
-
-
-if(
-celebrationSoundEnabled
-){
-
-button.textContent="🔊";
-
-initCelebrationAudio();
-
-playCelebrationMusic();
-
-}
-
-else{
-
-button.textContent="🔇";
-
-if(
-celebrationAudioContext
-){
-
-try{
-
-celebrationMasterGain.gain.setTargetAtTime(
-0,
-celebrationAudioContext.currentTime,
-.05
-);
-
-}catch(e){}
-
-}
-
-}
-
-}
-
-
-/*
-   إعادة مستوى الصوت
-*/
-
-function restoreCelebrationVolume(){
-
-if(
-celebrationAudioContext &&
-celebrationMasterGain
-){
-
-try{
-
-celebrationMasterGain.gain.setTargetAtTime(
-.12,
-celebrationAudioContext.currentTime,
-.05
-);
-
-}catch(e){}
-
-}
-
-}
+let audioContext=null;
 
 
 /* =====================================================
@@ -1942,14 +1176,12 @@ document.getElementById(
 
 c.innerHTML="";
 
-
 for(let i=1;i<=32;i++){
 
 const row=
 document.createElement("div");
 
 row.className="player-row";
-
 
 row.innerHTML=`
 
@@ -1969,7 +1201,6 @@ placeholder="Rating"
 >
 
 `;
-
 
 c.appendChild(row);
 
@@ -1996,14 +1227,12 @@ document.getElementById(
 "rating-"+i
 );
 
-
 if(name){
 
 name.value=
 "Player "+i;
 
 }
-
 
 if(rating){
 
@@ -2013,7 +1242,6 @@ rating.value=
 }
 
 }
-
 
 alert(
 "تمت تعبئة بيانات 32 لاعبًا."
@@ -2030,7 +1258,6 @@ function readPlayers(){
 
 const list=[];
 
-
 for(let i=1;i<=32;i++){
 
 const name=
@@ -2041,7 +1268,6 @@ document
 .value
 .trim();
 
-
 const rating=
 Number(
 document
@@ -2050,7 +1276,6 @@ document
 )
 .value
 )||0;
-
 
 if(!name){
 
@@ -2061,7 +1286,6 @@ alert(
 return null;
 
 }
-
 
 list.push({
 
@@ -2074,7 +1298,6 @@ rating:rating
 });
 
 }
-
 
 return list;
 
@@ -2109,7 +1332,6 @@ const pairs=[
 
 ];
 
-
 return pairs.map(
 (p,i)=>({
 
@@ -2140,12 +1362,9 @@ function startTournament(){
 const list=
 readPlayers();
 
-
 if(!list)return;
 
-
 players=list;
-
 
 rounds=[{
 
@@ -2156,9 +1375,7 @@ createRound32(players)
 
 }];
 
-
 currentRound=0;
-
 
 saveTournament();
 
@@ -2182,14 +1399,12 @@ document
 .classList
 .add("hidden");
 
-
 document
 .getElementById(
 "championScreen"
 )
 .classList
 .add("hidden");
-
 
 document
 .getElementById(
@@ -2210,9 +1425,7 @@ function renderRound(){
 const round=
 rounds[currentRound];
 
-
 if(!round)return;
-
 
 document
 .getElementById(
@@ -2220,7 +1433,6 @@ document
 )
 .textContent=
 round.name;
-
 
 renderMatches();
 
@@ -2242,14 +1454,12 @@ function renderMatches(){
 const round=
 rounds[currentRound];
 
-
 const c=
 document.getElementById(
 "matchesContainer"
 );
 
 c.innerHTML="";
-
 
 round.matches.forEach(
 (m,i)=>{
@@ -2259,33 +1469,27 @@ document.createElement("div");
 
 box.className="match";
 
-
 let p1="player";
 
 let p2="player";
-
 
 if(
 m.winner===m.player1
 ){
 
 p1+=" winner";
-
 p2+=" loser";
 
 }
-
 
 if(
 m.winner===m.player2
 ){
 
 p2+=" winner";
-
 p1+=" loser";
 
 }
-
 
 if(m.draw){
 
@@ -2294,9 +1498,7 @@ p2+=" draw";
 
 }
 
-
 let tie="";
-
 
 if(
 m.draw &&
@@ -2337,13 +1539,11 @@ onclick="resolveDraw(${i},2)"
 
 }
 
-
 box.innerHTML=`
 
 <div class="match-title">
 المباراة ${i+1}
 </div>
-
 
 <div class="${p1}">
 
@@ -2359,11 +1559,9 @@ Rating: ${m.player1.rating}
 
 </div>
 
-
 <div style="text-align:center">
 ⚔️ VS ⚔️
 </div>
-
 
 <div class="${p2}">
 
@@ -2379,7 +1577,6 @@ Rating: ${m.player2.rating}
 
 </div>
 
-
 ${
 m.result
 ?
@@ -2391,7 +1588,6 @@ m.result
 :""
 }
 
-
 <button
 class="green"
 onclick="setResult(${i},1)"
@@ -2399,7 +1595,6 @@ ${m.result?"disabled":""}
 >
 فوز الأول
 </button>
-
 
 <button
 class="orange"
@@ -2409,7 +1604,6 @@ ${m.result?"disabled":""}
 تعادل
 </button>
 
-
 <button
 class="green"
 onclick="setResult(${i},2)"
@@ -2417,7 +1611,6 @@ ${m.result?"disabled":""}
 >
 فوز الثاني
 </button>
-
 
 ${
 m.winner&&!m.draw
@@ -2431,11 +1624,9 @@ ${m.winner.name}
 :""
 }
 
-
 ${tie}
 
 `;
-
 
 c.appendChild(box);
 
@@ -2455,1216 +1646,11 @@ function setResult(index,result){
 const round=
 rounds[currentRound];
 
-
 const m=
 round.matches[index];
 
-
 if(!m||m.result)return;
-
 
 if(result===1){
 
 m.result="1 - 0";
-
-m.winner=
-m.player1;
-
-m.draw=false;
-
-}
-
-else if(result===2){
-
-m.result="0 - 1";
-
-m.winner=
-m.player2;
-
-m.draw=false;
-
-}
-
-else{
-
-m.result="½ - ½";
-
-m.winner=null;
-
-m.draw=true;
-
-}
-
-
-saveTournament();
-
-renderRound();
-
-checkRoundFinished();
-
-}
-
-
-/* =====================================================
-   حسم التعادل
-===================================================== */
-
-function resolveDraw(index,player){
-
-const m=
-rounds[currentRound]
-.matches[index];
-
-
-if(!m||!m.draw)return;
-
-
-m.winner=
-player===1
-?
-m.player1
-:
-m.player2;
-
-
-m.draw=false;
-
-
-m.result=
-player===1
-?
-"1 - 0"
-:
-"0 - 1";
-
-
-saveTournament();
-
-renderRound();
-
-checkRoundFinished();
-
-}
-
-
-/* =====================================================
-   التحقق من انتهاء الجولة
-===================================================== */
-
-function checkRoundFinished(){
-
-if(
-rounds[currentRound]
-.matches
-.every(
-m=>m.winner!==null
-)
-){
-
-setTimeout(
-nextRound,
-700
-);
-
-}
-
-}
-
-
-/* =====================================================
-   الجولة التالية
-===================================================== */
-
-function nextRound(){
-
-const current=
-rounds[currentRound];
-
-
-const winners=
-current.matches
-.map(m=>m.winner);
-
-
-/*
-   النهائي
-*/
-
-if(
-current.name==="النهائي" &&
-winners.length===1
-){
-
-showChampion(
-winners[0]
-);
-
-return;
-
-}
-
-
-const names=[
-
-"دور الـ16",
-"ربع النهائي",
-"نصف النهائي",
-"النهائي"
-
-];
-
-
-const matches=[];
-
-
-for(
-let i=0;
-i<winners.length;
-i+=2
-){
-
-matches.push({
-
-number:i/2+1,
-
-player1:winners[i],
-
-player2:winners[i+1],
-
-winner:null,
-
-result:null,
-
-draw:false
-
-});
-
-}
-
-
-rounds.push({
-
-name:names[currentRound],
-
-matches:matches
-
-});
-
-
-currentRound++;
-
-
-saveTournament();
-
-renderRound();
-
-}
-
-
-/* =====================================================
-   الملخص
-===================================================== */
-
-function renderSummary(){
-
-const r=
-rounds[currentRound];
-
-
-const c=
-document.getElementById(
-"summaryContainer"
-);
-
-c.innerHTML="";
-
-
-r.matches.forEach(
-(m,i)=>{
-
-const row=
-document.createElement("div");
-
-row.className=
-"summary-row";
-
-
-row.innerHTML=`
-
-<div>
-${i+1}
-</div>
-
-<div>
-${m.player1.name}
-</div>
-
-<div>
-<b>
-${m.result||"—"}
-</b>
-</div>
-
-<div>
-${m.player2.name}
-</div>
-
-<div>
-${
-m.winner
-?
-"✅ "+m.winner.name
-:
-"لم يحسم بعد"
-}
-</div>
-
-`;
-
-
-c.appendChild(row);
-
-}
-
-);
-
-}
-
-
-/* =====================================================
-   شجرة البطولة
-===================================================== */
-
-function renderBracket(){
-
-const b=
-document.getElementById(
-"bracket"
-);
-
-b.innerHTML="";
-
-
-const stages=[
-
-"دور الـ32",
-"دور الـ16",
-"ربع النهائي",
-"نصف النهائي",
-"النهائي",
-"🏆 البطل"
-
-];
-
-
-for(
-let s=0;
-s<6;
-s++
-){
-
-const stage=
-document.createElement("div");
-
-stage.className="stage";
-
-
-stage.innerHTML=
-`<h3>${stages[s]}</h3>`;
-
-
-const list=
-document.createElement("div");
-
-list.className="stage-list";
-
-
-if(s<rounds.length){
-
-rounds[s].matches
-.forEach(m=>{
-
-const bm=
-document.createElement("div");
-
-bm.className=
-"bracket-match";
-
-
-let p1class="bplayer";
-
-let p2class="bplayer";
-
-
-if(
-m.winner===m.player1
-){
-
-p1class+=" win";
-p2class+=" lose";
-
-}
-
-
-if(
-m.winner===m.player2
-){
-
-p2class+=" win";
-p1class+=" lose";
-
-}
-
-
-if(m.draw){
-
-p1class+=" draw";
-p2class+=" draw";
-
-}
-
-
-bm.innerHTML=`
-
-<div class="${p1class}">
-
-${m.player1.name}
-
-<span class="rating">
-${m.player1.rating}
-</span>
-
-</div>
-
-
-<div class="${p2class}">
-
-${m.player2.name}
-
-<span class="rating">
-${m.player2.rating}
-</span>
-
-</div>
-
-`;
-
-
-list.appendChild(bm);
-
-});
-
-}
-
-
-/*
-   البطل
-*/
-
-else if(
-s===5 &&
-rounds.length===5 &&
-rounds[4].matches[0].winner
-){
-
-const bm=
-document.createElement("div");
-
-bm.className=
-"bracket-match";
-
-
-bm.innerHTML=`
-
-<div class="bplayer win">
-
-🏆
-${rounds[4].matches[0].winner.name}
-
-</div>
-
-`;
-
-
-list.appendChild(bm);
-
-}
-
-
-stage.appendChild(list);
-
-b.appendChild(stage);
-
-}
-
-}
-
-
-/* =====================================================
-   الإحصائيات
-===================================================== */
-
-function updateStats(){
-
-const r=
-rounds[currentRound];
-
-
-const done=
-r.matches
-.filter(m=>m.winner)
-.length;
-
-
-document
-.getElementById(
-"statRound"
-)
-.textContent=
-r.name;
-
-
-document
-.getElementById(
-"statMatches"
-)
-.textContent=
-r.matches.length;
-
-
-document
-.getElementById(
-"statDone"
-)
-.textContent=
-done;
-
-
-document
-.getElementById(
-"statPlayers"
-)
-.textContent=
-r.matches.length*2;
-
-
-document
-.getElementById(
-"status"
-)
-.textContent=
-`تم حسم ${done} من ${r.matches.length} مباريات في ${r.name}.`;
-
-}
-
-
-/* =====================================================
-   الحفظ
-===================================================== */
-
-function saveTournament(){
-
-try{
-
-localStorage.setItem(
-"chessTournament",
-JSON.stringify({
-
-players,
-rounds,
-currentRound
-
-})
-);
-
-}catch(e){}
-
-}
-
-
-/* =====================================================
-   تحميل البطولة
-===================================================== */
-
-function loadTournament(){
-
-const saved=
-localStorage.getItem(
-"chessTournament"
-);
-
-
-if(!saved){
-
-createPlayerInputs();
-
-return;
-
-}
-
-
-try{
-
-const d=
-JSON.parse(saved);
-
-
-players=
-d.players||[];
-
-
-rounds=
-d.rounds||[];
-
-
-currentRound=
-Number(d.currentRound)||0;
-
-
-if(
-rounds.length &&
-currentRound<rounds.length
-){
-
-showTournament();
-
-renderRound();
-
-}
-
-else{
-
-createPlayerInputs();
-
-}
-
-}
-
-catch(e){
-
-localStorage.removeItem(
-"chessTournament"
-);
-
-createPlayerInputs();
-
-}
-
-}
-
-
-/* =====================================================
-   عرض البطل
-===================================================== */
-
-function showChampion(winner){
-
-document
-.getElementById(
-"tournamentScreen"
-)
-.classList
-.add("hidden");
-
-
-document
-.getElementById(
-"playersScreen"
-)
-.classList
-.add("hidden");
-
-
-document
-.getElementById(
-"championScreen"
-)
-.classList
-.remove("hidden");
-
-
-document
-.getElementById(
-"championName"
-)
-.textContent=
-winner.name;
-
-
-saveTournament();
-
-
-/*
-   تشغيل احتفال النهائي
-*/
-
-setTimeout(
-function(){
-
-startCelebration(
-winner.name
-);
-
-},
-300
-);
-
-}
-
-
-/* =====================================================
-   تشغيل الاحتفال
-===================================================== */
-
-function startCelebration(name){
-
-const overlay=
-document.getElementById(
-"celebrationOverlay"
-);
-
-
-const nameElement=
-document.getElementById(
-"celebrationName"
-);
-
-
-nameElement.textContent=
-name;
-
-
-/*
-   إظهار الشاشة
-*/
-
-overlay.classList.add("show");
-
-
-/*
-   إعادة الصوت
-*/
-
-restoreCelebrationVolume();
-
-
-/*
-   تشغيل الصوت
-*/
-
-setTimeout(
-function(){
-
-playCelebrationMusic();
-
-},
-120
-);
-
-
-/*
-   إنشاء المؤثرات
-*/
-
-createCelebrationEffects();
-
-}
-
-
-/* =====================================================
-   المؤثرات الكاملة
-===================================================== */
-
-function createCelebrationEffects(){
-
-const overlay=
-document.getElementById(
-"celebrationOverlay"
-);
-
-
-/*
-   حذف المؤثرات القديمة
-*/
-
-overlay
-.querySelectorAll(
-".confetti,.spark,.star,.light-ring"
-)
-.forEach(
-el=>el.remove()
-);
-
-
-/*
-   انفجارات ضوئية متعددة
-*/
-
-for(
-let i=0;
-i<5;
-i++
-){
-
-setTimeout(
-function(){
-
-const ring=
-document.createElement("div");
-
-ring.className=
-"light-ring";
-
-
-ring.style.left=
-(20+Math.random()*60)+"%";
-
-ring.style.top=
-(20+Math.random()*55)+"%";
-
-
-overlay.appendChild(ring);
-
-
-setTimeout(
-function(){
-
-ring.remove();
-
-},
-2300
-);
-
-},
-i*250
-);
-
-}
-
-
-/*
-   Confetti
-*/
-
-createConfetti();
-
-
-/*
-   جزيئات
-*/
-
-createSparks();
-
-
-/*
-   نجوم
-*/
-
-createStars();
-
-}
-
-
-/* =====================================================
-   إنشاء القصاصات
-===================================================== */
-
-function createConfetti(){
-
-const overlay=
-document.getElementById(
-"celebrationOverlay"
-);
-
-
-const colors=[
-
-"#facc15",
-"#fde047",
-"#22c55e",
-"#3b82f6",
-"#ef4444",
-"#a855f7",
-"#f97316",
-"#ffffff"
-
-];
-
-
-for(
-let i=0;
-i<180;
-i++
-){
-
-const piece=
-document.createElement("div");
-
-piece.className=
-"confetti";
-
-
-piece.style.left=
-Math.random()*100+"%";
-
-
-piece.style.background=
-colors[
-Math.floor(
-Math.random()*colors.length
-)
-];
-
-
-piece.style.width=
-(5+Math.random()*9)+"px";
-
-
-piece.style.height=
-(8+Math.random()*18)+"px";
-
-
-piece.style.animationDuration=
-(3+Math.random()*5)+"s";
-
-
-piece.style.animationDelay=
-(Math.random()*2)+"s";
-
-
-piece.style.borderRadius=
-Math.random()>.5
-?
-"2px"
-:
-"50%";
-
-
-piece.style.transform=
-`rotate(${Math.random()*360}deg)`;
-
-
-overlay.appendChild(piece);
-
-
-setTimeout(
-function(){
-
-piece.remove();
-
-},
-9000
-);
-
-}
-
-}
-
-
-/* =====================================================
-   الجزيئات الذهبية
-===================================================== */
-
-function createSparks(){
-
-const overlay=
-document.getElementById(
-"celebrationOverlay"
-);
-
-
-for(
-let i=0;
-i<90;
-i++
-){
-
-const spark=
-document.createElement("div");
-
-spark.className=
-"spark";
-
-
-spark.style.left=
-Math.random()*100+"%";
-
-
-spark.style.top=
-(40+Math.random()*70)+"%";
-
-
-spark.style.setProperty(
-"--moveX",
-(
-Math.random()*240-120
-)+"px"
-);
-
-
-spark.style.animationDuration=
-(3+Math.random()*4)+"s";
-
-
-spark.style.animationDelay=
-(Math.random()*2)+"s";
-
-
-const size=
-2+Math.random()*7;
-
-spark.style.width=
-size+"px";
-
-spark.style.height=
-size+"px";
-
-
-overlay.appendChild(spark);
-
-
-setTimeout(
-function(){
-
-spark.remove();
-
-},
-8500
-);
-
-}
-
-}
-
-
-/* =====================================================
-   النجوم
-===================================================== */
-
-function createStars(){
-
-const overlay=
-document.getElementById(
-"celebrationOverlay"
-);
-
-
-const symbols=[
-"✦",
-"✧",
-"★",
-"✶",
-"✹"
-];
-
-
-for(
-let i=0;
-i<45;
-i++
-){
-
-const star=
-document.createElement("div");
-
-star.className=
-"star";
-
-
-star.textContent=
-symbols[
-Math.floor(
-Math.random()*symbols.length
-)
-];
-
-
-star.style.left=
-(15+Math.random()*70)+"%";
-
-
-star.style.top=
-(25+Math.random()*45)+"%";
-
-
-star.style.setProperty(
-"--x",
-(
-Math.random()*500-250
-)+"px"
-);
-
-
-star.style.setProperty(
-"--y",
-(
-Math.random()*500-250
-)+"px"
-);
-
-
-star.style.animationDelay=
-(Math.random()*1.5)+"s";
-
-
-overlay.appendChild(star);
-
-
-setTimeout(
-function(){
-
-star.remove();
-
-},
-5000
-);
-
-}
-
-}
-
-
-/* =====================================================
-   إغلاق الاحتفال
-===================================================== */
-
-function closeCelebration(){
-
-const overlay=
-document.getElementById(
-"celebrationOverlay"
-);
-
-
-overlay.classList.remove("show");
-
-
-/*
-   إيقاف الصوت تدريجيًا
-*/
-
-if(
-celebrationAudioContext &&
-celebrationMasterGain
-){
-
-try{
-
-celebrationMasterGain.gain.setTargetAtTime(
-0,
-celebrationAudioContext.currentTime,
-.08
-);
-
-}catch(e){}
-
-}
-
-
-/*
-   تنظيف المؤثرات
-*/
-
-setTimeout(
-function(){
-
-overlay
-.querySelectorAll(
-".confetti,.spark,.star,.light-ring"
-)
-.forEach(
-el=>el.remove()
-);
-
-},
-700
-);
-
-}
-
-
-/* =====================================================
-   بطولة جديدة
-===================================================== */
-
-function newTournament(){
-
-if(
-!confirm(
-"هل أنت متأكد من بدء بطولة جديدة؟ سيتم حذف البطولة الحالية."
-)
-){
-
-return;
-
-}
-
-
-localStorage.removeItem(
-"chessTournament"
-);
-
-
-players=[];
-
-rounds=[];
-
-currentRound=0;
-
-
-/*
-   إيقاف الاحتفال
-*/
-
-closeCelebration();
-
-
-document
-.getElementById(
-"tournamentScreen"
-)
-.classList
-.add("hidden");
-
-
-document
-.getElementById(
-"championScreen"
-)
-.classList
-.add("hidden");
-
-
-document
-.getElementById(
-"celebrationOverlay"
-)
-.classList
-.remove("show");
-
-
-document
-.getElementById(
-"playersScreen"
-)
-.classList
-.remove("hidden");
-
-
-createPlayerInputs();
-
-}
-
-
-/* =====================================================
-   تشغيل البرنامج
-===================================================== */
-
-createPlayerInputs();
-
-loadTournament();
-
-</script>
-
-</body>
-</html>
