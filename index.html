@@ -1,282 +1,2265 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
 <title>AKRAM E4 E5 | Chess Tournament Manager</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#eef2f7;color:#172033}
-header{background:linear-gradient(135deg,#111827,#26364f);color:#fff;padding:22px 30px;box-shadow:0 4px 15px #0002}
-.header-inner{max-width:1450px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:16px}.brand-icon{width:58px;height:58px;border-radius:14px;background:#fff1;color:#fff;display:grid;place-items:center;font-size:34px;border:1px solid #ffffff30}
-.brand h1{margin:0;font-size:28px}.brand p{margin:5px 0 0;color:#cbd5e1}
-.container{max-width:1450px;margin:24px auto;padding:0 20px}
-.card{background:#fff;border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 5px 20px #17203312;border:1px solid #e5e7eb}
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
-.stat{background:#fff;border-radius:14px;padding:18px;border:1px solid #e5e7eb;box-shadow:0 3px 12px #0000000a}.stat b{display:block;font-size:25px;margin-top:6px}.stat span{color:#64748b;font-size:13px}
-.players-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.player-row{display:grid;grid-template-columns:35px 1fr 90px;gap:6px;align-items:center}
-input{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px}
-button{border:0;border-radius:8px;padding:10px 15px;margin:4px;cursor:pointer;font-size:14px;font-weight:600}button:disabled{opacity:.45;cursor:not-allowed}
-.blue{background:#2563eb;color:#fff}.green{background:#16a34a;color:#fff}.orange{background:#ea580c;color:#fff}.red{background:#dc2626;color:#fff}.gray{background:#64748b;color:#fff}.dark{background:#1e293b;color:#fff}
-.status{background:#eff6ff;border:1px solid #bfdbfe;padding:12px;border-radius:9px;margin:15px 0}
-.hidden{display:none!important}
-.bracket-wrap{overflow-x:auto;padding:10px 4px 20px}
-.bracket{display:grid;grid-template-columns:repeat(6,minmax(190px,1fr));gap:28px;min-width:1250px}
-.stage{display:flex;flex-direction:column}.stage h3{text-align:center;background:#1e293b;color:#fff;border-radius:9px;padding:10px;margin:0 0 15px;font-size:15px}
-.stage-list{display:flex;flex-direction:column;justify-content:space-around;flex:1;gap:14px}.bracket-match{background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;overflow:hidden;box-shadow:0 2px 7px #0001}
-.bplayer{padding:10px 12px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;gap:8px}.bplayer:last-child{border-bottom:0}.bplayer.win{background:#dcfce7;font-weight:bold}.bplayer.draw{background:#ffedd5}.rating{font-size:11px;color:#64748b}
-.matches{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.match{background:#f8fafc;border:1px solid #cbd5e1;border-radius:12px;padding:15px}.match-title{text-align:center;font-weight:bold;margin-bottom:12px}.player{background:#fff;border:1px solid #cbd5e1;padding:12px;border-radius:8px;margin:6px 0}.winner{border:3px solid #16a34a;background:#dcfce7}.draw{border:3px solid #ea580c;background:#ffedd5}.result{text-align:center;font-weight:bold;padding:8px;margin:8px 0;border-radius:7px;background:#e2e8f0}.qualified{text-align:center;padding:8px;border-radius:7px;background:#dcfce7;color:#166534;font-weight:bold}.tie-break{background:#fff7ed;border:2px solid #fb923c;border-radius:8px;padding:10px;margin-top:10px;text-align:center}
-.summary{overflow:auto}.summary-row{display:grid;grid-template-columns:45px 1fr 80px 1fr 160px;gap:8px;padding:9px;border-bottom:1px solid #e2e8f0;align-items:center}.champion{text-align:center;font-size:30px;font-weight:bold;padding:35px}.champion-name{font-size:38px;color:#b45309}
-.notice{padding:12px;border-radius:9px;background:#f8fafc;border:1px solid #e2e8f0;margin:10px 0}
-@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.players-grid{grid-template-columns:repeat(2,1fr)}.matches{grid-template-columns:1fr}.header-inner{align-items:flex-start}.brand h1{font-size:22px}}
-@media(max-width:600px){.players-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.container{padding:0 10px}}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Tahoma, sans-serif;
+    background: #eef2f7;
+    color: #172033;
+}
+
+header {
+    background: linear-gradient(135deg, #111827, #26364f);
+    color: #fff;
+    padding: 22px 30px;
+    box-shadow: 0 4px 15px #0002;
+}
+
+.header-inner {
+    max-width: 1450px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.brand-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: #fff1;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 34px;
+    border: 1px solid #ffffff30;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.brand p {
+    margin: 5px 0 0;
+    color: #cbd5e1;
+}
+
+.container {
+    max-width: 1450px;
+    margin: 24px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px #17203312;
+    border: 1px solid #e5e7eb;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 3px 12px #0000000a;
+}
+
+.stat b {
+    display: block;
+    font-size: 25px;
+    margin-top: 6px;
+}
+
+.stat span {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.player-row {
+    display: grid;
+    grid-template-columns: 35px 1fr 90px;
+    gap: 6px;
+    align-items: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+button {
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.blue {
+    background: #2563eb;
+    color: #fff;
+}
+
+.green {
+    background: #16a34a;
+    color: #fff;
+}
+
+.orange {
+    background: #ea580c;
+    color: #fff;
+}
+
+.red {
+    background: #dc2626;
+    color: #fff;
+}
+
+.gray {
+    background: #64748b;
+    color: #fff;
+}
+
+.dark {
+    background: #1e293b;
+    color: #fff;
+}
+
+.status {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    padding: 12px;
+    border-radius: 9px;
+    margin: 15px 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ============================= */
+/* شجرة البطولة */
+/* ============================= */
+
+.bracket-wrap {
+    overflow-x: auto;
+    padding: 10px 4px 20px;
+}
+
+.bracket {
+    display: grid;
+    grid-template-columns:
+        repeat(6, minmax(190px, 1fr));
+    gap: 28px;
+    min-width: 1250px;
+}
+
+.stage {
+    display: flex;
+    flex-direction: column;
+}
+
+.stage h3 {
+    text-align: center;
+    background: #1e293b;
+    color: #fff;
+    border-radius: 9px;
+    padding: 10px;
+    margin: 0 0 15px;
+    font-size: 15px;
+}
+
+.stage-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 1;
+    gap: 14px;
+}
+
+.bracket-match {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 7px #0001;
+}
+
+.bplayer {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.bplayer:last-child {
+    border-bottom: 0;
+}
+
+
+/* ============================= */
+/* ألوان الفائز والخاسر */
+/* ============================= */
+
+/* الفائز */
+
+.bplayer.win,
+.player.winner {
+    background: #dcfce7;
+    border-color: #16a34a;
+    color: #166534;
+    font-weight: bold;
+}
+
+
+/* الخاسر */
+
+.bplayer.lose,
+.player.loser {
+    background: #fee2e2;
+    border-color: #dc2626;
+    color: #991b1b;
+    font-weight: bold;
+}
+
+
+/* التعادل */
+
+.bplayer.draw,
+.player.draw {
+    background: #ffedd5;
+    border-color: #ea580c;
+}
+
+
+/* ============================= */
+
+.rating {
+    font-size: 11px;
+    color: #64748b;
+}
+
+.matches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.match {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.match-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+
+/* اللاعب قبل ظهور النتيجة */
+
+.player {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 6px 0;
+}
+
+
+/* الفائز */
+
+.winner {
+    border: 3px solid #16a34a;
+    background: #dcfce7;
+    color: #166534;
+}
+
+
+/* الخاسر */
+
+.loser {
+    border: 3px solid #dc2626;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+/* التعادل */
+
+.draw {
+    border: 3px solid #ea580c;
+    background: #ffedd5;
+    color: #9a3412;
+}
+
+
+.result {
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 7px;
+    background: #e2e8f0;
+}
+
+.qualified {
+    text-align: center;
+    padding: 8px;
+    border-radius: 7px;
+    background: #dcfce7;
+    color: #166534;
+    font-weight: bold;
+}
+
+.tie-break {
+    background: #fff7ed;
+    border: 2px solid #fb923c;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.summary {
+    overflow: auto;
+}
+
+.summary-row {
+    display: grid;
+    grid-template-columns:
+        45px 1fr 80px 1fr 160px;
+    gap: 8px;
+    padding: 9px;
+    border-bottom: 1px solid #e2e8f0;
+    align-items: center;
+}
+
+.champion {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 35px;
+}
+
+.champion-name {
+    font-size: 38px;
+    color: #b45309;
+}
+
+.notice {
+    padding: 12px;
+    border-radius: 9px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    margin: 10px 0;
+}
+
+
+/* ============================= */
+/* الموبايل */
+/* ============================= */
+
+@media(max-width:900px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .players-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .matches {
+        grid-template-columns: 1fr;
+    }
+
+    .header-inner {
+        align-items: flex-start;
+    }
+
+    .brand h1 {
+        font-size: 22px;
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .players-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+}
+
 </style>
 </head>
+
+
 <body>
 
+
 <header>
+
 <div class="header-inner">
+
 <div class="brand">
-<div class="brand-icon">♞</div>
-<div><h1>AKRAM E4 E5</h1><p>Chess Tournament Manager</p></div>
+
+<div class="brand-icon">
+♞
 </div>
-<div>🏆 <b>32 Players Knockout</b></div>
+
+<div>
+
+<h1>
+AKRAM E4 E5
+</h1>
+
+<p>
+Chess Tournament Manager
+</p>
+
 </div>
+
+</div>
+
+<div>
+🏆 <b>32 Players Knockout</b>
+</div>
+
+</div>
+
 </header>
+
 
 <div class="container">
 
-<div id="playersScreen" class="card">
+
+<!-- ============================= -->
+<!-- اللاعبين -->
+<!-- ============================= -->
+
+<div
+    id="playersScreen"
+    class="card"
+>
+
 <div class="toolbar">
-<div><h2>👥 اللاعبين المتأهلين</h2><p>أدخل أسماء اللاعبين وتقييماتهم بعد مرحلة الـSwiss.</p></div>
-<div><button class="gray" onclick="fillExample()">🧪 تعبئة تجريبية</button><button class="blue" onclick="startTournament()">🎯 إنشاء البطولة</button></div>
-</div>
-<div id="playersContainer" class="players-grid"></div>
+
+<div>
+
+<h2>
+👥 اللاعبين المتأهلين
+</h2>
+
+<p>
+أدخل أسماء اللاعبين وتقييماتهم بعد مرحلة الـSwiss.
+</p>
+
 </div>
 
-<div id="tournamentScreen" class="hidden">
+
+<div>
+
+<button
+    class="gray"
+    type="button"
+    onclick="fillExample()"
+>
+🧪 تعبئة تجريبية
+</button>
+
+
+<button
+    class="blue"
+    type="button"
+    onclick="startTournament()"
+>
+🎯 إنشاء البطولة
+</button>
+
+</div>
+
+</div>
+
+
+<div
+    id="playersContainer"
+    class="players-grid"
+></div>
+
+</div>
+
+
+<!-- ============================= -->
+<!-- البطولة -->
+<!-- ============================= -->
+
+<div
+    id="tournamentScreen"
+    class="hidden"
+>
+
 
 <div class="stats">
-<div class="stat">الجولة<b id="statRound">دور الـ32</b><span>الجولة الحالية</span></div>
-<div class="stat">المباريات<b id="statMatches">16</b><span>إجمالي المباريات</span></div>
-<div class="stat">المحسومة<b id="statDone">0</b><span>مباريات تم حسمها</span></div>
-<div class="stat">المتبقون<b id="statPlayers">32</b><span>لاعب في المنافسة</span></div>
+
+<div class="stat">
+
+الجولة
+
+<b id="statRound">
+دور الـ32
+</b>
+
+<span>
+الجولة الحالية
+</span>
+
 </div>
 
+
+<div class="stat">
+
+المباريات
+
+<b id="statMatches">
+16
+</b>
+
+<span>
+إجمالي المباريات
+</span>
+
+</div>
+
+
+<div class="stat">
+
+المحسومة
+
+<b id="statDone">
+0
+</b>
+
+<span>
+مباريات تم حسمها
+</span>
+
+</div>
+
+
+<div class="stat">
+
+المتبقون
+
+<b id="statPlayers">
+32
+</b>
+
+<span>
+لاعب في المنافسة
+</span>
+
+</div>
+
+</div>
+
+
 <div class="card">
+
 <div class="toolbar">
-<div><h2 id="roundTitle">دور الـ32</h2><div id="status" class="status">لم يتم حسم أي مباراة.</div></div>
-<button class="red" onclick="newTournament()">🗑️ بطولة جديدة</button>
+
+<div>
+
+<h2 id="roundTitle">
+دور الـ32
+</h2>
+
+<div
+    id="status"
+    class="status"
+>
+لم يتم حسم أي مباراة.
 </div>
+
 </div>
+
+
+<button
+    class="red"
+    type="button"
+    onclick="newTournament()"
+>
+🗑️ بطولة جديدة
+</button>
+
+</div>
+
+</div>
+
+
+<!-- شجرة البطولة -->
 
 <div class="card">
-<h2>🏆 شجرة البطولة</h2>
-<div class="bracket-wrap"><div id="bracket" class="bracket"></div></div>
+
+<h2>
+🏆 شجرة البطولة
+</h2>
+
+<div class="bracket-wrap">
+
+<div
+    id="bracket"
+    class="bracket"
+></div>
+
 </div>
+
+</div>
+
+
+<!-- المباريات -->
 
 <div class="card">
-<h2>⚔️ مباريات الجولة الحالية</h2>
-<div id="matchesContainer" class="matches"></div>
+
+<h2>
+⚔️ مباريات الجولة الحالية
+</h2>
+
+<div
+    id="matchesContainer"
+    class="matches"
+></div>
+
 </div>
+
+
+<!-- النتائج -->
 
 <div class="card">
-<h2>📋 نتائج الجولة</h2>
-<div id="summaryContainer" class="summary"></div>
-</div>
+
+<h2>
+📋 نتائج الجولة
+</h2>
+
+<div
+    id="summaryContainer"
+    class="summary"
+></div>
 
 </div>
 
-<div id="championScreen" class="card hidden">
+
+</div>
+
+
+<!-- ============================= -->
+<!-- البطل -->
+<!-- ============================= -->
+
+<div
+    id="championScreen"
+    class="card hidden"
+>
+
 <div class="champion">
-🏆<br><br>بطل البطولة
-<div id="championName" class="champion-name"></div>
-<p>AKRAM E4 E5 — Chess Tournament</p>
-<button class="red" onclick="newTournament()">🗑️ بطولة جديدة</button>
-</div>
+
+🏆
+
+<br><br>
+
+بطل البطولة
+
+<div
+    id="championName"
+    class="champion-name"
+></div>
+
+<p>
+AKRAM E4 E5 — Chess Tournament
+</p>
+
+<button
+    class="red"
+    type="button"
+    onclick="newTournament()"
+>
+🗑️ بطولة جديدة
+</button>
+
 </div>
 
 </div>
+
+
+</div>
+
 
 <script>
-let players=[],rounds=[],currentRound=0;
 
-function createPlayerInputs(){
- const c=document.getElementById("playersContainer"); c.innerHTML="";
- for(let i=1;i<=32;i++){
-  const row=document.createElement("div"); row.className="player-row";
-  row.innerHTML=`<strong>${i}</strong><input id="name-${i}" placeholder="اسم اللاعب"><input id="rating-${i}" type="number" placeholder="Rating">`;
-  c.appendChild(row);
- }
+
+let players = [];
+
+let rounds = [];
+
+let currentRound = 0;
+
+
+/* ============================= */
+/* إنشاء خانات اللاعبين */
+/* ============================= */
+
+function createPlayerInputs() {
+
+    const c =
+        document.getElementById(
+            "playersContainer"
+        );
+
+    c.innerHTML = "";
+
+
+    for (
+        let i = 1;
+        i <= 32;
+        i++
+    ) {
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+        row.className =
+            "player-row";
+
+
+        row.innerHTML = `
+
+            <strong>
+                ${i}
+            </strong>
+
+            <input
+                id="name-${i}"
+                placeholder="اسم اللاعب"
+            >
+
+            <input
+                id="rating-${i}"
+                type="number"
+                placeholder="Rating"
+            >
+
+        `;
+
+
+        c.appendChild(row);
+
+    }
+
 }
 
-function fillExample(){
- for(let i=1;i<=32;i++){
-  document.getElementById("name-"+i).value="Player "+i;
-  document.getElementById("rating-"+i).value=2300-(i-1)*10;
- }
- alert("تمت تعبئة بيانات 32 لاعبًا.");
+
+/* ============================= */
+/* التعبئة التجريبية */
+/* ============================= */
+
+function fillExample() {
+
+    for (
+        let i = 1;
+        i <= 32;
+        i++
+    ) {
+
+        const name =
+            document.getElementById(
+                "name-" + i
+            );
+
+        const rating =
+            document.getElementById(
+                "rating-" + i
+            );
+
+
+        if (name) {
+
+            name.value =
+                "Player " + i;
+
+        }
+
+
+        if (rating) {
+
+            rating.value =
+                2300 - ((i - 1) * 10);
+
+        }
+
+    }
+
+
+    alert(
+        "تمت تعبئة بيانات 32 لاعبًا."
+    );
+
 }
 
-function readPlayers(){
- const list=[];
- for(let i=1;i<=32;i++){
-  const name=document.getElementById("name-"+i).value.trim();
-  const rating=Number(document.getElementById("rating-"+i).value)||0;
-  if(!name){alert("من فضلك أدخل اسم اللاعب رقم "+i);return null}
-  list.push({seed:i,name,rating});
- }
- return list;
+
+/* ============================= */
+/* قراءة اللاعبين */
+/* ============================= */
+
+function readPlayers() {
+
+    const list = [];
+
+
+    for (
+        let i = 1;
+        i <= 32;
+        i++
+    ) {
+
+        const name =
+            document
+                .getElementById(
+                    "name-" + i
+                )
+                .value
+                .trim();
+
+
+        const rating =
+            Number(
+                document
+                    .getElementById(
+                        "rating-" + i
+                    )
+                    .value
+            ) || 0;
+
+
+        if (!name) {
+
+            alert(
+                "من فضلك أدخل اسم اللاعب رقم " +
+                i
+            );
+
+            return null;
+
+        }
+
+
+        list.push({
+
+            seed: i,
+
+            name: name,
+
+            rating: rating
+
+        });
+
+    }
+
+
+    return list;
+
 }
 
-function createRound32(list){
- const pairs=[[1,32],[16,17],[8,25],[9,24],[4,29],[13,20],[5,28],[12,21],[2,31],[15,18],[7,26],[10,23],[3,30],[14,19],[6,27],[11,22]];
- return pairs.map((p,i)=>({number:i+1,player1:list[p[0]-1],player2:list[p[1]-1],winner:null,result:null,draw:false}));
+
+/* ============================= */
+/* دور الـ32 */
+/* ============================= */
+
+function createRound32(list) {
+
+    const pairs = [
+
+        [1,32],
+        [16,17],
+        [8,25],
+        [9,24],
+        [4,29],
+        [13,20],
+        [5,28],
+        [12,21],
+
+        [2,31],
+        [15,18],
+        [7,26],
+        [10,23],
+        [3,30],
+        [14,19],
+        [6,27],
+        [11,22]
+
+    ];
+
+
+    return pairs.map(
+        function(p, i) {
+
+            return {
+
+                number: i + 1,
+
+                player1:
+                    list[p[0] - 1],
+
+                player2:
+                    list[p[1] - 1],
+
+                winner: null,
+
+                loser: null,
+
+                result: null,
+
+                draw: false
+
+            };
+
+        }
+    );
+
 }
 
-function startTournament(){
- const list=readPlayers(); if(!list)return;
- players=list; rounds=[{name:"دور الـ32",matches:createRound32(players)}]; currentRound=0;
- saveTournament(); showTournament(); renderRound();
+
+/* ============================= */
+/* بدء البطولة */
+/* ============================= */
+
+function startTournament() {
+
+    const list =
+        readPlayers();
+
+
+    if (!list) {
+
+        return;
+
+    }
+
+
+    players = list;
+
+
+    rounds = [
+
+        {
+
+            name: "دور الـ32",
+
+            matches:
+                createRound32(players)
+
+        }
+
+    ];
+
+
+    currentRound = 0;
+
+
+    saveTournament();
+
+    showTournament();
+
+    renderRound();
+
 }
 
-function showTournament(){
- document.getElementById("playersScreen").classList.add("hidden");
- document.getElementById("championScreen").classList.add("hidden");
- document.getElementById("tournamentScreen").classList.remove("hidden");
+
+/* ============================= */
+
+function showTournament() {
+
+    document
+        .getElementById(
+            "playersScreen"
+        )
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById(
+            "championScreen"
+        )
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById(
+            "tournamentScreen"
+        )
+        .classList
+        .remove("hidden");
+
 }
 
-function renderRound(){
- const round=rounds[currentRound]; if(!round)return;
- document.getElementById("roundTitle").textContent=round.name;
- renderMatches(); renderSummary(); renderBracket(); updateStats();
+
+/* ============================= */
+/* عرض الجولة */
+/* ============================= */
+
+function renderRound() {
+
+    const round =
+        rounds[currentRound];
+
+
+    if (!round) {
+
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "roundTitle"
+        )
+        .textContent =
+        round.name;
+
+
+    renderMatches();
+
+    renderSummary();
+
+    renderBracket();
+
+    updateStats();
+
 }
 
-function renderMatches(){
- const round=rounds[currentRound],c=document.getElementById("matchesContainer"); c.innerHTML="";
- round.matches.forEach((m,i)=>{
-  const box=document.createElement("div");box.className="match";
-  let p1="player",p2="player";
-  if(m.winner===m.player1)p1+=" winner";
-  if(m.winner===m.player2)p2+=" winner";
-  if(m.draw){p1+=" draw";p2+=" draw";}
-  let tie=m.draw&&!m.winner?`<div class="tie-break"><b>المباراة انتهت بالتعادل</b><br>اختر المتأهل:<br><button class="green" onclick="resolveDraw(${i},1)">يتأهل ${m.player1.name}</button><button class="green" onclick="resolveDraw(${i},2)">يتأهل ${m.player2.name}</button></div>`:"";
-  box.innerHTML=`<div class="match-title">المباراة ${i+1}</div>
-  <div class="${p1}"><b>${m.player1.name}</b><br><small>Rating: ${m.player1.rating}</small></div>
-  <div style="text-align:center">⚔️ VS ⚔️</div>
-  <div class="${p2}"><b>${m.player2.name}</b><br><small>Rating: ${m.player2.rating}</small></div>
-  ${m.result?`<div class="result">النتيجة: ${m.result}</div>`:""}
-  <button class="green" onclick="setResult(${i},1)" ${m.result?"disabled":""}>فوز الأول</button>
-  <button class="orange" onclick="setResult(${i},0)" ${m.result?"disabled":""}>تعادل</button>
-  <button class="green" onclick="setResult(${i},2)" ${m.result?"disabled":""}>فوز الثاني</button>
-  ${m.winner&&!m.draw?`<div class="qualified">✅ المتأهل: ${m.winner.name}</div>`:""}${tie}`;
-  c.appendChild(box);
- });
+
+/* ============================= */
+/* المباريات */
+/* ============================= */
+
+function renderMatches() {
+
+    const round =
+        rounds[currentRound];
+
+
+    const c =
+        document.getElementById(
+            "matchesContainer"
+        );
+
+
+    c.innerHTML = "";
+
+
+    round.matches.forEach(
+        function(m, i) {
+
+            const box =
+                document.createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "match";
+
+
+            let p1 =
+                "player";
+
+
+            let p2 =
+                "player";
+
+
+            /*
+                الفائز أخضر
+                الخاسر أحمر
+            */
+
+            if (
+                m.winner ===
+                m.player1
+            ) {
+
+                p1 += " winner";
+
+                p2 += " loser";
+
+            }
+
+
+            if (
+                m.winner ===
+                m.player2
+            ) {
+
+                p2 += " winner";
+
+                p1 += " loser";
+
+            }
+
+
+            /*
+                التعادل
+            */
+
+            if (m.draw) {
+
+                p1 += " draw";
+
+                p2 += " draw";
+
+            }
+
+
+            let tie = "";
+
+
+            if (
+                m.draw &&
+                !m.winner
+            ) {
+
+                tie = `
+
+                    <div class="tie-break">
+
+                        <b>
+                            المباراة انتهت بالتعادل
+                        </b>
+
+                        <br>
+
+                        اختر المتأهل:
+
+                        <br>
+
+                        <button
+                            type="button"
+                            class="green"
+                            onclick="resolveDraw(${i},1)"
+                        >
+                            يتأهل
+                            ${m.player1.name}
+                        </button>
+
+                        <button
+                            type="button"
+                            class="green"
+                            onclick="resolveDraw(${i},2)"
+                        >
+                            يتأهل
+                            ${m.player2.name}
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            box.innerHTML = `
+
+                <div class="match-title">
+
+                    المباراة ${i + 1}
+
+                </div>
+
+
+                <div
+                    class="${p1}"
+                >
+
+                    <b>
+                        ${m.player1.name}
+                    </b>
+
+                    <br>
+
+                    <small>
+                        Rating:
+                        ${m.player1.rating}
+                    </small>
+
+                </div>
+
+
+                <div
+                    style="text-align:center"
+                >
+                    ⚔️ VS ⚔️
+                </div>
+
+
+                <div
+                    class="${p2}"
+                >
+
+                    <b>
+                        ${m.player2.name}
+                    </b>
+
+                    <br>
+
+                    <small>
+                        Rating:
+                        ${m.player2.rating}
+                    </small>
+
+                </div>
+
+
+                ${
+                    m.result
+                    ?
+                    `
+                    <div class="result">
+                        النتيجة:
+                        ${m.result}
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+
+                <button
+                    type="button"
+                    class="green"
+                    onclick="setResult(${i},1)"
+                    ${m.result ? "disabled" : ""}
+                >
+                    🟢 فوز الأول
+                </button>
+
+
+                <button
+                    type="button"
+                    class="orange"
+                    onclick="setResult(${i},0)"
+                    ${m.result ? "disabled" : ""}
+                >
+                    🟠 تعادل
+                </button>
+
+
+                <button
+                    type="button"
+                    class="green"
+                    onclick="setResult(${i},2)"
+                    ${m.result ? "disabled" : ""}
+                >
+                    🟢 فوز الثاني
+                </button>
+
+
+                ${
+                    m.winner &&
+                    !m.draw
+                    ?
+                    `
+                    <div class="qualified">
+
+                        ✅ المتأهل:
+                        ${m.winner.name}
+
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+
+                ${tie}
+
+            `;
+
+
+            c.appendChild(box);
+
+        }
+    );
+
 }
 
-function setResult(index,result){
- const m=rounds[currentRound].matches[index]; if(!m||m.result)return;
- if(result===1){m.result="1 - 0";m.winner=m.player1;m.draw=false}
- else if(result===2){m.result="0 - 1";m.winner=m.player2;m.draw=false}
- else{m.result="½ - ½";m.winner=null;m.draw=true}
- saveTournament();renderRound();checkRoundFinished();
+
+/* ============================= */
+/* تسجيل النتيجة */
+/* ============================= */
+
+function setResult(
+    index,
+    result
+) {
+
+    const round =
+        rounds[currentRound];
+
+
+    if (!round) {
+
+        return;
+
+    }
+
+
+    const m =
+        round.matches[index];
+
+
+    if (!m) {
+
+        return;
+
+    }
+
+
+    if (m.result) {
+
+        return;
+
+    }
+
+
+    if (result === 1) {
+
+        m.result =
+            "1 - 0";
+
+        m.winner =
+            m.player1;
+
+        m.loser =
+            m.player2;
+
+        m.draw =
+            false;
+
+    }
+
+
+    else if (result === 2) {
+
+        m.result =
+            "0 - 1";
+
+        m.winner =
+            m.player2;
+
+        m.loser =
+            m.player1;
+
+        m.draw =
+            false;
+
+    }
+
+
+    else {
+
+        m.result =
+            "½ - ½";
+
+        m.winner =
+            null;
+
+        m.loser =
+            null;
+
+        m.draw =
+            true;
+
+    }
+
+
+    saveTournament();
+
+    renderRound();
+
+    checkRoundFinished();
+
 }
 
-function resolveDraw(index,player){
- const m=rounds[currentRound].matches[index];if(!m||!m.draw)return;
- m.winner=player===1?m.player1:m.player2;m.draw=false;
- saveTournament();renderRound();checkRoundFinished();
+
+/* ============================= */
+/* حسم التعادل */
+/* ============================= */
+
+function resolveDraw(
+    index,
+    player
+) {
+
+    const m =
+        rounds[currentRound]
+            .matches[index];
+
+
+    if (!m) {
+
+        return;
+
+    }
+
+
+    if (!m.draw) {
+
+        return;
+
+    }
+
+
+    if (player === 1) {
+
+        m.winner =
+            m.player1;
+
+        m.loser =
+            m.player2;
+
+    }
+
+
+    else {
+
+        m.winner =
+            m.player2;
+
+        m.loser =
+            m.player1;
+
+    }
+
+
+    m.draw =
+        false;
+
+
+    saveTournament();
+
+    renderRound();
+
+    checkRoundFinished();
+
 }
 
-function checkRoundFinished(){
- if(rounds[currentRound].matches.every(m=>m.winner!==null))
-  setTimeout(nextRound,700);
+
+/* ============================= */
+/* فحص انتهاء الجولة */
+/* ============================= */
+
+function checkRoundFinished() {
+
+    const finished =
+        rounds[currentRound]
+            .matches
+            .every(
+                function(m) {
+
+                    return m.winner !== null;
+
+                }
+            );
+
+
+    if (finished) {
+
+        setTimeout(
+            nextRound,
+            700
+        );
+
+    }
+
 }
 
-function nextRound(){
- const current=rounds[currentRound];
- const winners=current.matches.map(m=>m.winner);
- if(winners.length===1){showChampion(winners[0]);return}
- const names=["دور الـ16","ربع النهائي","نصف النهائي","النهائي"];
- const matches=[];
- for(let i=0;i<winners.length;i+=2)
-  matches.push({number:i/2+1,player1:winners[i],player2:winners[i+1],winner:null,result:null,draw:false});
- rounds.push({name:names[currentRound],matches});currentRound++;
- saveTournament();renderRound();
+
+/* ============================= */
+/* الجولة التالية */
+/* ============================= */
+
+function nextRound() {
+
+    const current =
+        rounds[currentRound];
+
+
+    const winners =
+        current.matches.map(
+            function(m) {
+
+                return m.winner;
+
+            }
+        );
+
+
+    if (winners.length === 1) {
+
+        showChampion(
+            winners[0]
+        );
+
+        return;
+
+    }
+
+
+    const names = [
+
+        "دور الـ16",
+
+        "ربع النهائي",
+
+        "نصف النهائي",
+
+        "النهائي"
+
+    ];
+
+
+    const matches = [];
+
+
+    for (
+        let i = 0;
+        i < winners.length;
+        i += 2
+    ) {
+
+        matches.push({
+
+            number:
+                i / 2 + 1,
+
+            player1:
+                winners[i],
+
+            player2:
+                winners[i + 1],
+
+            winner: null,
+
+            loser: null,
+
+            result: null,
+
+            draw: false
+
+        });
+
+    }
+
+
+    rounds.push({
+
+        name:
+            names[currentRound],
+
+        matches:
+            matches
+
+    });
+
+
+    currentRound++;
+
+
+    saveTournament();
+
+    renderRound();
+
 }
 
-function renderSummary(){
- const r=rounds[currentRound],c=document.getElementById("summaryContainer");c.innerHTML="";
- r.matches.forEach((m,i)=>{
-  const row=document.createElement("div");row.className="summary-row";
-  row.innerHTML=`<div>${i+1}</div><div>${m.player1.name}</div><div><b>${m.result||"—"}</b></div><div>${m.player2.name}</div><div>${m.winner?m.winner.name:"لم يحسم بعد"}</div>`;
-  c.appendChild(row);
- });
+
+/* ============================= */
+/* ملخص الجولة */
+/* ============================= */
+
+function renderSummary() {
+
+    const r =
+        rounds[currentRound];
+
+
+    const c =
+        document.getElementById(
+            "summaryContainer"
+        );
+
+
+    c.innerHTML = "";
+
+
+    r.matches.forEach(
+        function(m, i) {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "summary-row";
+
+
+            let winnerName =
+                m.winner
+                ?
+                m.winner.name
+                :
+                "لم يحسم بعد";
+
+
+            row.innerHTML = `
+
+                <div>
+                    ${i + 1}
+                </div>
+
+                <div>
+                    ${m.player1.name}
+                </div>
+
+                <div>
+                    <b>
+                        ${m.result || "—"}
+                    </b>
+                </div>
+
+                <div>
+                    ${m.player2.name}
+                </div>
+
+                <div>
+                    ${winnerName}
+                </div>
+
+            `;
+
+
+            c.appendChild(row);
+
+        }
+    );
+
 }
 
-function renderBracket(){
- const b=document.getElementById("bracket");b.innerHTML="";
- const stages=["دور الـ32","دور الـ16","ربع النهائي","نصف النهائي","النهائي","🏆 البطل"];
- for(let s=0;s<6;s++){
-  const stage=document.createElement("div");stage.className="stage";stage.innerHTML=`<h3>${stages[s]}</h3>`;
-  const list=document.createElement("div");list.className="stage-list";
-  if(s<rounds.length){
-   rounds[s].matches.forEach(m=>{
-    const bm=document.createElement("div");bm.className="bracket-match";
-    bm.innerHTML=`<div class="bplayer ${m.winner===m.player1?"win":""}">${m.player1.name}<span class="rating">${m.player1.rating}</span></div><div class="bplayer ${m.winner===m.player2?"win":""}">${m.player2.name}<span class="rating">${m.player2.rating}</span></div>`;
-    list.appendChild(bm);
-   });
-  }else if(s===5&&rounds.length===5&&rounds[4].matches[0].winner){
-   const bm=document.createElement("div");bm.className="bracket-match";bm.innerHTML=`<div class="bplayer win">🏆 ${rounds[4].matches[0].winner.name}</div>`;list.appendChild(bm);
-  }
-  stage.appendChild(list);b.appendChild(stage);
- }
+
+/* ============================= */
+/* شجرة البطولة */
+/* ============================= */
+
+function renderBracket() {
+
+    const b =
+        document.getElementById(
+            "bracket"
+        );
+
+
+    b.innerHTML = "";
+
+
+    const stages = [
+
+        "دور الـ32",
+
+        "دور الـ16",
+
+        "ربع النهائي",
+
+        "نصف النهائي",
+
+        "النهائي",
+
+        "🏆 البطل"
+
+    ];
+
+
+    for (
+        let s = 0;
+        s < 6;
+        s++
+    ) {
+
+        const stage =
+            document.createElement(
+                "div"
+            );
+
+
+        stage.className =
+            "stage";
+
+
+        stage.innerHTML = `
+
+            <h3>
+                ${stages[s]}
+            </h3>
+
+        `;
+
+
+        const list =
+            document.createElement(
+                "div"
+            );
+
+
+        list.className =
+            "stage-list";
+
+
+        if (
+            s < rounds.length
+        ) {
+
+            rounds[s]
+                .matches
+                .forEach(
+                    function(m) {
+
+                        const bm =
+                            document
+                                .createElement(
+                                    "div"
+                                );
+
+
+                        bm.className =
+                            "bracket-match";
+
+
+                        let p1Class =
+                            "";
+
+
+                        let p2Class =
+                            "";
+
+
+                        /*
+                            أخضر للفائز
+                            أحمر للخاسر
+                        */
+
+                        if (
+                            m.winner ===
+                            m.player1
+                        ) {
+
+                            p1Class =
+                                "win";
+
+                            p2Class =
+                                "lose";
+
+                        }
+
+
+                        if (
+                            m.winner ===
+                            m.player2
+                        ) {
+
+                            p2Class =
+                                "win";
+
+                            p1Class =
+                                "lose";
+
+                        }
+
+
+                        /*
+                            التعادل
+                        */
+
+                        if (m.draw) {
+
+                            p1Class =
+                                "draw";
+
+                            p2Class =
+                                "draw";
+
+                        }
+
+
+                        bm.innerHTML = `
+
+                            <div
+                                class="bplayer ${p1Class}"
+                            >
+
+                                ${m.player1.name}
+
+                                <span
+                                    class="rating"
+                                >
+                                    ${m.player1.rating}
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="bplayer ${p2Class}"
+                            >
+
+                                ${m.player2.name}
+
+                                <span
+                                    class="rating"
+                                >
+                                    ${m.player2.rating}
+                                </span>
+
+                            </div>
+
+                        `;
+
+
+                        list.appendChild(
+                            bm
+                        );
+
+                    }
+                );
+
+        }
+
+
+        else if (
+            s === 5 &&
+            rounds.length === 5 &&
+            rounds[4].matches[0].winner
+        ) {
+
+            const bm =
+                document.createElement(
+                    "div"
+                );
+
+
+            bm.className =
+                "bracket-match";
+
+
+            bm.innerHTML = `
+
+                <div class="bplayer win">
+
+                    🏆
+                    ${rounds[4].matches[0].winner.name}
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                bm
+            );
+
+        }
+
+
+        stage.appendChild(
+            list
+        );
+
+
+        b.appendChild(
+            stage
+        );
+
+    }
+
 }
 
-function updateStats(){
- const r=rounds[currentRound];const done=r.matches.filter(m=>m.winner).length;
- document.getElementById("statRound").textContent=r.name;
- document.getElementById("statMatches").textContent=r.matches.length;
- document.getElementById("statDone").textContent=done;
- document.getElementById("statPlayers").textContent=r.matches.length*2;
- document.getElementById("status").textContent=`تم حسم ${done} من ${r.matches.length} مباريات في ${r.name}.`;
+
+/* ============================= */
+/* الإحصائيات */
+/* ============================= */
+
+function updateStats() {
+
+    const r =
+        rounds[currentRound];
+
+
+    const done =
+        r.matches.filter(
+            function(m) {
+
+                return m.winner;
+
+            }
+        ).length;
+
+
+    document
+        .getElementById(
+            "statRound"
+        )
+        .textContent =
+        r.name;
+
+
+    document
+        .getElementById(
+            "statMatches"
+        )
+        .textContent =
+        r.matches.length;
+
+
+    document
+        .getElementById(
+            "statDone"
+        )
+        .textContent =
+        done;
+
+
+    document
+        .getElementById(
+            "statPlayers"
+        )
+        .textContent =
+        r.matches.length * 2;
+
+
+    document
+        .getElementById(
+            "status"
+        )
+        .textContent =
+        `تم حسم ${done} من ${r.matches.length} مباريات في ${r.name}.`;
+
 }
 
-function saveTournament(){
- try{localStorage.setItem("chessTournament",JSON.stringify({players,rounds,currentRound}))}catch(e){}
+
+/* ============================= */
+/* الحفظ */
+/* ============================= */
+
+function saveTournament() {
+
+    try {
+
+        localStorage.setItem(
+
+            "chessTournament",
+
+            JSON.stringify({
+
+                players:
+                    players,
+
+                rounds:
+                    rounds,
+
+                currentRound:
+                    currentRound
+
+            })
+
+        );
+
+    }
+
+    catch (e) {
+
+        console.log(
+            "تعذر حفظ البيانات",
+            e
+        );
+
+    }
+
 }
 
-function loadTournament(){
- const saved=localStorage.getItem("chessTournament");
- if(!saved){createPlayerInputs();return}
- try{
-  const d=JSON.parse(saved);players=d.players||[];rounds=d.rounds||[];currentRound=Number(d.currentRound)||0;
-  if(rounds.length&&currentRound<rounds.length){showTournament();renderRound()}
-  else createPlayerInputs();
- }catch(e){localStorage.removeItem("chessTournament");createPlayerInputs()}
+
+/* ============================= */
+/* تحميل البطولة */
+/* ============================= */
+
+function loadTournament() {
+
+    const saved =
+        localStorage.getItem(
+            "chessTournament"
+        );
+
+
+    if (!saved) {
+
+        createPlayerInputs();
+
+        return;
+
+    }
+
+
+    try {
+
+        const d =
+            JSON.parse(saved);
+
+
+        players =
+            d.players || [];
+
+
+        rounds =
+            d.rounds || [];
+
+
+        currentRound =
+            Number(
+                d.currentRound
+            ) || 0;
+
+
+        if (
+            rounds.length &&
+            currentRound <
+            rounds.length
+        ) {
+
+            showTournament();
+
+            renderRound();
+
+        }
+
+
+        else {
+
+            createPlayerInputs();
+
+        }
+
+    }
+
+    catch (e) {
+
+        localStorage.removeItem(
+            "chessTournament"
+        );
+
+        createPlayerInputs();
+
+    }
+
 }
 
-function showChampion(winner){
- document.getElementById("tournamentScreen").classList.add("hidden");
- document.getElementById("playersScreen").classList.add("hidden");
- document.getElementById("championScreen").classList.remove("hidden");
- document.getElementById("championName").textContent=winner.name;
- saveTournament();
+
+/* ============================= */
+/* إظهار البطل */
+/* ============================= */
+
+function showChampion(
+    winner
+) {
+
+    document
+        .getElementById(
+            "tournamentScreen"
+        )
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById(
+            "playersScreen"
+        )
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById(
+            "championScreen"
+        )
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById(
+            "championName"
+        )
+        .textContent =
+        winner.name;
+
+
+    saveTournament();
+
 }
 
-function newTournament(){
- if(!confirm("هل أنت متأكد من بدء بطولة جديدة؟ سيتم حذف البطولة الحالية."))return;
- localStorage.removeItem("chessTournament");players=[];rounds=[];currentRound=0;
- document.getElementById("tournamentScreen").classList.add("hidden");
- document.getElementById("championScreen").classList.add("hidden");
- document.getElementById("playersScreen").classList.remove("hidden");
- createPlayerInputs();
+
+/* ============================= */
+/* بطولة جديدة */
+/* ============================= */
+
+function newTournament() {
+
+    if (
+        !confirm(
+            "هل أنت متأكد من بدء بطولة جديدة؟ سيتم حذف البطولة الحالية."
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "chessTournament"
+    );
+
+
+    players = [];
+
+    rounds = [];
+
+    currentRound = 0;
+
+
+    document
+        .getElementById(
+            "tournamentScreen"
+        )
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById(
+            "championScreen"
+        )
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById(
+            "playersScreen"
+        )
+        .classList
+        .remove("hidden");
+
+
+    createPlayerInputs();
+
 }
+
+
+/* ============================= */
+/* تشغيل البرنامج */
+/* ============================= */
 
 createPlayerInputs();
+
 loadTournament();
+
 </script>
+
 </body>
-</html>
+ </html>
