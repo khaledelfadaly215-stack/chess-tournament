@@ -3,224 +3,271 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>AKRAM E4 E5 | Chess Tournament Manager</title>
 
 <style>
-*{box-sizing:border-box}
+
+/* =========================================
+   الإعدادات العامة
+========================================= */
+
+*{
+box-sizing:border-box
+}
 
 body{
 margin:0;
 font-family:Arial,Tahoma,sans-serif;
 color:#172033;
 
+/* رقعة شطرنج خفيفة جدًا */
 background-color:#eef2f7;
 
 background-image:
-linear-gradient(
-45deg,
-rgba(30,41,59,.035) 25%,
-transparent 25%,
-transparent 75%,
-rgba(30,41,59,.035) 75%
-),
-linear-gradient(
-45deg,
-rgba(30,41,59,.035) 25%,
-transparent 25%,
-transparent 75%,
-rgba(30,41,59,.035) 75%
-);
+linear-gradient(45deg,#dce3eb 25%,transparent 25%),
+linear-gradient(-45deg,#dce3eb 25%,transparent 25%),
+linear-gradient(45deg,transparent 75%,#dce3eb 75%),
+linear-gradient(-45deg,transparent 75%,#dce3eb 75%);
+
+background-size:70px 70px;
 
 background-position:
 0 0,
-45px 45px;
+0 35px,
+35px -35px,
+-35px 0;
 
-background-size:
-90px 90px;
+background-blend-mode:multiply;
 
-background-attachment:fixed;
 }
 
 header{
-background:linear-gradient(135deg,#111827,#26364f);
+background:linear-gradient(
+135deg,
+#111827,
+#26364f
+);
+
 color:#fff;
+
 padding:22px 30px;
-box-shadow:0 4px 15px #0002
+
+box-shadow:
+0 4px 15px #0002
 }
 
 .header-inner{
 max-width:1450px;
+
 margin:auto;
-display:grid;
-grid-template-columns:1fr auto 1fr;
+
+display:flex;
+
 align-items:center;
+
+justify-content:space-between;
+
 gap:20px
 }
 
 .brand{
 display:flex;
+
 align-items:center;
-gap:16px;
-justify-self:start
+
+gap:16px
 }
 
 .brand-icon{
 width:58px;
 height:58px;
+
 border-radius:14px;
+
 background:#fff1;
+
 color:#fff;
+
 display:grid;
+
 place-items:center;
+
 font-size:34px;
+
 border:1px solid #ffffff30
 }
 
 .brand h1{
 margin:0;
+
 font-size:28px
 }
 
 .brand p{
 margin:5px 0 0;
+
 color:#cbd5e1
 }
 
 
 /* =========================================
-   عنوان البطولة في منتصف الهيدر
+   عنوان بطولة الـ200K
 ========================================= */
 
-.tournament-header{
-justify-self:center;
-position:relative;
-z-index:100;
-text-align:center
-}
+.tournament-header-title{
 
-.tournament-button{
-border:1px solid #facc15;
-background:
-linear-gradient(
-135deg,
-rgba(250,204,21,.20),
-rgba(120,83,7,.45),
-rgba(250,204,21,.16)
-);
+position:relative;
+
+text-align:center;
+
+font-size:25px;
+
+font-weight:900;
+
 color:#facc15;
 
-padding:11px 24px;
-margin:0;
-
-border-radius:12px;
-
-font-size:21px;
-font-weight:900;
+text-shadow:
+0 0 8px #facc15,
+0 2px 5px #000;
 
 cursor:pointer;
 
-text-shadow:
-0 0 8px rgba(250,204,21,.55);
+padding:9px 20px;
 
-box-shadow:
-0 0 10px rgba(250,204,21,.20),
-inset 0 0 12px rgba(250,204,21,.08);
+border-radius:12px;
 
 transition:
 transform .2s ease,
 box-shadow .2s ease,
-background .2s ease
+background .2s ease;
+
+user-select:none;
+
+white-space:nowrap
 }
 
-.tournament-button:hover{
+.tournament-header-title:hover{
+
 transform:translateY(-2px);
 
+background:rgba(250,204,21,.08);
+
 box-shadow:
-0 0 16px rgba(250,204,21,.45),
-inset 0 0 15px rgba(250,204,21,.15)
+0 0 12px rgba(250,204,21,.22)
 }
 
-.tournament-button:active{
-transform:scale(.96)
+.tournament-header-title:active{
+
+transform:scale(.97)
 }
 
 
 /* =========================================
-   الفقاعة
+   فقّاعة البطولة
 ========================================= */
 
-.subscription-bubble{
+.promo-bubble{
+
 position:absolute;
 
-top:calc(100% + 12px);
+top:calc(100% + 13px);
+
 left:50%;
 
 transform:
 translateX(-50%)
-translateY(-18px)
+translateY(-15px)
 scale(.92);
 
-width:300px;
-max-width:90vw;
+width:320px;
 
-padding:15px 18px;
+padding:13px 17px;
 
 background:
 linear-gradient(
 135deg,
-rgba(15,23,42,.97),
-rgba(120,83,7,.95),
-rgba(15,23,42,.97)
+rgba(30,41,59,.97),
+rgba(120,83,7,.82),
+rgba(30,41,59,.97)
 );
 
 border:1px solid #facc15;
-border-radius:14px;
+
+border-radius:13px;
 
 box-shadow:
-0 8px 25px rgba(0,0,0,.35),
-0 0 18px rgba(250,204,21,.28),
-inset 0 0 14px rgba(250,204,21,.08);
+0 7px 25px rgba(0,0,0,.35),
+0 0 12px rgba(250,204,21,.22),
+inset 0 0 12px rgba(250,204,21,.08);
+
+z-index:10000;
 
 opacity:0;
+
 visibility:hidden;
 
 pointer-events:none;
 
+font-family:
+"Scheherazade New",
+"Scheherazade",
+Georgia,
+serif;
+
+font-size:17px;
+
+font-weight:600;
+
+line-height:1.55;
+
+color:#fff8dc;
+
+text-align:center;
+
+text-shadow:
+0 1px 4px #000;
+
 transition:
 opacity .35s ease,
-transform .35s cubic-bezier(.2,.8,.2,1),
-visibility .35s ease;
+transform .35s ease;
 
-z-index:200
 }
 
 
-/* السهم فوق الفقاعة */
+/* رأس صغير للفقاعة */
 
-.subscription-bubble::before{
+.promo-bubble::before{
+
 content:"";
 
 position:absolute;
 
-top:-8px;
-left:50%;
+top:-7px;
 
-width:15px;
-height:15px;
+left:50%;
 
 transform:translateX(-50%) rotate(45deg);
 
-background:#785307;
+width:13px;
+
+height:13px;
+
+background:#72520b;
 
 border-left:1px solid #facc15;
-border-top:1px solid #facc15
+
+border-top:1px solid #facc15;
+
 }
 
 
 /* ظهور الفقاعة */
 
-.subscription-bubble.show{
+.promo-bubble.show{
+
 opacity:1;
+
 visibility:visible;
 
 transform:
@@ -233,201 +280,269 @@ bubbleDrop .45s cubic-bezier(.2,.8,.2,1) forwards
 }
 
 
-/* اختفاء الفقاعة */
+/* السطر الأول */
 
-.subscription-bubble.hide{
-opacity:0;
-visibility:hidden;
+.promo-line{
 
-transform:
-translateX(-50%)
-translateY(12px)
-scale(.95);
-
-transition:
-opacity .45s ease,
-transform .45s ease,
-visibility .45s ease
-}
-
-
-.bubble-line{
 display:block;
 
-font-size:16px;
-font-weight:800;
+white-space:nowrap;
 
-line-height:1.6;
+}
 
-padding:5px 4px;
+
+/* السطر الثاني */
+
+.promo-line + .promo-line{
+
+margin-top:2px
+}
+
+
+/* علامة البريليانت */
+
+.brilliant-symbol{
+
+color:#38bdf8;
+
+font-family:Arial,sans-serif;
+
+font-weight:900;
+
+font-size:17px;
 
 text-shadow:
-0 2px 5px #000
+0 0 5px #38bdf8,
+0 0 10px rgba(56,189,248,.65);
+
 }
 
-.bubble-line:first-child{
-color:#fef3c7
+
+/* علامة البلندر */
+
+.blunder-symbol{
+
+color:#f87171;
+
+font-family:Arial,sans-serif;
+
+font-weight:900;
+
+font-size:17px;
+
+text-shadow:
+0 0 5px #f87171,
+0 0 10px rgba(248,113,113,.45);
+
 }
 
-.bubble-line:last-child{
-color:#fde68a
-}
 
-.bubble-divider{
-height:1px;
-
-background:
-linear-gradient(
-90deg,
-transparent,
-rgba(250,204,21,.55),
-transparent
-);
-
-margin:6px 0
-}
-
+/* حركة نزول الفقاعة */
 
 @keyframes bubbleDrop{
 
 0%{
+
 opacity:0;
+
 transform:
 translateX(-50%)
-translateY(-25px)
-scale(.82)
+translateY(-18px)
+scale(.88)
+
 }
 
-60%{
+70%{
+
 opacity:1;
+
 transform:
 translateX(-50%)
-translateY(4px)
-scale(1.03)
+translateY(3px)
+scale(1.02)
+
 }
 
 100%{
+
 opacity:1;
+
 transform:
 translateX(-50%)
 translateY(0)
 scale(1)
+
 }
 
 }
 
 
 /* =========================================
-   الجهة اليسرى
+   محتوى الموقع
 ========================================= */
-
-.header-side{
-justify-self:end;
-white-space:nowrap
-}
-
-.header-side b{
-font-size:15px
-}
-
 
 .container{
 max-width:1450px;
+
 margin:24px auto;
+
 padding:0 20px
 }
 
 .card{
 background:#fff;
+
 border-radius:16px;
+
 padding:22px;
+
 margin-bottom:20px;
-box-shadow:0 5px 20px #17203312;
+
+box-shadow:
+0 5px 20px #17203312;
+
 border:1px solid #e5e7eb
 }
 
 .toolbar{
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 gap:15px;
+
 flex-wrap:wrap
 }
 
 .stats{
 display:grid;
+
 grid-template-columns:repeat(4,1fr);
+
 gap:14px;
+
 margin-bottom:20px
 }
 
 .stat{
 background:#fff;
+
 border-radius:14px;
+
 padding:18px;
+
 border:1px solid #e5e7eb;
+
 box-shadow:0 3px 12px #0000000a
 }
 
 .stat b{
 display:block;
+
 font-size:25px;
+
 margin-top:6px
 }
 
 .stat span{
 color:#64748b;
+
 font-size:13px
 }
 
 .players-grid{
 display:grid;
+
 grid-template-columns:repeat(4,1fr);
+
 gap:10px
 }
 
 .player-row{
 display:grid;
+
 grid-template-columns:35px 1fr 90px;
+
 gap:6px;
+
 align-items:center
 }
 
 input{
 width:100%;
+
 padding:10px;
+
 border:1px solid #cbd5e1;
+
 border-radius:8px;
+
 font-size:14px
 }
 
 button{
 border:0;
+
 border-radius:8px;
+
 padding:10px 15px;
+
 margin:4px;
+
 cursor:pointer;
+
 font-size:14px;
+
 font-weight:600
 }
 
 button:disabled{
 opacity:.45;
+
 cursor:not-allowed
 }
 
-.blue{background:#2563eb;color:#fff}
-.green{background:#16a34a;color:#fff}
-.orange{background:#ea580c;color:#fff}
-.red{background:#dc2626;color:#fff}
-.gray{background:#64748b;color:#fff}
-.dark{background:#1e293b;color:#fff}
+.blue{
+background:#2563eb;
+color:#fff
+}
+
+.green{
+background:#16a34a;
+color:#fff
+}
+
+.orange{
+background:#ea580c;
+color:#fff
+}
+
+.red{
+background:#dc2626;
+color:#fff
+}
+
+.gray{
+background:#64748b;
+color:#fff
+}
+
+.dark{
+background:#1e293b;
+color:#fff
+}
 
 .status{
 background:#eff6ff;
+
 border:1px solid #bfdbfe;
+
 padding:12px;
+
 border-radius:9px;
+
 margin:15px 0
 }
 
@@ -435,54 +550,83 @@ margin:15px 0
 display:none!important
 }
 
+
+/* =========================================
+   شجرة البطولة
+========================================= */
+
 .bracket-wrap{
 overflow-x:auto;
+
 padding:10px 4px 20px
 }
 
 .bracket{
 display:grid;
-grid-template-columns:repeat(6,minmax(190px,1fr));
+
+grid-template-columns:
+repeat(6,minmax(190px,1fr));
+
 gap:28px;
+
 min-width:1250px
 }
 
 .stage{
 display:flex;
+
 flex-direction:column
 }
 
 .stage h3{
 text-align:center;
+
 background:#1e293b;
+
 color:#fff;
+
 border-radius:9px;
+
 padding:10px;
+
 margin:0 0 15px;
+
 font-size:15px
 }
 
 .stage-list{
 display:flex;
+
 flex-direction:column;
+
 justify-content:space-around;
+
 flex:1;
+
 gap:14px
 }
 
 .bracket-match{
 background:#f8fafc;
+
 border:1px solid #cbd5e1;
+
 border-radius:10px;
+
 overflow:hidden;
+
 box-shadow:0 2px 7px #0001
 }
 
 .bplayer{
 padding:10px 12px;
+
 border-bottom:1px solid #e2e8f0;
+
 display:flex;
+
 justify-content:space-between;
+
 gap:8px
 }
 
@@ -492,11 +636,13 @@ border-bottom:0
 
 .bplayer.win{
 background:#dcfce7;
+
 font-weight:bold
 }
 
 .bplayer.lose{
 background:#fee2e2;
+
 color:#991b1b
 }
 
@@ -506,78 +652,117 @@ background:#ffedd5
 
 .rating{
 font-size:11px;
+
 color:#64748b
 }
 
+
+/* =========================================
+   المباريات
+========================================= */
+
 .matches{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+
+grid-template-columns:
+repeat(3,1fr);
+
 gap:15px
 }
 
 .match{
 background:#f8fafc;
+
 border:1px solid #cbd5e1;
+
 border-radius:12px;
+
 padding:15px
 }
 
 .match-title{
 text-align:center;
+
 font-weight:bold;
+
 margin-bottom:12px
 }
 
 .player{
 background:#fff;
+
 border:1px solid #cbd5e1;
+
 padding:12px;
+
 border-radius:8px;
+
 margin:6px 0;
+
 transition:.3s
 }
 
 .winner{
 border:3px solid #16a34a;
+
 background:#dcfce7;
+
 box-shadow:0 0 12px #16a34a55
 }
 
 .loser{
 border:3px solid #dc2626;
+
 background:#fee2e2;
+
 color:#991b1b
 }
 
 .draw{
 border:3px solid #ea580c;
+
 background:#ffedd5
 }
 
 .result{
 text-align:center;
+
 font-weight:bold;
+
 padding:8px;
+
 margin:8px 0;
+
 border-radius:7px;
+
 background:#e2e8f0
 }
 
 .qualified{
 text-align:center;
+
 padding:8px;
+
 border-radius:7px;
+
 background:#dcfce7;
+
 color:#166534;
+
 font-weight:bold
 }
 
 .tie-break{
 background:#fff7ed;
+
 border:2px solid #fb923c;
+
 border-radius:8px;
+
 padding:10px;
+
 margin-top:10px;
+
 text-align:center
 }
 
@@ -587,32 +772,35 @@ overflow:auto
 
 .summary-row{
 display:grid;
-grid-template-columns:45px 1fr 80px 1fr 160px;
+
+grid-template-columns:
+45px 1fr 80px 1fr 160px;
+
 gap:8px;
+
 padding:9px;
+
 border-bottom:1px solid #e2e8f0;
+
 align-items:center
 }
 
 .champion{
 text-align:center;
+
 font-size:30px;
+
 font-weight:bold;
+
 padding:35px
 }
 
 .champion-name{
 font-size:38px;
-color:#b45309;
-margin:15px 0
-}
 
-.notice{
-padding:12px;
-border-radius:9px;
-background:#f8fafc;
-border:1px solid #e2e8f0;
-margin:10px 0
+color:#b45309;
+
+margin:15px 0
 }
 
 
@@ -621,7 +809,9 @@ margin:10px 0
 ========================================= */
 
 #celebrationOverlay{
+
 position:fixed;
+
 inset:0;
 
 background:
@@ -634,50 +824,76 @@ circle at center,
 );
 
 display:flex;
+
 align-items:center;
+
 justify-content:center;
 
 z-index:9999;
+
 overflow:hidden;
 
 opacity:0;
+
 visibility:hidden;
 
 transition:opacity .6s ease
 }
 
 #celebrationOverlay.show{
+
 opacity:1;
+
 visibility:visible
 }
 
 .celebration-box{
+
 width:min(92%,700px);
+
 text-align:center;
+
 color:#fff;
 
 position:relative;
+
 z-index:5;
 
 display:flex;
+
 flex-direction:column;
+
 align-items:center;
+
 justify-content:center;
 
-animation:championZoom 1.1s ease forwards
+animation:
+championZoom 1.1s ease forwards
 }
 
+
+/* =========================================
+   الكأس
+========================================= */
+
 .trophy{
+
 font-size:110px;
 
 filter:
 drop-shadow(0 0 15px #facc15)
 drop-shadow(0 0 35px #f59e0b);
 
-animation:trophyFloat 2s ease-in-out infinite;
+animation:
+trophyFloat 2s ease-in-out infinite;
 
 margin-bottom:5px
 }
+
+
+/* =========================================
+   التظليل
+========================================= */
 
 .celebration-title,
 .celebration-move,
@@ -700,17 +916,25 @@ box-shadow:
 inset 0 0 14px rgba(250,204,21,.08);
 
 backdrop-filter:blur(4px);
+
 -webkit-backdrop-filter:blur(4px);
 
 overflow:hidden
 }
 
+
+/* =========================================
+   مبروك
+========================================= */
+
 .celebration-title{
 
 font-size:25px;
+
 font-weight:bold;
 
 margin-top:10px;
+
 margin-bottom:8px;
 
 padding:8px 22px;
@@ -724,9 +948,15 @@ text-shadow:
 0 0 8px rgba(255,255,255,.35)
 }
 
+
+/* =========================================
+   أونلي مووف
+========================================= */
+
 .celebration-move{
 
 font-size:21px;
+
 font-weight:800;
 
 color:#fff8dc;
@@ -746,9 +976,15 @@ box-shadow:
 inset 0 0 14px rgba(250,204,21,.12)
 }
 
+
+/* =========================================
+   اسم البطل
+========================================= */
+
 .celebration-name{
 
 font-size:52px;
+
 font-weight:900;
 
 color:#facc15;
@@ -768,6 +1004,7 @@ border-radius:14px;
 text-align:center;
 
 width:auto;
+
 max-width:95%;
 
 box-shadow:
@@ -776,6 +1013,11 @@ box-shadow:
 inset 0 0 18px rgba(250,204,21,.10)
 }
 
+
+/* =========================================
+   عبارة البطولة
+========================================= */
+
 .celebration-subtitle{
 
 position:relative;
@@ -783,6 +1025,7 @@ position:relative;
 display:block;
 
 width:max-content;
+
 max-width:90%;
 
 margin:5px auto 0;
@@ -790,6 +1033,7 @@ margin:5px auto 0;
 padding:13px 28px;
 
 font-size:21px;
+
 font-weight:800;
 
 line-height:1.5;
@@ -880,6 +1124,11 @@ rgba(30,41,59,.95)
 z-index:-1
 }
 
+
+/* =========================================
+   توهج النصوص
+========================================= */
+
 .celebration-title::after,
 .celebration-move::after,
 .celebration-name::after{
@@ -957,6 +1206,11 @@ background-position:-200% 0
 
 }
 
+
+/* =========================================
+   زر المتابعة
+========================================= */
+
 .close-celebration{
 
 display:block;
@@ -975,6 +1229,7 @@ color:#111827;
 padding:13px 35px;
 
 font-size:17px;
+
 font-weight:800;
 
 border-radius:10px;
@@ -1000,6 +1255,11 @@ box-shadow:
 0 0 35px #f59e0bcc
 }
 
+
+/* =========================================
+   القصاصات
+========================================= */
+
 .confetti{
 
 position:absolute;
@@ -1007,27 +1267,37 @@ position:absolute;
 top:-30px;
 
 width:10px;
+
 height:18px;
 
 opacity:.9;
 
-animation:fall linear forwards
+animation:
+fall linear forwards
 }
+
+
+/* =========================================
+   الحركات
+========================================= */
 
 @keyframes championZoom{
 
 0%{
 transform:scale(.3);
+
 opacity:0
 }
 
 60%{
 transform:scale(1.12);
+
 opacity:1
 }
 
 100%{
 transform:scale(1);
+
 opacity:1
 }
 
@@ -1036,11 +1306,15 @@ opacity:1
 @keyframes trophyFloat{
 
 0%,100%{
-transform:translateY(0) rotate(-2deg)
+transform:
+translateY(0)
+rotate(-2deg)
 }
 
 50%{
-transform:translateY(-15px) rotate(2deg)
+transform:
+translateY(-15px)
+rotate(2deg)
 }
 
 }
@@ -1048,11 +1322,15 @@ transform:translateY(-15px) rotate(2deg)
 @keyframes fall{
 
 0%{
-transform:translateY(-30px) rotate(0deg)
+transform:
+translateY(-30px)
+rotate(0deg)
 }
 
 100%{
-transform:translateY(110vh) rotate(720deg)
+transform:
+translateY(110vh)
+rotate(720deg)
 }
 
 }
@@ -1063,24 +1341,6 @@ transform:translateY(110vh) rotate(720deg)
 ========================================= */
 
 @media(max-width:900px){
-
-.header-inner{
-grid-template-columns:1fr;
-justify-items:center
-}
-
-.brand{
-justify-self:center
-}
-
-.tournament-header{
-grid-row:2;
-justify-self:center
-}
-
-.header-side{
-justify-self:center
-}
 
 .stats{
 grid-template-columns:repeat(2,1fr)
@@ -1094,12 +1354,22 @@ grid-template-columns:repeat(2,1fr)
 grid-template-columns:1fr
 }
 
+.header-inner{
+align-items:flex-start
+}
+
 .brand h1{
 font-size:22px
 }
 
-.tournament-button{
-font-size:19px
+.tournament-header-title{
+font-size:20px
+}
+
+.promo-bubble{
+width:285px;
+
+font-size:16px
 }
 
 .celebration-name{
@@ -1108,15 +1378,18 @@ font-size:38px
 
 .celebration-move{
 font-size:18px;
+
 padding:8px 17px
 }
 
 .celebration-subtitle{
 font-size:18px;
+
 padding:11px 20px
 }
 
 }
+
 
 @media(max-width:600px){
 
@@ -1132,21 +1405,34 @@ grid-template-columns:1fr 1fr
 padding:0 10px
 }
 
-.tournament-button{
-font-size:18px;
-padding:10px 20px
+.header-inner{
+flex-direction:column;
+
+align-items:center;
+
+text-align:center
 }
 
-.subscription-bubble{
-width:280px
+.brand{
+justify-content:center
 }
 
-.bubble-line{
-font-size:14px
+.tournament-header-title{
+font-size:19px
+}
+
+.promo-bubble{
+
+width:275px;
+
+font-size:15px;
+
+padding:11px 13px
 }
 
 .celebration-name{
 font-size:30px;
+
 padding:7px 18px
 }
 
@@ -1156,23 +1442,29 @@ font-size:80px
 
 .celebration-title{
 font-size:21px;
+
 padding:7px 17px
 }
 
 .celebration-move{
 font-size:16px;
+
 padding:7px 14px
 }
 
 .celebration-subtitle{
 font-size:16px;
+
 padding:10px 16px;
+
 max-width:92%
 }
 
 .close-celebration{
 font-size:16px;
+
 padding:12px 30px;
+
 margin-top:22px
 }
 
@@ -1183,9 +1475,17 @@ margin-top:22px
 
 <body>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header>
 
 <div class="header-inner">
+
+
+<!-- اليمين -->
 
 <div class="brand">
 
@@ -1208,33 +1508,38 @@ Chess Tournament Manager
 </div>
 
 
-<!-- =========================================
-     اسم البطولة في المنتصف
-========================================= -->
+<!-- المنتصف -->
 
-<div class="tournament-header">
-
-<button
-class="tournament-button"
-onclick="showSubscriptionBubble()"
+<div
+class="tournament-header-title"
+onclick="toggleTournamentBubble(event)"
 >
+
 🏆 بطولة الـ200K
-</button>
 
 
 <div
-id="subscriptionBubble"
-class="subscription-bubble"
+id="tournamentBubble"
+class="promo-bubble"
 >
 
-<span class="bubble-line">
-لو عامل إشتراك دي بريليانت موووف
+<span class="promo-line">
+
+لو عامل إشتراك
+دي
+<span class="brilliant-symbol">‼</span>
+بريليانت موووف
+
 </span>
 
-<div class="bubble-divider"></div>
 
-<span class="bubble-line">
-لو مش عامل إشتراك دا بلندر أسطوري خيااالي
+<span class="promo-line">
+
+لو مش عامل إشتراك
+دا
+<span class="blunder-symbol">⁉</span>
+بلندر أسطوري خيااالي
+
 </span>
 
 </div>
@@ -1242,9 +1547,14 @@ class="subscription-bubble"
 </div>
 
 
-<div class="header-side">
+<!-- الشمال -->
+
+<div>
+
 🏆 <b>32 Players Knockout</b>
+
 </div>
+
 
 </div>
 
@@ -1254,9 +1564,9 @@ class="subscription-bubble"
 <div class="container">
 
 
-<!-- =================================
+<!-- =========================================
      شاشة اللاعبين
-================================= -->
+========================================= -->
 
 <div
 id="playersScreen"
@@ -1297,6 +1607,7 @@ onclick="startTournament()"
 
 </div>
 
+
 <div
 id="playersContainer"
 class="players-grid"
@@ -1305,9 +1616,9 @@ class="players-grid"
 </div>
 
 
-<!-- =================================
+<!-- =========================================
      شاشة البطولة
-================================= -->
+========================================= -->
 
 <div
 id="tournamentScreen"
@@ -1315,6 +1626,7 @@ class="hidden"
 >
 
 <div class="stats">
+
 
 <div class="stat">
 
@@ -1374,6 +1686,7 @@ class="hidden"
 </span>
 
 </div>
+
 
 </div>
 
@@ -1458,9 +1771,9 @@ class="summary"
 </div>
 
 
-<!-- =================================
+<!-- =========================================
      شاشة البطل
-================================= -->
+========================================= -->
 
 <div
 id="championScreen"
@@ -1499,9 +1812,9 @@ onclick="newTournament()"
 </div>
 
 
-<!-- =================================
+<!-- =========================================
      شاشة الاحتفال
-================================= -->
+========================================= -->
 
 <div
 id="celebrationOverlay"
@@ -1556,51 +1869,45 @@ let rounds=[];
 let currentRound=0;
 
 
-/* =================================
-   فقاعة بطولة الـ200K
-================================= */
+/* =========================================
+   فقّاعة بطولة الـ200K
+========================================= */
 
 let bubbleTimer=null;
 
-function showSubscriptionBubble(){
+
+function toggleTournamentBubble(event){
+
+event.stopPropagation();
 
 const bubble=
 document.getElementById(
-"subscriptionBubble"
+"tournamentBubble"
 );
 
 
-/* إلغاء المؤقت السابق */
+if(
+bubble.classList.contains("show")
+){
 
-if(bubbleTimer){
-clearTimeout(bubbleTimer);
-bubbleTimer=null;
+hideTournamentBubble();
+
+return;
+
 }
-
-
-/* لو الفقاعة ظاهرة نعيد تشغيلها */
-
-bubble.classList.remove("hide");
-bubble.classList.remove("show");
-
-
-/* إجبار المتصفح على إعادة تشغيل الأنيميشن */
-
-void bubble.offsetWidth;
 
 
 bubble.classList.add("show");
 
 
-/* تختفي تلقائياً بعد 5 ثواني */
+clearTimeout(bubbleTimer);
 
-bubbleTimer=setTimeout(
+
+bubbleTimer=
+setTimeout(
 function(){
 
-bubble.classList.remove("show");
-bubble.classList.add("hide");
-
-bubbleTimer=null;
+hideTournamentBubble();
 
 },
 5000
@@ -1609,9 +1916,36 @@ bubbleTimer=null;
 }
 
 
-/* =================================
+function hideTournamentBubble(){
+
+const bubble=
+document.getElementById(
+"tournamentBubble"
+);
+
+
+bubble.classList.remove("show");
+
+clearTimeout(bubbleTimer);
+
+}
+
+
+/* لو ضغط المستخدم في أي مكان خارج الزر */
+
+document.addEventListener(
+"click",
+function(){
+
+hideTournamentBubble();
+
+}
+);
+
+
+/* =========================================
    إنشاء خانات اللاعبين
-================================= */
+========================================= */
 
 function createPlayerInputs(){
 
@@ -1623,12 +1957,17 @@ document.getElementById(
 c.innerHTML="";
 
 
-for(let i=1;i<=32;i++){
+for(
+let i=1;
+i<=32;
+i++
+){
 
 const row=
 document.createElement("div");
 
-row.className="player-row";
+row.className=
+"player-row";
 
 
 row.innerHTML=`
@@ -1658,13 +1997,17 @@ c.appendChild(row);
 }
 
 
-/* =================================
+/* =========================================
    تعبئة تجريبية
-================================= */
+========================================= */
 
 function fillExample(){
 
-for(let i=1;i<=32;i++){
+for(
+let i=1;
+i<=32;
+i++
+){
 
 const name=
 document.getElementById(
@@ -1702,16 +2045,20 @@ alert(
 }
 
 
-/* =================================
+/* =========================================
    قراءة اللاعبين
-================================= */
+========================================= */
 
 function readPlayers(){
 
 const list=[];
 
 
-for(let i=1;i<=32;i++){
+for(
+let i=1;
+i<=32;
+i++
+){
 
 const name=
 document
@@ -1761,9 +2108,9 @@ return list;
 }
 
 
-/* =================================
+/* =========================================
    إنشاء دور الـ32
-================================= */
+========================================= */
 
 function createRound32(list){
 
@@ -1811,9 +2158,9 @@ draw:false
 }
 
 
-/* =================================
+/* =========================================
    بدء البطولة
-================================= */
+========================================= */
 
 function startTournament(){
 
@@ -1849,9 +2196,9 @@ renderRound();
 }
 
 
-/* =================================
+/* =========================================
    إظهار البطولة
-================================= */
+========================================= */
 
 function showTournament(){
 
@@ -1881,9 +2228,9 @@ document
 }
 
 
-/* =================================
+/* =========================================
    عرض الجولة
-================================= */
+========================================= */
 
 function renderRound(){
 
@@ -1913,9 +2260,9 @@ updateStats();
 }
 
 
-/* =================================
+/* =========================================
    عرض المباريات
-================================= */
+========================================= */
 
 function renderMatches(){
 
@@ -1937,7 +2284,8 @@ round.matches.forEach(
 const box=
 document.createElement("div");
 
-box.className="match";
+box.className=
+"match";
 
 
 let p1="player";
@@ -2073,6 +2421,8 @@ m.result
 }
 
 
+<!-- زر فوز باسم اللاعب -->
+
 <button
 class="green"
 onclick="setResult(${i},1)"
@@ -2127,9 +2477,9 @@ c.appendChild(box);
 }
 
 
-/* =================================
+/* =========================================
    تسجيل النتيجة
-================================= */
+========================================= */
 
 function setResult(index,result){
 
@@ -2186,9 +2536,9 @@ checkRoundFinished();
 }
 
 
-/* =================================
+/* =========================================
    حسم التعادل
-================================= */
+========================================= */
 
 function resolveDraw(index,player){
 
@@ -2228,9 +2578,9 @@ checkRoundFinished();
 }
 
 
-/* =================================
+/* =========================================
    التحقق من انتهاء الجولة
-================================= */
+========================================= */
 
 function checkRoundFinished(){
 
@@ -2252,9 +2602,9 @@ nextRound,
 }
 
 
-/* =================================
+/* =========================================
    الجولة التالية
-================================= */
+========================================= */
 
 function nextRound(){
 
@@ -2340,9 +2690,9 @@ renderRound();
 }
 
 
-/* =================================
+/* =========================================
    الملخص
-================================= */
+========================================= */
 
 function renderSummary(){
 
@@ -2410,9 +2760,9 @@ c.appendChild(row);
 }
 
 
-/* =================================
+/* =========================================
    شجرة البطولة
-================================= */
+========================================= */
 
 function renderBracket(){
 
@@ -2445,7 +2795,8 @@ s++
 const stage=
 document.createElement("div");
 
-stage.className="stage";
+stage.className=
+"stage";
 
 
 stage.innerHTML=
@@ -2581,9 +2932,9 @@ b.appendChild(stage);
 }
 
 
-/* =================================
+/* =========================================
    الإحصائيات
-================================= */
+========================================= */
 
 function updateStats(){
 
@@ -2639,9 +2990,9 @@ document
 }
 
 
-/* =================================
+/* =========================================
    الحفظ
-================================= */
+========================================= */
 
 function saveTournament(){
 
@@ -2663,9 +3014,9 @@ currentRound
 }
 
 
-/* =================================
+/* =========================================
    تحميل البطولة
-================================= */
+========================================= */
 
 function loadTournament(){
 
@@ -2734,9 +3085,9 @@ createPlayerInputs();
 }
 
 
-/* =================================
+/* =========================================
    عرض البطل
-================================= */
+========================================= */
 
 function showChampion(winner){
 
@@ -2789,9 +3140,9 @@ winner.name
 }
 
 
-/* =================================
+/* =========================================
    مؤثرات التتويج
-================================= */
+========================================= */
 
 function startCelebration(name){
 
@@ -2819,9 +3170,9 @@ createConfetti();
 }
 
 
-/* =================================
+/* =========================================
    إنشاء القصاصات
-================================= */
+========================================= */
 
 function createConfetti(){
 
@@ -2903,9 +3254,9 @@ overlay.appendChild(piece);
 }
 
 
-/* =================================
+/* =========================================
    إغلاق الاحتفال
-================================= */
+========================================= */
 
 function closeCelebration(){
 
@@ -2934,9 +3285,9 @@ el=>el.remove()
 }
 
 
-/* =================================
+/* =========================================
    بطولة جديدة
-================================= */
+========================================= */
 
 function newTournament(){
 
@@ -3000,9 +3351,9 @@ createPlayerInputs();
 }
 
 
-/* =================================
+/* =========================================
    تشغيل البرنامج
-================================= */
+========================================= */
 
 createPlayerInputs();
 
