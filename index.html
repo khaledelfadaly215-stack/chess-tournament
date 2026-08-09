@@ -344,9 +344,9 @@ margin:10px 0
 }
 
 
-/* =========================================
-   شاشة التتويج
-========================================= */
+/* =========================================================
+   شاشة الاحتفال
+========================================================= */
 
 #celebrationOverlay{
 position:fixed;
@@ -355,8 +355,8 @@ background:
 radial-gradient(
 circle at center,
 #fff9c4 0%,
-#fef3c7 20%,
-#1e293b 65%,
+#fef3c7 15%,
+#172033 55%,
 #020617 100%
 );
 display:flex;
@@ -375,14 +375,55 @@ visibility:visible
 }
 
 
-/* صندوق الاحتفال بالكامل في المنتصف */
+/* طبقة الألعاب النارية */
+
+#fireworksCanvas{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+z-index:1;
+pointer-events:none
+}
+
+
+/* وهج الشاشة عند الانفجار */
+
+#fireworkFlash{
+position:absolute;
+inset:0;
+z-index:2;
+pointer-events:none;
+background:#fff;
+opacity:0;
+mix-blend-mode:screen
+}
+
+#celebrationOverlay.flash #fireworkFlash{
+animation:fireworkFlash .28s ease-out
+}
+
+@keyframes fireworkFlash{
+
+0%{
+opacity:.55
+}
+
+100%{
+opacity:0
+}
+
+}
+
+
+/* صندوق التتويج */
 
 .celebration-box{
 width:min(90%,700px);
 text-align:center;
 color:#fff;
 position:relative;
-z-index:5;
+z-index:10;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -408,7 +449,9 @@ animation:trophyFloat 2s ease-in-out infinite
 font-size:25px;
 font-weight:bold;
 margin-top:10px;
-text-shadow:0 2px 8px #000
+text-shadow:
+0 2px 8px #000,
+0 0 15px #fff
 }
 
 
@@ -425,14 +468,34 @@ text-shadow:
 0 4px 8px #000;
 margin:15px 0;
 text-align:center;
-width:100%
+width:100%;
+animation:nameGlow 2s ease-in-out infinite
+}
+
+@keyframes nameGlow{
+
+0%,100%{
+text-shadow:
+0 0 10px #facc15,
+0 0 25px #f59e0b,
+0 0 45px #f59e0b,
+0 4px 8px #000
+}
+
+50%{
+text-shadow:
+0 0 15px #fff7a8,
+0 0 35px #facc15,
+0 0 65px #f59e0b,
+0 4px 8px #000
+}
+
 }
 
 
-/* =========================================
+/* =========================================================
    عبارة بطل بطولة الـ200K
-   في المنتصف تحت اسم البطل
-========================================= */
+========================================================= */
 
 .celebration-subtitle{
 position:relative;
@@ -473,11 +536,11 @@ text-shadow:
 overflow:hidden;
 
 animation:
-subtitleGlow 2.5s ease-in-out infinite;
+subtitleGlow 2.5s ease-in-out infinite
 }
 
 
-/* خط الإضاءة المتحرك حول العبارة */
+/* الضوء المتحرك */
 
 .celebration-subtitle::before{
 content:"";
@@ -505,11 +568,11 @@ borderLightMove 2.2s linear infinite;
 z-index:-1;
 
 filter:blur(3px);
-opacity:.95;
+opacity:.95
 }
 
 
-/* طبقة داخلية حتى تظل العبارة واضحة */
+/* الطبقة الداخلية */
 
 .celebration-subtitle::after{
 content:"";
@@ -525,11 +588,8 @@ rgba(120,83,7,.65),
 rgba(30,41,59,.95)
 );
 
-z-index:-1;
+z-index:-1
 }
-
-
-/* توهج العبارة */
 
 @keyframes subtitleGlow{
 
@@ -537,7 +597,7 @@ z-index:-1;
 box-shadow:
 0 0 8px #facc15,
 0 0 18px #f59e0b88,
-inset 0 0 15px #facc1533;
+inset 0 0 15px #facc1533
 }
 
 50%{
@@ -545,32 +605,27 @@ box-shadow:
 0 0 14px #fde047,
 0 0 32px #f59e0bcc,
 0 0 55px #facc1566,
-inset 0 0 22px #facc1555;
+inset 0 0 22px #facc1555
 }
 
 }
-
-
-/* حركة الضوء حول الحواف */
 
 @keyframes borderLightMove{
 
 0%{
-background-position:
-200% 0;
+background-position:200% 0
 }
 
 100%{
-background-position:
--200% 0;
+background-position:-200% 0
 }
 
 }
 
 
-/* =========================================
-   زر المتابعة في المنتصف
-========================================= */
+/* =========================================================
+   زر المتابعة
+========================================================= */
 
 .close-celebration{
 display:block;
@@ -600,7 +655,7 @@ transition:
 transform .2s ease,
 box-shadow .2s ease;
 
-text-align:center;
+text-align:center
 }
 
 .close-celebration:hover{
@@ -608,13 +663,13 @@ transform:translateY(-3px) scale(1.04);
 
 box-shadow:
 0 0 15px #fde047,
-0 0 35px #f59e0bcc;
+0 0 35px #f59e0bcc
 }
 
 
-/* =========================================
-   القصاصات الاحتفالية
-========================================= */
+/* =========================================================
+   Confetti
+========================================================= */
 
 .confetti{
 position:absolute;
@@ -622,13 +677,14 @@ top:-30px;
 width:10px;
 height:18px;
 opacity:.9;
-animation:fall linear forwards
+animation:fall linear forwards;
+z-index:3
 }
 
 
-/* =========================================
+/* =========================================================
    الحركات
-========================================= */
+========================================================= */
 
 @keyframes championZoom{
 
@@ -649,7 +705,6 @@ opacity:1
 
 }
 
-
 @keyframes trophyFloat{
 
 0%,100%{
@@ -661,7 +716,6 @@ transform:translateY(-15px) rotate(2deg)
 }
 
 }
-
 
 @keyframes fall{
 
@@ -676,9 +730,9 @@ transform:translateY(110vh) rotate(720deg)
 }
 
 
-/* =========================================
+/* =========================================================
    Responsive
-========================================= */
+========================================================= */
 
 @media(max-width:900px){
 
@@ -712,7 +766,6 @@ padding:11px 20px
 }
 
 }
-
 
 @media(max-width:600px){
 
@@ -796,9 +849,9 @@ Chess Tournament Manager
 <div class="container">
 
 
-<!-- =================================
+<!-- =====================================================
      شاشة اللاعبين
-================================= -->
+===================================================== -->
 
 <div
 id="playersScreen"
@@ -847,9 +900,9 @@ class="players-grid"
 </div>
 
 
-<!-- =================================
+<!-- =====================================================
      شاشة البطولة
-================================= -->
+===================================================== -->
 
 <div
 id="tournamentScreen"
@@ -872,7 +925,6 @@ class="hidden"
 
 </div>
 
-
 <div class="stat">
 
 المباريات
@@ -887,7 +939,6 @@ class="hidden"
 
 </div>
 
-
 <div class="stat">
 
 المحسومة
@@ -901,7 +952,6 @@ class="hidden"
 </span>
 
 </div>
-
 
 <div class="stat">
 
@@ -938,7 +988,6 @@ class="status"
 </div>
 
 </div>
-
 
 <button
 class="red"
@@ -1000,9 +1049,9 @@ class="summary"
 </div>
 
 
-<!-- =================================
+<!-- =====================================================
      شاشة البطل
-================================= -->
+===================================================== -->
 
 <div
 id="championScreen"
@@ -1037,47 +1086,48 @@ onclick="newTournament()"
 
 </div>
 
-
 </div>
 
 
-<!-- =================================
+<!-- =====================================================
      شاشة الاحتفال
-================================= -->
+===================================================== -->
 
 <div
 id="celebrationOverlay"
 >
 
-<div class="celebration-box">
+<!-- Canvas الألعاب النارية -->
 
+<canvas
+id="fireworksCanvas"
+></canvas>
+
+<!-- وميض الانفجار -->
+
+<div
+id="fireworkFlash"
+></div>
+
+
+<div class="celebration-box">
 
 <div class="trophy">
 🏆
 </div>
 
-
 <div class="celebration-title">
 🎉 مبروك! 🎉
 </div>
-
-
-<!-- اسم البطل -->
 
 <div
 class="celebration-name"
 id="celebrationName"
 ></div>
 
-
-<!-- العبارة تحت اسم البطل وفي المنتصف -->
-
 <div class="celebration-subtitle">
 هو بطل بطولة الـ200K
 </div>
-
-
-<!-- زر المتابعة في المنتصف -->
 
 <button
 class="close-celebration"
@@ -1085,7 +1135,6 @@ onclick="closeCelebration()"
 >
 متابعة
 </button>
-
 
 </div>
 
@@ -1099,9 +1148,24 @@ let rounds=[];
 let currentRound=0;
 
 
-/* =================================
+/* =====================================================
+   متغيرات الألعاب النارية
+===================================================== */
+
+let fireworksAnimation=null;
+
+let fireworksParticles=[];
+
+let fireworksRockets=[];
+
+let fireworksRunning=false;
+
+let audioContext=null;
+
+
+/* =====================================================
    إنشاء خانات اللاعبين
-================================= */
+===================================================== */
 
 function createPlayerInputs(){
 
@@ -1112,14 +1176,12 @@ document.getElementById(
 
 c.innerHTML="";
 
-
 for(let i=1;i<=32;i++){
 
 const row=
 document.createElement("div");
 
 row.className="player-row";
-
 
 row.innerHTML=`
 
@@ -1140,7 +1202,6 @@ placeholder="Rating"
 
 `;
 
-
 c.appendChild(row);
 
 }
@@ -1148,9 +1209,9 @@ c.appendChild(row);
 }
 
 
-/* =================================
+/* =====================================================
    تعبئة تجريبية
-================================= */
+===================================================== */
 
 function fillExample(){
 
@@ -1166,14 +1227,12 @@ document.getElementById(
 "rating-"+i
 );
 
-
 if(name){
 
 name.value=
 "Player "+i;
 
 }
-
 
 if(rating){
 
@@ -1184,7 +1243,6 @@ rating.value=
 
 }
 
-
 alert(
 "تمت تعبئة بيانات 32 لاعبًا."
 );
@@ -1192,14 +1250,13 @@ alert(
 }
 
 
-/* =================================
+/* =====================================================
    قراءة اللاعبين
-================================= */
+===================================================== */
 
 function readPlayers(){
 
 const list=[];
-
 
 for(let i=1;i<=32;i++){
 
@@ -1211,7 +1268,6 @@ document
 .value
 .trim();
 
-
 const rating=
 Number(
 document
@@ -1220,7 +1276,6 @@ document
 )
 .value
 )||0;
-
 
 if(!name){
 
@@ -1231,7 +1286,6 @@ alert(
 return null;
 
 }
-
 
 list.push({
 
@@ -1245,15 +1299,14 @@ rating:rating
 
 }
 
-
 return list;
 
 }
 
 
-/* =================================
+/* =====================================================
    إنشاء دور الـ32
-================================= */
+===================================================== */
 
 function createRound32(list){
 
@@ -1279,7 +1332,6 @@ const pairs=[
 
 ];
 
-
 return pairs.map(
 (p,i)=>({
 
@@ -1301,21 +1353,18 @@ draw:false
 }
 
 
-/* =================================
+/* =====================================================
    بدء البطولة
-================================= */
+===================================================== */
 
 function startTournament(){
 
 const list=
 readPlayers();
 
-
 if(!list)return;
 
-
 players=list;
-
 
 rounds=[{
 
@@ -1326,9 +1375,7 @@ createRound32(players)
 
 }];
 
-
 currentRound=0;
-
 
 saveTournament();
 
@@ -1339,9 +1386,9 @@ renderRound();
 }
 
 
-/* =================================
+/* =====================================================
    إظهار البطولة
-================================= */
+===================================================== */
 
 function showTournament(){
 
@@ -1352,14 +1399,12 @@ document
 .classList
 .add("hidden");
 
-
 document
 .getElementById(
 "championScreen"
 )
 .classList
 .add("hidden");
-
 
 document
 .getElementById(
@@ -1371,18 +1416,16 @@ document
 }
 
 
-/* =================================
+/* =====================================================
    عرض الجولة
-================================= */
+===================================================== */
 
 function renderRound(){
 
 const round=
 rounds[currentRound];
 
-
 if(!round)return;
-
 
 document
 .getElementById(
@@ -1390,7 +1433,6 @@ document
 )
 .textContent=
 round.name;
-
 
 renderMatches();
 
@@ -1403,15 +1445,14 @@ updateStats();
 }
 
 
-/* =================================
+/* =====================================================
    عرض المباريات
-================================= */
+===================================================== */
 
 function renderMatches(){
 
 const round=
 rounds[currentRound];
-
 
 const c=
 document.getElementById(
@@ -1419,7 +1460,6 @@ document.getElementById(
 );
 
 c.innerHTML="";
-
 
 round.matches.forEach(
 (m,i)=>{
@@ -1429,45 +1469,36 @@ document.createElement("div");
 
 box.className="match";
 
-
 let p1="player";
 
 let p2="player";
-
 
 if(
 m.winner===m.player1
 ){
 
 p1+=" winner";
-
 p2+=" loser";
 
 }
-
 
 if(
 m.winner===m.player2
 ){
 
 p2+=" winner";
-
 p1+=" loser";
 
 }
 
-
 if(m.draw){
 
 p1+=" draw";
-
 p2+=" draw";
 
 }
 
-
 let tie="";
-
 
 if(
 m.draw &&
@@ -1508,13 +1539,11 @@ onclick="resolveDraw(${i},2)"
 
 }
 
-
 box.innerHTML=`
 
 <div class="match-title">
 المباراة ${i+1}
 </div>
-
 
 <div class="${p1}">
 
@@ -1530,11 +1559,9 @@ Rating: ${m.player1.rating}
 
 </div>
 
-
 <div style="text-align:center">
 ⚔️ VS ⚔️
 </div>
-
 
 <div class="${p2}">
 
@@ -1550,7 +1577,6 @@ Rating: ${m.player2.rating}
 
 </div>
 
-
 ${
 m.result
 ?
@@ -1562,7 +1588,6 @@ m.result
 :""
 }
 
-
 <button
 class="green"
 onclick="setResult(${i},1)"
@@ -1570,7 +1595,6 @@ ${m.result?"disabled":""}
 >
 فوز الأول
 </button>
-
 
 <button
 class="orange"
@@ -1580,7 +1604,6 @@ ${m.result?"disabled":""}
 تعادل
 </button>
 
-
 <button
 class="green"
 onclick="setResult(${i},2)"
@@ -1588,7 +1611,6 @@ ${m.result?"disabled":""}
 >
 فوز الثاني
 </button>
-
 
 ${
 m.winner&&!m.draw
@@ -1602,11 +1624,9 @@ ${m.winner.name}
 :""
 }
 
-
 ${tie}
 
 `;
-
 
 c.appendChild(box);
 
@@ -1617,22 +1637,19 @@ c.appendChild(box);
 }
 
 
-/* =================================
+/* =====================================================
    تسجيل النتيجة
-================================= */
+===================================================== */
 
 function setResult(index,result){
 
 const round=
 rounds[currentRound];
 
-
 const m=
 round.matches[index];
 
-
 if(!m||m.result)return;
-
 
 if(result===1){
 
@@ -1666,7 +1683,6 @@ m.draw=true;
 
 }
 
-
 saveTournament();
 
 renderRound();
@@ -1676,9 +1692,9 @@ checkRoundFinished();
 }
 
 
-/* =================================
+/* =====================================================
    حسم التعادل
-================================= */
+===================================================== */
 
 function resolveDraw(index,player){
 
@@ -1686,9 +1702,7 @@ const m=
 rounds[currentRound]
 .matches[index];
 
-
 if(!m||!m.draw)return;
-
 
 m.winner=
 player===1
@@ -1697,9 +1711,7 @@ m.player1
 :
 m.player2;
 
-
 m.draw=false;
-
 
 m.result=
 player===1
@@ -1707,7 +1719,6 @@ player===1
 "1 - 0"
 :
 "0 - 1";
-
 
 saveTournament();
 
@@ -1718,9 +1729,9 @@ checkRoundFinished();
 }
 
 
-/* =================================
+/* =====================================================
    التحقق من انتهاء الجولة
-================================= */
+===================================================== */
 
 function checkRoundFinished(){
 
@@ -1742,22 +1753,18 @@ nextRound,
 }
 
 
-/* =================================
+/* =====================================================
    الجولة التالية
-================================= */
+===================================================== */
 
 function nextRound(){
 
 const current=
 rounds[currentRound];
 
-
 const winners=
 current.matches
 .map(m=>m.winner);
-
-
-/* النهائي */
 
 if(
 current.name==="النهائي" &&
@@ -1772,7 +1779,6 @@ return;
 
 }
 
-
 const names=[
 
 "دور الـ16",
@@ -1782,9 +1788,7 @@ const names=[
 
 ];
 
-
 const matches=[];
-
 
 for(
 let i=0;
@@ -1810,7 +1814,6 @@ draw:false
 
 }
 
-
 rounds.push({
 
 name:names[currentRound],
@@ -1819,9 +1822,7 @@ matches:matches
 
 });
 
-
 currentRound++;
-
 
 saveTournament();
 
@@ -1830,15 +1831,14 @@ renderRound();
 }
 
 
-/* =================================
+/* =====================================================
    الملخص
-================================= */
+===================================================== */
 
 function renderSummary(){
 
 const r=
 rounds[currentRound];
-
 
 const c=
 document.getElementById(
@@ -1846,7 +1846,6 @@ document.getElementById(
 );
 
 c.innerHTML="";
-
 
 r.matches.forEach(
 (m,i)=>{
@@ -1856,7 +1855,6 @@ document.createElement("div");
 
 row.className=
 "summary-row";
-
 
 row.innerHTML=`
 
@@ -1890,7 +1888,6 @@ m.winner
 
 `;
 
-
 c.appendChild(row);
 
 }
@@ -1900,9 +1897,9 @@ c.appendChild(row);
 }
 
 
-/* =================================
+/* =====================================================
    شجرة البطولة
-================================= */
+===================================================== */
 
 function renderBracket(){
 
@@ -1912,7 +1909,6 @@ document.getElementById(
 );
 
 b.innerHTML="";
-
 
 const stages=[
 
@@ -1925,7 +1921,6 @@ const stages=[
 
 ];
 
-
 for(
 let s=0;
 s<6;
@@ -1937,17 +1932,14 @@ document.createElement("div");
 
 stage.className="stage";
 
-
 stage.innerHTML=
 `<h3>${stages[s]}</h3>`;
-
 
 const list=
 document.createElement("div");
 
 list.className=
 "stage-list";
-
 
 if(s<rounds.length){
 
@@ -1960,42 +1952,34 @@ document.createElement("div");
 bm.className=
 "bracket-match";
 
-
 let p1class="bplayer";
 
 let p2class="bplayer";
-
 
 if(
 m.winner===m.player1
 ){
 
 p1class+=" win";
-
 p2class+=" lose";
 
 }
-
 
 if(
 m.winner===m.player2
 ){
 
 p2class+=" win";
-
 p1class+=" lose";
 
 }
 
-
 if(m.draw){
 
 p1class+=" draw";
-
 p2class+=" draw";
 
 }
-
 
 bm.innerHTML=`
 
@@ -2009,7 +1993,6 @@ ${m.player1.rating}
 
 </div>
 
-
 <div class="${p2class}">
 
 ${m.player2.name}
@@ -2022,15 +2005,11 @@ ${m.player2.rating}
 
 `;
 
-
 list.appendChild(bm);
 
 });
 
 }
-
-
-/* البطل */
 
 else if(
 s===5 &&
@@ -2044,7 +2023,6 @@ document.createElement("div");
 bm.className=
 "bracket-match";
 
-
 bm.innerHTML=`
 
 <div class="bplayer win">
@@ -2056,11 +2034,9 @@ ${rounds[4].matches[0].winner.name}
 
 `;
 
-
 list.appendChild(bm);
 
 }
-
 
 stage.appendChild(list);
 
@@ -2071,21 +2047,19 @@ b.appendChild(stage);
 }
 
 
-/* =================================
+/* =====================================================
    الإحصائيات
-================================= */
+===================================================== */
 
 function updateStats(){
 
 const r=
 rounds[currentRound];
 
-
 const done=
 r.matches
 .filter(m=>m.winner)
 .length;
-
 
 document
 .getElementById(
@@ -2094,14 +2068,12 @@ document
 .textContent=
 r.name;
 
-
 document
 .getElementById(
 "statMatches"
 )
 .textContent=
 r.matches.length;
-
 
 document
 .getElementById(
@@ -2110,14 +2082,12 @@ document
 .textContent=
 done;
 
-
 document
 .getElementById(
 "statPlayers"
 )
 .textContent=
 r.matches.length*2;
-
 
 document
 .getElementById(
@@ -2129,9 +2099,9 @@ document
 }
 
 
-/* =================================
+/* =====================================================
    الحفظ
-================================= */
+===================================================== */
 
 function saveTournament(){
 
@@ -2153,9 +2123,9 @@ currentRound
 }
 
 
-/* =================================
+/* =====================================================
    تحميل البطولة
-================================= */
+===================================================== */
 
 function loadTournament(){
 
@@ -2163,7 +2133,6 @@ const saved=
 localStorage.getItem(
 "chessTournament"
 );
-
 
 if(!saved){
 
@@ -2173,24 +2142,19 @@ return;
 
 }
 
-
 try{
 
 const d=
 JSON.parse(saved);
 
-
 players=
 d.players||[];
-
 
 rounds=
 d.rounds||[];
 
-
 currentRound=
 Number(d.currentRound)||0;
-
 
 if(
 rounds.length &&
@@ -2224,9 +2188,9 @@ createPlayerInputs();
 }
 
 
-/* =================================
+/* =====================================================
    عرض البطل
-================================= */
+===================================================== */
 
 function showChampion(winner){
 
@@ -2237,14 +2201,12 @@ document
 .classList
 .add("hidden");
 
-
 document
 .getElementById(
 "playersScreen"
 )
 .classList
 .add("hidden");
-
 
 document
 .getElementById(
@@ -2253,7 +2215,6 @@ document
 .classList
 .remove("hidden");
 
-
 document
 .getElementById(
 "championName"
@@ -2261,11 +2222,7 @@ document
 .textContent=
 winner.name;
 
-
 saveTournament();
-
-
-/* تشغيل احتفال النهائي */
 
 setTimeout(
 function(){
@@ -2281,9 +2238,9 @@ winner.name
 }
 
 
-/* =================================
-   مؤثرات التتويج
-================================= */
+/* =====================================================
+   تشغيل الاحتفال
+===================================================== */
 
 function startCelebration(name){
 
@@ -2292,28 +2249,28 @@ document.getElementById(
 "celebrationOverlay"
 );
 
-
 const nameElement=
 document.getElementById(
 "celebrationName"
 );
 
-
 nameElement.textContent=
 name;
 
-
 overlay.classList.add("show");
 
-
 createConfetti();
+
+startFireworks();
+
+startFireworkSound();
 
 }
 
 
-/* =================================
+/* =====================================================
    إنشاء القصاصات
-================================= */
+===================================================== */
 
 function createConfetti(){
 
@@ -2322,15 +2279,11 @@ document.getElementById(
 "celebrationOverlay"
 );
 
-
-/* إزالة القديمة */
-
 overlay
 .querySelectorAll(".confetti")
 .forEach(
 el=>el.remove()
 );
-
 
 const colors=[
 
@@ -2344,10 +2297,9 @@ const colors=[
 
 ];
 
-
 for(
 let i=0;
-i<120;
+i<140;
 i++
 ){
 
@@ -2357,10 +2309,8 @@ document.createElement("div");
 piece.className=
 "confetti";
 
-
 piece.style.left=
 Math.random()*100+"%";
-
 
 piece.style.background=
 colors[
@@ -2369,26 +2319,20 @@ Math.random()*colors.length
 )
 ];
 
-
 piece.style.width=
 (6+Math.random()*8)+"px";
-
 
 piece.style.height=
 (10+Math.random()*14)+"px";
 
-
 piece.style.animationDuration=
 (3+Math.random()*4)+"s";
-
 
 piece.style.animationDelay=
 (Math.random()*1.5)+"s";
 
-
 piece.style.transform=
 `rotate(${Math.random()*360}deg)`;
-
 
 overlay.appendChild(piece);
 
@@ -2397,9 +2341,841 @@ overlay.appendChild(piece);
 }
 
 
-/* =================================
+/* =========================================================
+   الألعاب النارية
+========================================================= */
+
+function startFireworks(){
+
+const canvas=
+document.getElementById(
+"fireworksCanvas"
+);
+
+const ctx=
+canvas.getContext("2d");
+
+function resizeCanvas(){
+
+canvas.width=
+window.innerWidth;
+
+canvas.height=
+window.innerHeight;
+
+}
+
+resizeCanvas();
+
+window.addEventListener(
+"resize",
+resizeCanvas
+);
+
+
+/* تنظيف القديم */
+
+fireworksParticles=[];
+
+fireworksRockets=[];
+
+fireworksRunning=true;
+
+
+/* ---------------------------------------------------------
+   إنشاء صاروخ
+--------------------------------------------------------- */
+
+function createRocket(side){
+
+const width=canvas.width;
+
+const height=canvas.height;
+
+let startX;
+
+let targetX;
+
+if(side==="left"){
+
+startX=
+width*0.08+
+Math.random()*width*0.08;
+
+targetX=
+width*(0.18+
+Math.random()*0.22);
+
+}
+
+else{
+
+startX=
+width*0.92-
+Math.random()*width*0.08;
+
+targetX=
+width*(0.58+
+Math.random()*0.22);
+
+}
+
+const targetY=
+height*(0.18+
+Math.random()*0.30);
+
+fireworksRockets.push({
+
+x:startX,
+
+y:height+20,
+
+targetX:targetX,
+
+targetY:targetY,
+
+speed:7+Math.random()*3,
+
+side:side,
+
+color:getFireworkColor(),
+
+trail:[]
+
+});
+
+}
+
+
+/* ---------------------------------------------------------
+   ألوان الألعاب النارية
+--------------------------------------------------------- */
+
+function getFireworkColor(){
+
+const colors=[
+
+"#facc15",
+"#fde047",
+"#38bdf8",
+"#60a5fa",
+"#fb7185",
+"#f472b6",
+"#a78bfa",
+"#c084fc",
+"#34d399",
+"#4ade80",
+"#ffffff",
+"#fb923c"
+
+];
+
+return colors[
+Math.floor(
+Math.random()*colors.length
+)
+];
+
+}
+
+
+/* ---------------------------------------------------------
+   إطلاق الألعاب النارية باستمرار
+--------------------------------------------------------- */
+
+let lastLaunch=0;
+
+function launchLoop(time){
+
+if(!fireworksRunning)return;
+
+if(
+time-lastLaunch>650
+){
+
+createRocket(
+Math.random()<.5
+?
+"left"
+:
+"right"
+);
+
+lastLaunch=time;
+
+}
+
+}
+
+
+/* ---------------------------------------------------------
+   انفجار
+--------------------------------------------------------- */
+
+function explodeRocket(rocket){
+
+const count=
+70+
+Math.floor(
+Math.random()*45
+);
+
+for(
+let i=0;
+i<count;
+i++
+){
+
+const angle=
+Math.random()*
+Math.PI*
+2;
+
+const speed=
+1.5+
+Math.random()*6;
+
+fireworksParticles.push({
+
+x:rocket.x,
+
+y:rocket.y,
+
+vx:Math.cos(angle)*speed,
+
+vy:Math.sin(angle)*speed,
+
+gravity:.055+
+Math.random()*.035,
+
+friction:.985,
+
+life:70+
+Math.random()*55,
+
+maxLife:120,
+
+size:1+
+Math.random()*2.5,
+
+color:
+Math.random()<.18
+?
+"#ffffff"
+:
+rocket.color,
+
+glow:
+10+
+Math.random()*15
+
+});
+
+}
+
+
+/* نجوم إضافية */
+
+for(
+let i=0;
+i<20;
+i++
+){
+
+const angle=
+Math.random()*
+Math.PI*
+2;
+
+const speed=
+4+
+Math.random()*4;
+
+fireworksParticles.push({
+
+x:rocket.x,
+
+y:rocket.y,
+
+vx:Math.cos(angle)*speed,
+
+vy:Math.sin(angle)*speed,
+
+gravity:.08,
+
+friction:.98,
+
+life:40+
+Math.random()*35,
+
+maxLife:75,
+
+size:1+
+Math.random()*2,
+
+color:"#ffffff",
+
+glow:15
+
+});
+
+}
+
+
+/* وميض */
+
+triggerFlash();
+
+}
+
+
+/* ---------------------------------------------------------
+   وميض
+--------------------------------------------------------- */
+
+function triggerFlash(){
+
+const overlay=
+document.getElementById(
+"celebrationOverlay"
+);
+
+overlay.classList.remove("flash");
+
+/* إعادة تشغيل animation */
+
+void overlay.offsetWidth;
+
+overlay.classList.add("flash");
+
+}
+
+
+/* ---------------------------------------------------------
+   رسم الصواريخ
+--------------------------------------------------------- */
+
+function drawRocket(ctx,rocket){
+
+ctx.save();
+
+ctx.globalAlpha=.9;
+
+ctx.shadowBlur=15;
+
+ctx.shadowColor=rocket.color;
+
+ctx.fillStyle=rocket.color;
+
+ctx.beginPath();
+
+ctx.arc(
+rocket.x,
+rocket.y,
+2.5,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+ctx.restore();
+
+}
+
+
+/* ---------------------------------------------------------
+   رسم الشرارات
+--------------------------------------------------------- */
+
+function drawParticle(ctx,p){
+
+const alpha=
+Math.max(
+0,
+p.life/p.maxLife
+);
+
+ctx.save();
+
+ctx.globalAlpha=alpha;
+
+ctx.fillStyle=p.color;
+
+ctx.shadowBlur=p.glow;
+
+ctx.shadowColor=p.color;
+
+ctx.beginPath();
+
+ctx.arc(
+p.x,
+p.y,
+p.size,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+ctx.restore();
+
+}
+
+
+/* ---------------------------------------------------------
+   الحلقة الرئيسية
+--------------------------------------------------------- */
+
+function animateFireworks(time){
+
+if(!fireworksRunning){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+return;
+
+}
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+
+/* إطلاق */
+
+launchLoop(time);
+
+
+/* تحديث الصواريخ */
+
+for(
+let i=fireworksRockets.length-1;
+i>=0;
+i--
+){
+
+const r=
+fireworksRockets[i];
+
+r.trail.push({
+
+x:r.x,
+
+y:r.y
+
+});
+
+if(
+r.trail.length>8
+){
+
+r.trail.shift();
+
+}
+
+
+/* الحركة نحو الهدف */
+
+const dx=
+r.targetX-r.x;
+
+const dy=
+r.targetY-r.y;
+
+const distance=
+Math.sqrt(
+dx*dx+
+dy*dy
+);
+
+if(
+distance<
+r.speed+3
+){
+
+explodeRocket(r);
+
+fireworksRockets.splice(i,1);
+
+continue;
+
+}
+
+r.x+=
+dx/distance*
+r.speed;
+
+r.y+=
+dy/distance*
+r.speed;
+
+
+/* رسم أثر الصاروخ */
+
+ctx.save();
+
+ctx.strokeStyle=
+r.color;
+
+ctx.shadowColor=
+r.color;
+
+ctx.shadowBlur=10;
+
+ctx.lineWidth=2;
+
+ctx.beginPath();
+
+for(
+let t=0;
+t<r.trail.length;
+t++
+){
+
+const point=
+r.trail[t];
+
+if(t===0){
+
+ctx.moveTo(
+point.x,
+point.y
+);
+
+}
+else{
+
+ctx.lineTo(
+point.x,
+point.y
+);
+
+}
+
+}
+
+ctx.stroke();
+
+ctx.restore();
+
+drawRocket(ctx,r);
+
+}
+
+
+/* تحديث الشرارات */
+
+for(
+let i=fireworksParticles.length-1;
+i>=0;
+i--
+){
+
+const p=
+fireworksParticles[i];
+
+p.vx*=p.friction;
+
+p.vy*=p.friction;
+
+p.vy+=p.gravity;
+
+p.x+=p.vx;
+
+p.y+=p.vy;
+
+p.life--;
+
+drawParticle(ctx,p);
+
+if(p.life<=0){
+
+fireworksParticles.splice(i,1);
+
+}
+
+}
+
+
+/* استدعاء الإطار */
+
+fireworksAnimation=
+requestAnimationFrame(
+animateFireworks
+);
+
+}
+
+animateFireworks(0);
+
+
+/* ---------------------------------------------------------
+   إطلاق أولي من الجهتين
+--------------------------------------------------------- */
+
+setTimeout(
+()=>{
+if(fireworksRunning)
+createRocket("left");
+},
+250
+);
+
+setTimeout(
+()=>{
+if(fireworksRunning)
+createRocket("right");
+},
+500
+);
+
+setTimeout(
+()=>{
+if(fireworksRunning)
+createRocket("left");
+},
+900
+);
+
+setTimeout(
+()=>{
+if(fireworksRunning)
+createRocket("right");
+},
+1200
+);
+
+}
+
+
+/* =========================================================
+   الصوت - ألعاب نارية Web Audio
+========================================================= */
+
+function startFireworkSound(){
+
+try{
+
+if(!audioContext){
+
+audioContext=
+new(
+window.AudioContext||
+window.webkitAudioContext
+)();
+
+}
+
+if(
+audioContext.state==="suspended"
+){
+
+audioContext.resume();
+
+}
+
+
+/* سلسلة أصوات الألعاب النارية */
+
+scheduleFireworkSound();
+
+}
+catch(e){
+
+console.log(
+"Audio not available",
+e
+);
+
+}
+
+}
+
+
+/* =========================================================
+   إنشاء صوت انفجار
+========================================================= */
+
+function createExplosionSound(){
+
+if(!audioContext)return;
+
+const now=
+audioContext.currentTime;
+
+
+/* ---------------------------------------------------------
+   Noise
+--------------------------------------------------------- */
+
+const bufferSize=
+audioContext.sampleRate*.6;
+
+const buffer=
+audioContext.createBuffer(
+1,
+bufferSize,
+audioContext.sampleRate
+);
+
+const data=
+buffer.getChannelData(0);
+
+for(
+let i=0;
+i<bufferSize;
+i++
+){
+
+data[i]=
+(Math.random()*2-1)*
+(1-i/bufferSize);
+
+}
+
+const noise=
+audioContext.createBufferSource();
+
+noise.buffer=buffer;
+
+
+/* فلتر */
+
+const filter=
+audioContext.createBiquadFilter();
+
+filter.type="lowpass";
+
+filter.frequency.setValueAtTime(
+900,
+now
+);
+
+filter.frequency.exponentialRampToValueAtTime(
+120,
+now+.5
+);
+
+
+/* Gain */
+
+const gain=
+audioContext.createGain();
+
+gain.gain.setValueAtTime(
+.0001,
+now
+);
+
+gain.gain.exponentialRampToValueAtTime(
+.65,
+now+.015
+);
+
+gain.gain.exponentialRampToValueAtTime(
+.0001,
+now+.55
+);
+
+noise
+.connect(filter)
+.connect(gain)
+.connect(
+audioContext.destination
+);
+
+noise.start(now);
+
+noise.stop(now+.6);
+
+
+/* ---------------------------------------------------------
+   دقة صوت منخفضة تعطي إحساس الانفجار
+--------------------------------------------------------- */
+
+const osc=
+audioContext.createOscillator();
+
+const oscGain=
+audioContext.createGain();
+
+osc.type="sine";
+
+osc.frequency.setValueAtTime(
+90,
+now
+);
+
+osc.frequency.exponentialRampToValueAtTime(
+35,
+now+.45
+);
+
+oscGain.gain.setValueAtTime(
+.0001,
+now
+);
+
+oscGain.gain.exponentialRampToValueAtTime(
+.35,
+now+.01
+);
+
+oscGain.gain.exponentialRampToValueAtTime(
+.0001,
+now+.5
+);
+
+osc
+.connect(oscGain)
+.connect(
+audioContext.destination
+);
+
+osc.start(now);
+
+osc.stop(now+.55);
+
+}
+
+
+/* =========================================================
+   جدولة أصوات متعددة
+========================================================= */
+
+let soundSequenceTimer=null;
+
+function scheduleFireworkSound(){
+
+if(!fireworksRunning)return;
+
+createExplosionSound();
+
+const delay=
+500+
+Math.random()*750;
+
+soundSequenceTimer=
+setTimeout(
+scheduleFireworkSound,
+delay
+);
+
+}
+
+
+/* =========================================================
    إغلاق الاحتفال
-================================= */
+========================================================= */
 
 function closeCelebration(){
 
@@ -2408,8 +3184,11 @@ document.getElementById(
 "celebrationOverlay"
 );
 
-
 overlay.classList.remove("show");
+
+stopFireworks();
+
+stopFireworkSound();
 
 
 setTimeout(
@@ -2428,9 +3207,89 @@ el=>el.remove()
 }
 
 
-/* =================================
+/* =========================================================
+   إيقاف الألعاب النارية
+========================================================= */
+
+function stopFireworks(){
+
+fireworksRunning=false;
+
+fireworksParticles=[];
+
+fireworksRockets=[];
+
+
+if(
+fireworksAnimation
+){
+
+cancelAnimationFrame(
+fireworksAnimation
+);
+
+fireworksAnimation=null;
+
+}
+
+
+const canvas=
+document.getElementById(
+"fireworksCanvas"
+);
+
+if(canvas){
+
+const ctx=
+canvas.getContext("2d");
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+}
+
+}
+
+
+/* =========================================================
+   إيقاف الصوت
+========================================================= */
+
+function stopFireworkSound(){
+
+if(soundSequenceTimer){
+
+clearTimeout(
+soundSequenceTimer
+);
+
+soundSequenceTimer=null;
+
+}
+
+if(audioContext){
+
+try{
+
+audioContext.close();
+
+}
+catch(e){}
+
+audioContext=null;
+
+}
+
+}
+
+
+/* =========================================================
    بطولة جديدة
-================================= */
+========================================================= */
 
 function newTournament(){
 
@@ -2444,18 +3303,19 @@ return;
 
 }
 
+stopFireworks();
+
+stopFireworkSound();
 
 localStorage.removeItem(
 "chessTournament"
 );
-
 
 players=[];
 
 rounds=[];
 
 currentRound=0;
-
 
 document
 .getElementById(
@@ -2464,14 +3324,12 @@ document
 .classList
 .add("hidden");
 
-
 document
 .getElementById(
 "championScreen"
 )
 .classList
 .add("hidden");
-
 
 document
 .getElementById(
@@ -2480,7 +3338,6 @@ document
 .classList
 .remove("show");
 
-
 document
 .getElementById(
 "playersScreen"
@@ -2488,15 +3345,14 @@ document
 .classList
 .remove("hidden");
 
-
 createPlayerInputs();
 
 }
 
 
-/* =================================
+/* =========================================================
    تشغيل البرنامج
-================================= */
+========================================================= */
 
 createPlayerInputs();
 
