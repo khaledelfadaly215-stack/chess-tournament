@@ -2,8 +2,13 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Chess Tournament Manager</title>
 
@@ -31,6 +36,11 @@ header h1 {
     margin: 0;
 }
 
+header p {
+    margin: 8px 0 0;
+    color: #cbd5e1;
+}
+
 .container {
     width: 95%;
     max-width: 1100px;
@@ -47,7 +57,8 @@ header h1 {
 
 .players-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
     gap: 10px;
 }
 
@@ -63,6 +74,7 @@ input {
     padding: 10px;
     border: 1px solid #cbd5e1;
     border-radius: 7px;
+    font-size: 15px;
 }
 
 button {
@@ -106,7 +118,8 @@ button:disabled {
 
 .matches {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(290px,1fr));
+    grid-template-columns:
+        repeat(auto-fit, minmax(290px, 1fr));
     gap: 15px;
 }
 
@@ -144,10 +157,20 @@ button:disabled {
 .result {
     text-align: center;
     font-weight: bold;
-    padding: 8px;
+    padding: 9px;
     margin: 8px 0;
     border-radius: 7px;
     background: #e2e8f0;
+}
+
+.qualified {
+    text-align: center;
+    padding: 8px;
+    border-radius: 7px;
+    background: #dcfce7;
+    color: #166534;
+    font-weight: bold;
+    margin-top: 8px;
 }
 
 .status {
@@ -177,17 +200,68 @@ button:disabled {
     text-align: center;
 }
 
+.round-summary {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+}
+
+.summary-row {
+    display: grid;
+    grid-template-columns:
+        40px 1fr 80px 1fr 120px;
+    gap: 8px;
+    padding: 8px;
+    border-bottom: 1px solid #e2e8f0;
+    align-items: center;
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+.small-result {
+    text-align: center;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+
+    .player-row {
+        grid-template-columns: 30px 1fr 80px;
+    }
+
+    .summary-row {
+        grid-template-columns: 30px 1fr 70px 1fr;
+    }
+
+    .summary-qualified {
+        grid-column: 2 / -1;
+    }
+
+    button {
+        width: calc(100% - 10px);
+    }
+
+}
+
 </style>
+
 </head>
 
 
 <body>
 
+
 <header>
 
 <h1>♟️ Chess Tournament Manager</h1>
 
-<p>إدارة بطولة الشطرنج</p>
+<p>
+إدارة بطولة الشطرنج
+</p>
 
 </header>
 
@@ -195,9 +269,14 @@ button:disabled {
 <div class="container">
 
 
-<!-- اللاعبين -->
+<!-- ============================= -->
+<!-- شاشة اللاعبين -->
+<!-- ============================= -->
 
-<div class="card" id="playersScreen">
+<div
+    class="card"
+    id="playersScreen"
+>
 
 <h2>👥 اللاعبين المتأهلين</h2>
 
@@ -206,63 +285,94 @@ button:disabled {
 </p>
 
 <div
-class="players-grid"
-id="playersContainer">
-</div>
+    class="players-grid"
+    id="playersContainer"
+></div>
 
 <br>
 
 <button
-type="button"
-class="gray"
-onclick="fillExample()">
-
+    type="button"
+    class="gray"
+    onclick="fillExample()"
+>
 🧪 تعبئة تجريبية
-
 </button>
 
 
 <button
-type="button"
-class="blue"
-onclick="startTournament()">
-
+    type="button"
+    class="blue"
+    onclick="startTournament()"
+>
 🎯 إنشاء البطولة
-
 </button>
 
 </div>
 
 
-<!-- البطولة -->
+<!-- ============================= -->
+<!-- شاشة البطولة -->
+<!-- ============================= -->
 
 <div
-class="card hidden"
-id="tournamentScreen">
+    class="card hidden"
+    id="tournamentScreen"
+>
 
 <h2 id="roundTitle">
 دور الـ32
 </h2>
 
 <div
-class="status"
-id="status">
+    class="status"
+    id="status"
+>
 لم يتم حسم أي مباراة.
 </div>
 
-<div
-class="matches"
-id="matchesContainer">
-</div>
-
-</div>
-
-
-<!-- البطل -->
 
 <div
-class="card hidden"
-id="championScreen">
+    class="matches"
+    id="matchesContainer"
+></div>
+
+
+<div
+    class="round-summary"
+    id="roundSummary"
+>
+
+<h3>
+📋 نتائج الجولة
+</h3>
+
+<div id="summaryContainer"></div>
+
+</div>
+
+
+<br>
+
+<button
+    type="button"
+    class="red"
+    onclick="newTournament()"
+>
+🗑️ بدء بطولة جديدة
+</button>
+
+</div>
+
+
+<!-- ============================= -->
+<!-- شاشة البطل -->
+<!-- ============================= -->
+
+<div
+    class="card hidden"
+    id="championScreen"
+>
 
 <div class="champion">
 
@@ -276,6 +386,16 @@ id="championScreen">
 
 <span id="championName"></span>
 
+<br><br>
+
+<button
+    type="button"
+    class="red"
+    onclick="newTournament()"
+>
+🗑️ بطولة جديدة
+</button>
+
 </div>
 
 </div>
@@ -287,6 +407,10 @@ id="championScreen">
 <script>
 
 
+/* =================================
+   بيانات البطولة
+================================= */
+
 let players = [];
 
 let rounds = [];
@@ -294,628 +418,703 @@ let rounds = [];
 let currentRound = 0;
 
 
-/* إنشاء اللاعبين */
+/* =================================
+   إنشاء خانات اللاعبين
+================================= */
 
 function createPlayerInputs() {
 
-const container =
-document.getElementById("playersContainer");
+    const container =
+        document.getElementById(
+            "playersContainer"
+        );
 
-container.innerHTML = "";
-
-for(let i=1;i<=32;i++){
-
-const row =
-document.createElement("div");
-
-row.className = "player-row";
-
-row.innerHTML = `
-
-<strong>${i}</strong>
-
-<input
-type="text"
-id="name-${i}"
-placeholder="اسم اللاعب">
-
-<input
-type="number"
-id="rating-${i}"
-placeholder="Rating">
-
-`;
-
-container.appendChild(row);
-
-}
-
-}
+    container.innerHTML = "";
 
 
-/* تعبئة تجريبية */
+    for (
+        let i = 1;
+        i <= 32;
+        i++
+    ) {
 
-function fillExample(){
+        const row =
+            document.createElement("div");
 
-for(let i=1;i<=32;i++){
+        row.className =
+            "player-row";
 
-document.getElementById("name-"+i).value =
-"Player "+i;
 
-document.getElementById("rating-"+i).value =
-2300-((i-1)*10);
+        row.innerHTML = `
 
-}
+            <strong>${i}</strong>
 
-alert("تمت تعبئة بيانات 32 لاعبًا");
+            <input
+                type="text"
+                id="name-${i}"
+                placeholder="اسم اللاعب"
+            >
+
+            <input
+                type="number"
+                id="rating-${i}"
+                placeholder="Rating"
+            >
+
+        `;
+
+
+        container.appendChild(row);
+
+    }
 
 }
 
 
-/* قراءة اللاعبين */
+/* =================================
+   تعبئة تجريبية
+================================= */
 
-function readPlayers(){
+function fillExample() {
 
-const list=[];
+    for (
+        let i = 1;
+        i <= 32;
+        i++
+    ) {
 
-for(let i=1;i<=32;i++){
+        const nameInput =
+            document.getElementById(
+                "name-" + i
+            );
 
-const name =
-document.getElementById("name-"+i)
-.value.trim();
-
-const rating =
-Number(
-document.getElementById("rating-"+i).value
-);
-
-if(!name){
-
-alert("أدخل اسم اللاعب رقم "+i);
-
-return null;
-
-}
-
-list.push({
-
-seed:i,
-
-name:name,
-
-rating:rating
-
-});
-
-}
-
-return list;
-
-}
+        const ratingInput =
+            document.getElementById(
+                "rating-" + i
+            );
 
 
-/* مباريات دور 32 */
+        if (nameInput) {
 
-function createRound32(list){
+            nameInput.value =
+                "Player " + i;
 
-const pairs=[
+        }
 
-[1,32],
-[16,17],
-[8,25],
-[9,24],
-[4,29],
-[13,20],
-[5,28],
-[12,21],
 
-[2,31],
-[15,18],
-[7,26],
-[10,23],
-[3,30],
-[14,19],
-[6,27],
-[11,22]
+        if (ratingInput) {
 
-];
+            ratingInput.value =
+                2300 - ((i - 1) * 10);
 
-return pairs.map(function(pair,index){
+        }
 
-return {
+    }
 
-number:index+1,
 
-player1:list[pair[0]-1],
-
-player2:list[pair[1]-1],
-
-winner:null,
-
-result:null,
-
-draw:false
-
-};
-
-});
+    alert(
+        "تمت تعبئة بيانات 32 لاعبًا"
+    );
 
 }
 
 
-/* بدء البطولة */
+/* =================================
+   قراءة اللاعبين
+================================= */
 
-function startTournament(){
+function readPlayers() {
 
-const list=readPlayers();
-
-if(!list)return;
-
-players=list;
-
-rounds=[{
-
-name:"دور الـ32",
-
-matches:createRound32(players)
-
-}];
-
-currentRound=0;
-
-document
-.getElementById("playersScreen")
-.classList.add("hidden");
-
-document
-.getElementById("tournamentScreen")
-.classList.remove("hidden");
-
-renderRound();
-
-}
+    const list = [];
 
 
-/* عرض الجولة */
+    for (
+        let i = 1;
+        i <= 32;
+        i++
+    ) {
 
-function renderRound(){
-
-const round=rounds[currentRound];
-
-document.getElementById("roundTitle")
-.textContent=round.name;
-
-const container=
-document.getElementById("matchesContainer");
-
-container.innerHTML="";
-
-
-round.matches.forEach(function(match,index){
-
-const box=
-document.createElement("div");
-
-box.className="match";
+        const name =
+            document
+                .getElementById(
+                    "name-" + i
+                )
+                .value
+                .trim();
 
 
-let p1Class="player";
-
-let p2Class="player";
-
-
-if(match.winner===match.player1)
-p1Class+=" winner";
-
-if(match.winner===match.player2)
-p2Class+=" winner";
+        const rating =
+            Number(
+                document
+                    .getElementById(
+                        "rating-" + i
+                    )
+                    .value
+            );
 
 
-if(match.draw){
+        if (name === "") {
 
-p1Class+=" draw";
+            alert(
+                "من فضلك أدخل اسم اللاعب رقم " +
+                i
+            );
 
-p2Class+=" draw";
+            return null;
+
+        }
+
+
+        list.push({
+
+            seed: i,
+
+            name: name,
+
+            rating: rating
+
+        });
+
+    }
+
+
+    return list;
 
 }
 
 
-let resultHTML="";
+/* =================================
+   إنشاء مباريات دور الـ32
+================================= */
+
+function createRound32(list) {
+
+    const pairs = [
+
+        [1,32],
+        [16,17],
+        [8,25],
+        [9,24],
+        [4,29],
+        [13,20],
+        [5,28],
+        [12,21],
+
+        [2,31],
+        [15,18],
+        [7,26],
+        [10,23],
+        [3,30],
+        [14,19],
+        [6,27],
+        [11,22]
+
+    ];
 
 
-if(match.result){
+    return pairs.map(
+        function(pair, index) {
 
-resultHTML=`
+            return {
 
-<div class="result">
+                number: index + 1,
 
-النتيجة:
-${match.result}
+                player1:
+                    list[pair[0] - 1],
 
-</div>
+                player2:
+                    list[pair[1] - 1],
 
-`;
+                winner: null,
 
-}
+                result: null,
 
+                draw: false
 
-let tieBreakHTML="";
+            };
 
-
-if(match.draw && !match.winner){
-
-tieBreakHTML=`
-
-<div class="tie-break">
-
-<strong>
-المباراة انتهت بالتعادل
-</strong>
-
-<br>
-
-اختر اللاعب المتأهل:
-
-<br>
-
-<button
-class="green"
-onclick="resolveDraw(${index},1)">
-
-يتأهل ${match.player1.name}
-
-</button>
-
-<button
-class="green"
-onclick="resolveDraw(${index},2)">
-
-يتأهل ${match.player2.name}
-
-</button>
-
-</div>
-
-`;
+        }
+    );
 
 }
 
 
-box.innerHTML=`
+/* =================================
+   بدء البطولة
+================================= */
 
-<div class="match-title">
+function startTournament() {
 
-المباراة ${index+1}
-
-</div>
-
-
-<div class="${p1Class}">
-
-<strong>
-${match.player1.seed}.
-</strong>
-
-${match.player1.name}
-
-<br>
-
-<small>
-Rating: ${match.player1.rating}
-</small>
-
-</div>
+    const list =
+        readPlayers();
 
 
-<div style="text-align:center">
+    if (!list) {
 
-⚔️ VS ⚔️
+        return;
 
-</div>
-
-
-<div class="${p2Class}">
-
-<strong>
-${match.player2.seed}.
-</strong>
-
-${match.player2.name}
-
-<br>
-
-<small>
-Rating: ${match.player2.rating}
-</small>
-
-</div>
+    }
 
 
-${resultHTML}
+    players = list;
 
 
-<button
-class="green"
-onclick="setResult(${index},1)"
-${match.result ? "disabled":""}>
+    rounds = [
 
-فوز اللاعب الأول
+        {
 
-</button>
+            name: "دور الـ32",
 
+            matches:
+                createRound32(players)
 
-<button
-class="orange"
-onclick="setResult(${index},0)"
-${match.result ? "disabled":""}>
+        }
 
-تعادل
-
-</button>
+    ];
 
 
-<button
-class="green"
-onclick="setResult(${index},2)"
-${match.result ? "disabled":""}>
-
-فوز اللاعب الثاني
-
-</button>
+    currentRound = 0;
 
 
-${tieBreakHTML}
-
-`;
+    saveTournament();
 
 
-container.appendChild(box);
+    document
+        .getElementById(
+            "playersScreen"
+        )
+        .classList
+        .add("hidden");
 
-});
+
+    document
+        .getElementById(
+            "tournamentScreen"
+        )
+        .classList
+        .remove("hidden");
 
 
-updateStatus();
+    renderRound();
 
 }
 
 
-/* تسجيل النتيجة */
+/* =================================
+   عرض الجولة
+================================= */
 
-function setResult(index,result){
+function renderRound() {
 
-const match=
-rounds[currentRound].matches[index];
-
-if(!match)return;
-
-if(match.result)return;
+    const round =
+        rounds[currentRound];
 
 
-if(result===1){
+    if (!round) {
 
-match.result="1 - 0";
+        return;
 
-match.winner=match.player1;
+    }
+
+
+    document
+        .getElementById(
+            "roundTitle"
+        )
+        .textContent =
+        round.name;
+
+
+    const container =
+        document.getElementById(
+            "matchesContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    round.matches.forEach(
+        function(match, index) {
+
+            const box =
+                document.createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "match";
+
+
+            let p1Class =
+                "player";
+
+
+            let p2Class =
+                "player";
+
+
+            if (
+                match.winner ===
+                match.player1
+            ) {
+
+                p1Class +=
+                    " winner";
+
+            }
+
+
+            if (
+                match.winner ===
+                match.player2
+            ) {
+
+                p2Class +=
+                    " winner";
+
+            }
+
+
+            if (match.draw) {
+
+                p1Class +=
+                    " draw";
+
+                p2Class +=
+                    " draw";
+
+            }
+
+
+            let resultHTML = "";
+
+
+            if (match.result) {
+
+                resultHTML = `
+
+                    <div class="result">
+
+                        النتيجة:
+                        ${match.result}
+
+                    </div>
+
+                `;
+
+            }
+
+
+            let qualifiedHTML = "";
+
+
+            if (
+                match.winner &&
+                !match.draw
+            ) {
+
+                qualifiedHTML = `
+
+                    <div class="qualified">
+
+                        ✅ المتأهل:
+                        ${match.winner.name}
+
+                    </div>
+
+                `;
+
+            }
+
+
+            let tieBreakHTML = "";
+
+
+            if (
+                match.draw &&
+                !match.winner
+            ) {
+
+                tieBreakHTML = `
+
+                    <div class="tie-break">
+
+                        <strong>
+                            المباراة انتهت بالتعادل
+                        </strong>
+
+                        <br>
+
+                        اختر اللاعب المتأهل:
+
+                        <br>
+
+                        <button
+                            type="button"
+                            class="green"
+                            onclick="resolveDraw(${index},1)"
+                        >
+
+                            يتأهل
+                            ${match.player1.name}
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="green"
+                            onclick="resolveDraw(${index},2)"
+                        >
+
+                            يتأهل
+                            ${match.player2.name}
+
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            box.innerHTML = `
+
+                <div class="match-title">
+
+                    المباراة ${index + 1}
+
+                </div>
+
+
+                <div
+                    class="${p1Class}"
+                >
+
+                    <strong>
+                        ${match.player1.seed}.
+                    </strong>
+
+                    ${match.player1.name}
+
+                    <br>
+
+                    <small>
+
+                        Rating:
+                        ${match.player1.rating}
+
+                    </small>
+
+                </div>
+
+
+                <div
+                    style="text-align:center"
+                >
+
+                    ⚔️ VS ⚔️
+
+                </div>
+
+
+                <div
+                    class="${p2Class}"
+                >
+
+                    <strong>
+                        ${match.player2.seed}.
+                    </strong>
+
+                    ${match.player2.name}
+
+                    <br>
+
+                    <small>
+
+                        Rating:
+                        ${match.player2.rating}
+
+                    </small>
+
+                </div>
+
+
+                ${resultHTML}
+
+
+                <button
+                    type="button"
+                    class="green"
+                    onclick="setResult(${index},1)"
+                    ${match.result ? "disabled" : ""}
+                >
+
+                    فوز اللاعب الأول
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="orange"
+                    onclick="setResult(${index},0)"
+                    ${match.result ? "disabled" : ""}
+                >
+
+                    تعادل
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="green"
+                    onclick="setResult(${index},2)"
+                    ${match.result ? "disabled" : ""}
+                >
+
+                    فوز اللاعب الثاني
+
+                </button>
+
+
+                ${qualifiedHTML}
+
+
+                ${tieBreakHTML}
+
+            `;
+
+
+            container.appendChild(box);
+
+        }
+    );
+
+
+    updateStatus();
+
+    renderSummary();
 
 }
 
-else if(result===2){
 
-match.result="0 - 1";
+/* =================================
+   تسجيل نتيجة المباراة
+================================= */
 
-match.winner=match.player2;
+function setResult(
+    index,
+    result
+) {
 
-}
-
-else{
-
-match.result="½ - ½";
-
-match.draw=true;
-
-}
+    const round =
+        rounds[currentRound];
 
 
-renderRound();
+    if (!round) {
+
+        return;
+
+    }
 
 
-checkRoundFinished();
-
-}
-
-
-/* حسم التعادل */
-
-function resolveDraw(index,player){
-
-const match=
-rounds[currentRound].matches[index];
-
-if(!match)return;
-
-if(!match.draw)return;
-
-if(player===1){
-
-match.winner=match.player1;
-
-}
-
-else{
-
-match.winner=match.player2;
-
-}
-
-match.draw=false;
-
-renderRound();
-
-checkRoundFinished();
-
-}
+    const match =
+        round.matches[index];
 
 
-/* فحص انتهاء الجولة */
+    if (!match) {
 
-function checkRoundFinished(){
+        alert(
+            "المباراة غير موجودة"
+        );
 
-const round=
-rounds[currentRound];
+        return;
 
-const finished=
-round.matches.every(function(match){
-
-return match.winner!==null;
-
-});
+    }
 
 
-if(finished){
+    if (match.result) {
 
-setTimeout(function(){
+        return;
 
-nextRound();
-
-},700);
-
-}
-
-}
+    }
 
 
-/* الجولة التالية */
+    if (result === 1) {
 
-function nextRound(){
+        match.result =
+            "1 - 0";
 
-const current=
-rounds[currentRound];
+        match.winner =
+            match.player1;
 
-const winners=
-current.matches.map(function(match){
+        match.draw = false;
 
-return match.winner;
-
-});
+    }
 
 
-if(winners.length===1){
+    else if (result === 2) {
 
-document
-.getElementById("tournamentScreen")
-.classList.add("hidden");
+        match.result =
+            "0 - 1";
 
-document
-.getElementById("championScreen")
-.classList.remove("hidden");
+        match.winner =
+            match.player2;
 
-document
-.getElementById("championName")
-.textContent=
-winners[0].name;
+        match.draw = false;
 
-return;
+    }
+
+
+    else {
+
+        match.result =
+            "½ - ½";
+
+        match.winner =
+            null;
+
+        match.draw =
+            true;
+
+    }
+
+
+    saveTournament();
+
+    renderRound();
+
+    checkRoundFinished();
 
 }
 
 
-const names=[
+/* =================================
+   حسم التعادل
+================================= */
 
-"دور الـ16",
+function resolveDraw(
+    index,
+    player
+) {
 
-"ربع النهائي",
-
-"نصف النهائي",
-
-"النهائي"
-
-];
-
-
-const nextMatches=[];
+    const match =
+        rounds[currentRound]
+            .matches[index];
 
 
-for(let i=0;i<winners.length;i+=2){
+    if (!match) {
 
-nextMatches.push({
+        return;
 
-number:(i/2)+1,
-
-player1:winners[i],
-
-player2:winners[i+1],
-
-winner:null,
-
-result:null,
-
-draw:false
-
-});
-
-}
+    }
 
 
-rounds.push({
+    if (!match.draw) {
 
-name:names[currentRound],
-
-matches:nextMatches
-
-});
-
-
-currentRound++;
-
-renderRound();
-
-}
-
-
-/* تحديث الحالة */
-
-function updateStatus(){
-
-const round=
-rounds[currentRound];
-
-const total=
-round.matches.length;
-
-let finished=0;
-
-round.matches.forEach(function(match){
-
-if(match.winner!==null){
-
-finished++;
-
-}
-
-});
-
-
-document
-.getElementById("status")
-.textContent=
-"تم حسم تأهل "+
-finished+
-" من "+
-total+
-" مباريات في "+
-round.name+
-".";
-
-}
-
-
-/* تشغيل البرنامج */
-
-createPlayerInputs();
-
-
-</script>
-
-</body>
-
-</html>
+        return
