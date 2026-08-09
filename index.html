@@ -436,8 +436,7 @@ function renderRound() {
 
             <button
     class="success"
-    data-match="${index}"
-    data-player="1"
+    onclick="selectWinner(${index}, 1)"
     ${match.winner ? "disabled" : ""}
 >
     فوز اللاعب الأول
@@ -455,8 +454,7 @@ function renderRound() {
 
             <button
     class="success"
-    data-match="${index}"
-    data-player="2"
+    onclick="selectWinner(${index}, 2)"
     ${match.winner ? "disabled" : ""}
 >
     فوز اللاعب الثاني
