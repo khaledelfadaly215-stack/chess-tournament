@@ -344,33 +344,28 @@ margin:10px 0
 }
 
 
-/* =========================================================
-   شاشة الاحتفال
-========================================================= */
+/* =========================================
+   شاشة التتويج
+========================================= */
 
 #celebrationOverlay{
 position:fixed;
 inset:0;
-
 background:
 radial-gradient(
 circle at center,
 #fff9c4 0%,
-#fef3c7 18%,
-#334155 58%,
+#fef3c7 20%,
+#1e293b 65%,
 #020617 100%
 );
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 z-index:9999;
 overflow:hidden;
-
 opacity:0;
 visibility:hidden;
-
 transition:opacity .6s ease
 }
 
@@ -380,70 +375,34 @@ visibility:visible
 }
 
 
-/* =========================================================
-   إضاءة خفيفة خلف الاحتفال
-========================================================= */
-
-#celebrationOverlay::before{
-content:"";
-position:absolute;
-inset:0;
-
-background:
-radial-gradient(
-circle at 50% 48%,
-rgba(255,255,255,.16),
-transparent 45%
-);
-
-pointer-events:none;
-}
-
-
-/* =========================================================
-   صندوق الاحتفال
-========================================================= */
+/* صندوق الاحتفال بالكامل في المنتصف */
 
 .celebration-box{
 width:min(90%,700px);
-
 text-align:center;
-
 color:#fff;
-
 position:relative;
-
-z-index:50;
-
+z-index:5;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-
-animation:
-championZoom 1.1s ease forwards
+animation:championZoom 1.1s ease forwards
 }
 
 
-/* =========================================================
-   الكأس
-========================================================= */
+/* الكأس */
 
 .trophy{
 font-size:110px;
-
 filter:
 drop-shadow(0 0 15px #facc15)
 drop-shadow(0 0 35px #f59e0b);
-
-animation:
-trophyFloat 2s ease-in-out infinite
+animation:trophyFloat 2s ease-in-out infinite
 }
 
 
-/* =========================================================
-   مبروك
-========================================================= */
+/* مبروك */
 
 .celebration-title{
 font-size:25px;
@@ -453,51 +412,38 @@ text-shadow:0 2px 8px #000
 }
 
 
-/* =========================================================
-   اسم البطل
-========================================================= */
+/* اسم البطل */
 
 .celebration-name{
 font-size:52px;
 font-weight:900;
-
 color:#facc15;
-
 text-shadow:
 0 0 10px #facc15,
 0 0 25px #f59e0b,
 0 0 45px #f59e0b,
 0 4px 8px #000;
-
 margin:15px 0;
-
 text-align:center;
-
 width:100%
 }
 
 
-/* =========================================================
-   عبارة البطولة
-========================================================= */
+/* =========================================
+   عبارة بطل بطولة الـ200K
+   في المنتصف تحت اسم البطل
+========================================= */
 
 .celebration-subtitle{
 position:relative;
-
 display:block;
-
 width:max-content;
-
 max-width:90%;
-
 margin:5px auto 0;
-
 padding:13px 28px;
 
 font-size:21px;
-
 font-weight:800;
-
 line-height:1.5;
 
 color:#fff8dc;
@@ -511,7 +457,6 @@ rgba(120,83,7,.72)
 );
 
 border:2px solid #facc15;
-
 border-radius:14px;
 
 text-align:center;
@@ -528,21 +473,16 @@ text-shadow:
 overflow:hidden;
 
 animation:
-subtitleGlow 2.5s ease-in-out infinite
+subtitleGlow 2.5s ease-in-out infinite;
 }
 
 
-/* =========================================================
-   خط الضوء
-========================================================= */
+/* خط الإضاءة المتحرك حول العبارة */
 
 .celebration-subtitle::before{
 content:"";
-
 position:absolute;
-
 inset:-3px;
-
 border-radius:16px;
 
 background:
@@ -565,20 +505,16 @@ borderLightMove 2.2s linear infinite;
 z-index:-1;
 
 filter:blur(3px);
-
-opacity:.95
+opacity:.95;
 }
 
 
-/* طبقة داخلية */
+/* طبقة داخلية حتى تظل العبارة واضحة */
 
 .celebration-subtitle::after{
 content:"";
-
 position:absolute;
-
 inset:2px;
-
 border-radius:11px;
 
 background:
@@ -589,17 +525,55 @@ rgba(120,83,7,.65),
 rgba(30,41,59,.95)
 );
 
-z-index:-1
+z-index:-1;
 }
 
 
-/* =========================================================
-   زر المتابعة
-========================================================= */
+/* توهج العبارة */
+
+@keyframes subtitleGlow{
+
+0%,100%{
+box-shadow:
+0 0 8px #facc15,
+0 0 18px #f59e0b88,
+inset 0 0 15px #facc1533;
+}
+
+50%{
+box-shadow:
+0 0 14px #fde047,
+0 0 32px #f59e0bcc,
+0 0 55px #facc1566,
+inset 0 0 22px #facc1555;
+}
+
+}
+
+
+/* حركة الضوء حول الحواف */
+
+@keyframes borderLightMove{
+
+0%{
+background-position:
+200% 0;
+}
+
+100%{
+background-position:
+-200% 0;
+}
+
+}
+
+
+/* =========================================
+   زر المتابعة في المنتصف
+========================================= */
 
 .close-celebration{
 display:block;
-
 margin:28px auto 0;
 
 background:
@@ -614,7 +588,6 @@ color:#111827;
 padding:13px 35px;
 
 font-size:17px;
-
 font-weight:800;
 
 border-radius:10px;
@@ -628,9 +601,6 @@ transform .2s ease,
 box-shadow .2s ease;
 
 text-align:center;
-
-position:relative;
-z-index:100
 }
 
 .close-celebration:hover{
@@ -638,169 +608,27 @@ transform:translateY(-3px) scale(1.04);
 
 box-shadow:
 0 0 15px #fde047,
-0 0 35px #f59e0bcc
+0 0 35px #f59e0bcc;
 }
 
 
-/* =========================================================
-   القصاصات
-========================================================= */
+/* =========================================
+   القصاصات الاحتفالية
+========================================= */
 
 .confetti{
 position:absolute;
-
 top:-30px;
-
 width:10px;
 height:18px;
-
 opacity:.9;
-
-animation:
-fall linear forwards;
-
-z-index:10
+animation:fall linear forwards
 }
 
 
-/* =========================================================
-   الألعاب النارية
-========================================================= */
-
-
-/* الحاوية */
-
-.fireworks-container{
-position:absolute;
-
-inset:0;
-
-overflow:hidden;
-
-pointer-events:none;
-
-z-index:15
-}
-
-
-/* كل لعبة نارية */
-
-.firework{
-position:absolute;
-
-bottom:5px;
-
-width:4px;
-height:4px;
-
-border-radius:50%;
-
-background:#fff;
-
-box-shadow:
-0 0 5px #fff,
-0 0 12px #facc15;
-
-animation:
-fireworkLaunch 1s cubic-bezier(.2,.7,.3,1) forwards;
-
-opacity:0
-}
-
-
-/* مواقع الإطلاق */
-
-.firework.left{
-left:10%;
-}
-
-.firework.right{
-right:10%;
-}
-
-
-/* الصاروخ */
-
-.firework::before{
-content:"";
-
-position:absolute;
-
-width:3px;
-height:3px;
-
-border-radius:50%;
-
-background:#fff;
-
-box-shadow:
-0 0 6px #fff,
-0 0 12px #fde047;
-
-top:0;
-left:0
-}
-
-
-/* الانفجار */
-
-.firework.exploded{
-width:0;
-height:0;
-
-background:transparent;
-
-box-shadow:none;
-
-animation:none;
-
-opacity:1
-}
-
-
-/* شرارات الانفجار */
-
-.spark{
-position:absolute;
-
-width:4px;
-height:4px;
-
-border-radius:50%;
-
-background:#fff;
-
-box-shadow:
-0 0 5px currentColor,
-0 0 12px currentColor;
-
-animation:
-sparkFly 1.15s ease-out forwards
-}
-
-
-/* دخان خفيف */
-
-.smoke{
-position:absolute;
-
-width:10px;
-height:10px;
-
-border-radius:50%;
-
-background:rgba(255,255,255,.10);
-
-filter:blur(4px);
-
-animation:
-smokeFade 1.5s ease-out forwards
-}
-
-
-/* =========================================================
+/* =========================================
    الحركات
-========================================================= */
+========================================= */
 
 @keyframes championZoom{
 
@@ -848,136 +676,9 @@ transform:translateY(110vh) rotate(720deg)
 }
 
 
-/* =========================================================
-   إطلاق الألعاب النارية
-========================================================= */
-
-@keyframes fireworkLaunch{
-
-0%{
-transform:
-translateY(0)
-scale(.7);
-
-opacity:0
-}
-
-10%{
-opacity:1
-}
-
-70%{
-opacity:1
-}
-
-100%{
-transform:
-translateY(-55vh)
-scale(1);
-
-opacity:1
-}
-
-}
-
-
-/* =========================================================
-   حركة الشرارات
-========================================================= */
-
-@keyframes sparkFly{
-
-0%{
-transform:
-translate(0,0)
-scale(1);
-
-opacity:1
-}
-
-100%{
-transform:
-translate(
-var(--dx),
-var(--dy)
-)
-scale(.15);
-
-opacity:0
-}
-
-}
-
-
-/* =========================================================
-   الدخان
-========================================================= */
-
-@keyframes smokeFade{
-
-0%{
-transform:
-scale(.4)
-translateY(0);
-
-opacity:.25
-}
-
-100%{
-transform:
-scale(2.5)
-translateY(-45px);
-
-opacity:0
-}
-
-}
-
-
-/* =========================================================
-   توهج العبارة
-========================================================= */
-
-@keyframes subtitleGlow{
-
-0%,100%{
-box-shadow:
-0 0 8px #facc15,
-0 0 18px #f59e0b88,
-inset 0 0 15px #facc1533
-}
-
-50%{
-box-shadow:
-0 0 14px #fde047,
-0 0 32px #f59e0bcc,
-0 0 55px #facc1566,
-inset 0 0 22px #facc1555
-}
-
-}
-
-
-/* =========================================================
-   حركة الضوء
-========================================================= */
-
-@keyframes borderLightMove{
-
-0%{
-background-position:200% 0
-}
-
-100%{
-background-position:-200% 0
-}
-
-}
-
-
-/* =========================================================
+/* =========================================
    Responsive
-========================================================= */
+========================================= */
 
 @media(max-width:900px){
 
@@ -1008,14 +709,6 @@ font-size:38px
 .celebration-subtitle{
 font-size:18px;
 padding:11px 20px
-}
-
-.firework.left{
-left:6%
-}
-
-.firework.right{
-right:6%
 }
 
 }
@@ -1057,14 +750,6 @@ max-width:92%
 font-size:16px;
 padding:12px 30px;
 margin-top:22px
-}
-
-.firework.left{
-left:4%
-}
-
-.firework.right{
-right:4%
 }
 
 }
@@ -1364,15 +1049,6 @@ onclick="newTournament()"
 id="celebrationOverlay"
 >
 
-
-<!-- الألعاب النارية -->
-
-<div
-id="fireworksContainer"
-class="fireworks-container"
-></div>
-
-
 <div class="celebration-box">
 
 
@@ -1394,14 +1070,14 @@ id="celebrationName"
 ></div>
 
 
-<!-- العبارة -->
+<!-- العبارة تحت اسم البطل وفي المنتصف -->
 
 <div class="celebration-subtitle">
 هو بطل بطولة الـ200K
 </div>
 
 
-<!-- زر المتابعة -->
+<!-- زر المتابعة في المنتصف -->
 
 <button
 class="close-celebration"
@@ -1423,376 +1099,9 @@ let rounds=[];
 let currentRound=0;
 
 
-/* =========================================================
-   نظام الصوت
-   صوت ألعاب نارية هادئ يتم توليده بواسطة Web Audio API
-========================================================= */
-
-let audioContext=null;
-
-
-/* إنشاء AudioContext */
-
-function getAudioContext(){
-
-try{
-
-if(!audioContext){
-
-const AudioCtx=
-window.AudioContext ||
-window.webkitAudioContext;
-
-if(!AudioCtx)return null;
-
-audioContext=
-new AudioCtx();
-
-}
-
-if(
-audioContext.state==="suspended"
-){
-
-audioContext.resume();
-
-}
-
-return audioContext;
-
-}
-
-catch(e){
-
-return null;
-
-}
-
-}
-
-
-/* =========================================================
-   ضوضاء منخفضة طبيعية للانفجار
-========================================================= */
-
-function createNoiseBuffer(ctx,duration){
-
-const buffer=
-ctx.createBuffer(
-1,
-ctx.sampleRate*duration,
-ctx.sampleRate
-);
-
-const data=
-buffer.getChannelData(0);
-
-
-/* ضوضاء ناعمة */
-
-for(
-let i=0;
-i<data.length;
-i++
-){
-
-data[i]=
-Math.random()*2-1;
-
-}
-
-return buffer;
-
-}
-
-
-/* =========================================================
-   صوت انفجار ألعاب نارية هادئ
-========================================================= */
-
-function fireworkBoom(){
-
-const ctx=
-getAudioContext();
-
-if(!ctx)return;
-
-
-/* وقت البداية */
-
-const now=
-ctx.currentTime;
-
-
-/* -------------------------------
-   طبقة الانفجار المنخفض
--------------------------------- */
-
-const boom=
-ctx.createOscillator();
-
-const boomGain=
-ctx.createGain();
-
-const boomFilter=
-ctx.createBiquadFilter();
-
-
-boom.type="sine";
-
-boom.frequency.setValueAtTime(
-85,
-now
-);
-
-boom.frequency.exponentialRampToValueAtTime(
-38,
-now+0.55
-);
-
-
-boomFilter.type="lowpass";
-
-boomFilter.frequency.value=
-500;
-
-
-boomGain.gain.setValueAtTime(
-0.0001,
-now
-);
-
-boomGain.gain.exponentialRampToValueAtTime(
-0.20,
-now+0.015
-);
-
-boomGain.gain.exponentialRampToValueAtTime(
-0.0001,
-now+0.65
-);
-
-
-boom.connect(boomFilter);
-boomFilter.connect(boomGain);
-boomGain.connect(ctx.destination);
-
-
-boom.start(now);
-boom.stop(now+0.7);
-
-
-/* -------------------------------
-   جسم الانفجار / الرعد الخفيف
--------------------------------- */
-
-const noise=
-ctx.createBufferSource();
-
-noise.buffer=
-createNoiseBuffer(ctx,0.8);
-
-
-const noiseFilter=
-ctx.createBiquadFilter();
-
-noiseFilter.type="lowpass";
-
-noiseFilter.frequency.setValueAtTime(
-1700,
-now
-);
-
-noiseFilter.frequency.exponentialRampToValueAtTime(
-350,
-now+0.5
-);
-
-
-const noiseGain=
-ctx.createGain();
-
-noiseGain.gain.setValueAtTime(
-0.0001,
-now
-);
-
-noiseGain.gain.exponentialRampToValueAtTime(
-0.11,
-now+0.01
-);
-
-noiseGain.gain.exponentialRampToValueAtTime(
-0.0001,
-now+0.6
-);
-
-
-noise.connect(noiseFilter);
-noiseFilter.connect(noiseGain);
-noiseGain.connect(ctx.destination);
-
-
-noise.start(now);
-noise.stop(now+0.7);
-
-
-/* -------------------------------
-   فرقعات صغيرة خفيفة
--------------------------------- */
-
-for(
-let i=0;
-i<4;
-i++
-){
-
-const crack=
-ctx.createBufferSource();
-
-crack.buffer=
-createNoiseBuffer(ctx,0.08);
-
-
-const crackFilter=
-ctx.createBiquadFilter();
-
-crackFilter.type="bandpass";
-
-crackFilter.frequency.value=
-1800+Math.random()*1500;
-
-crackFilter.Q.value=1.2;
-
-
-const crackGain=
-ctx.createGain();
-
-const delay=
-0.08+i*0.055+Math.random()*0.035;
-
-
-crackGain.gain.setValueAtTime(
-0.0001,
-now+delay
-);
-
-crackGain.gain.exponentialRampToValueAtTime(
-0.035,
-now+delay+0.008
-);
-
-crackGain.gain.exponentialRampToValueAtTime(
-0.0001,
-now+delay+0.07
-);
-
-
-crack.connect(crackFilter);
-crackFilter.connect(crackGain);
-crackGain.connect(ctx.destination);
-
-
-crack.start(now+delay);
-crack.stop(now+delay+0.09);
-
-}
-
-}
-
-
-/* =========================================================
-   صوت الصعود / إطلاق الصاروخ
-========================================================= */
-
-function fireworkLaunchSound(){
-
-const ctx=
-getAudioContext();
-
-if(!ctx)return;
-
-
-const now=
-ctx.currentTime;
-
-
-/* صوت صفير منخفض */
-
-const osc=
-ctx.createOscillator();
-
-const gain=
-ctx.createGain();
-
-
-osc.type="sine";
-
-osc.frequency.setValueAtTime(
-260,
-now
-);
-
-osc.frequency.exponentialRampToValueAtTime(
-900,
-now+0.65
-);
-
-
-gain.gain.setValueAtTime(
-0.0001,
-now
-);
-
-gain.gain.exponentialRampToValueAtTime(
-0.035,
-now+0.08
-);
-
-gain.gain.exponentialRampToValueAtTime(
-0.0001,
-now+0.68
-);
-
-
-osc.connect(gain);
-gain.connect(ctx.destination);
-
-
-osc.start(now);
-osc.stop(now+0.7);
-
-}
-
-
-/* =========================================================
-   صوت الألعاب النارية الكامل
-========================================================= */
-
-function playFireworkSound(){
-
-/*
-   إطلاق بسيط ثم انفجار بعده.
-   الصوت متعمد يكون منخفض حتى لا يكون مزعجًا.
-*/
-
-fireworkLaunchSound();
-
-setTimeout(
-function(){
-
-fireworkBoom();
-
-},
-600
-);
-
-}
-
-
-/* =========================================================
+/* =================================
    إنشاء خانات اللاعبين
-========================================================= */
+================================= */
 
 function createPlayerInputs(){
 
@@ -1839,9 +1148,9 @@ c.appendChild(row);
 }
 
 
-/* =========================================================
+/* =================================
    تعبئة تجريبية
-========================================================= */
+================================= */
 
 function fillExample(){
 
@@ -1883,9 +1192,9 @@ alert(
 }
 
 
-/* =========================================================
+/* =================================
    قراءة اللاعبين
-========================================================= */
+================================= */
 
 function readPlayers(){
 
@@ -1942,9 +1251,9 @@ return list;
 }
 
 
-/* =========================================================
+/* =================================
    إنشاء دور الـ32
-========================================================= */
+================================= */
 
 function createRound32(list){
 
@@ -1992,9 +1301,9 @@ draw:false
 }
 
 
-/* =========================================================
+/* =================================
    بدء البطولة
-========================================================= */
+================================= */
 
 function startTournament(){
 
@@ -2030,9 +1339,9 @@ renderRound();
 }
 
 
-/* =========================================================
+/* =================================
    إظهار البطولة
-========================================================= */
+================================= */
 
 function showTournament(){
 
@@ -2062,9 +1371,9 @@ document
 }
 
 
-/* =========================================================
+/* =================================
    عرض الجولة
-========================================================= */
+================================= */
 
 function renderRound(){
 
@@ -2094,9 +1403,9 @@ updateStats();
 }
 
 
-/* =========================================================
+/* =================================
    عرض المباريات
-========================================================= */
+================================= */
 
 function renderMatches(){
 
@@ -2308,19 +1617,11 @@ c.appendChild(box);
 }
 
 
-/* =========================================================
+/* =================================
    تسجيل النتيجة
-========================================================= */
+================================= */
 
 function setResult(index,result){
-
-/*
-   تهيئة الصوت من ضغطة المستخدم.
-   هذا مهم لأن بعض المتصفحات تمنع الصوت التلقائي.
-*/
-
-getAudioContext();
-
 
 const round=
 rounds[currentRound];
@@ -2375,14 +1676,11 @@ checkRoundFinished();
 }
 
 
-/* =========================================================
+/* =================================
    حسم التعادل
-========================================================= */
+================================= */
 
 function resolveDraw(index,player){
-
-getAudioContext();
-
 
 const m=
 rounds[currentRound]
@@ -2420,9 +1718,9 @@ checkRoundFinished();
 }
 
 
-/* =========================================================
+/* =================================
    التحقق من انتهاء الجولة
-========================================================= */
+================================= */
 
 function checkRoundFinished(){
 
@@ -2444,9 +1742,9 @@ nextRound,
 }
 
 
-/* =========================================================
+/* =================================
    الجولة التالية
-========================================================= */
+================================= */
 
 function nextRound(){
 
@@ -2532,9 +1830,9 @@ renderRound();
 }
 
 
-/* =========================================================
+/* =================================
    الملخص
-========================================================= */
+================================= */
 
 function renderSummary(){
 
@@ -2602,9 +1900,9 @@ c.appendChild(row);
 }
 
 
-/* =========================================================
+/* =================================
    شجرة البطولة
-========================================================= */
+================================= */
 
 function renderBracket(){
 
@@ -2773,9 +2071,9 @@ b.appendChild(stage);
 }
 
 
-/* =========================================================
+/* =================================
    الإحصائيات
-========================================================= */
+================================= */
 
 function updateStats(){
 
@@ -2831,9 +2129,9 @@ document
 }
 
 
-/* =========================================================
+/* =================================
    الحفظ
-========================================================= */
+================================= */
 
 function saveTournament(){
 
@@ -2855,9 +2153,9 @@ currentRound
 }
 
 
-/* =========================================================
+/* =================================
    تحميل البطولة
-========================================================= */
+================================= */
 
 function loadTournament(){
 
@@ -2926,9 +2224,9 @@ createPlayerInputs();
 }
 
 
-/* =========================================================
+/* =================================
    عرض البطل
-========================================================= */
+================================= */
 
 function showChampion(winner){
 
@@ -2967,9 +2265,7 @@ winner.name;
 saveTournament();
 
 
-/*
-   بدء الاحتفال بعد ظهور شاشة البطل.
-*/
+/* تشغيل احتفال النهائي */
 
 setTimeout(
 function(){
@@ -2985,9 +2281,9 @@ winner.name
 }
 
 
-/* =========================================================
-   بدء الاحتفال
-========================================================= */
+/* =================================
+   مؤثرات التتويج
+================================= */
 
 function startCelebration(name){
 
@@ -3012,20 +2308,12 @@ overlay.classList.add("show");
 
 createConfetti();
 
-
-/*
-   الألعاب النارية تبدأ بعد ظهور الشاشة
-   حتى يكون المشهد أكثر طبيعية.
-*/
-
-startFireworks();
-
 }
 
 
-/* =========================================================
+/* =================================
    إنشاء القصاصات
-========================================================= */
+================================= */
 
 function createConfetti(){
 
@@ -3109,358 +2397,9 @@ overlay.appendChild(piece);
 }
 
 
-/* =========================================================
-   إطلاق لعبة نارية من أحد الجانبين
-========================================================= */
-
-function launchFirework(side,delay){
-
-setTimeout(
-function(){
-
-const container=
-document.getElementById(
-"fireworksContainer"
-);
-
-
-const rocket=
-document.createElement("div");
-
-rocket.className=
-"firework "+side;
-
-
-/*
-   موضع أفقي عشوائي بسيط
-*/
-
-if(side==="left"){
-
-rocket.style.left=
-(5+Math.random()*15)+"%";
-
-}
-else{
-
-rocket.style.right=
-(5+Math.random()*15)+"%";
-
-}
-
-
-/*
-   ارتفاع الانفجار
-*/
-
-const height=
-42+Math.random()*18;
-
-rocket.style.animationDuration=
-(.75+Math.random()*.25)+"s";
-
-
-container.appendChild(rocket);
-
-
-/*
-   تشغيل صوت الصعود
-*/
-
-fireworkLaunchSound();
-
-
-/*
-   بعد وصول الصاروخ إلى السماء
-   ننفذ الانفجار.
-*/
-
-setTimeout(
-function(){
-
-explodeFirework(
-rocket,
-side,
-height
-);
-
-},
-700+Math.random()*100
-);
-
-
-},
-delay
-);
-
-}
-
-
-/* =========================================================
-   انفجار اللعبة النارية
-========================================================= */
-
-function explodeFirework(
-rocket,
-side,
-height
-){
-
-if(!rocket)return;
-
-
-/*
-   تحويل الصاروخ إلى نقطة انفجار
-*/
-
-rocket.classList.add("exploded");
-
-
-/*
-   موقع الانفجار
-*/
-
-rocket.style.bottom=
-height+"vh";
-
-
-if(side==="left"){
-
-rocket.style.left=
-(8+Math.random()*17)+"%";
-
-}
-else{
-
-rocket.style.right=
-(8+Math.random()*17)+"%";
-
-}
-
-
-/*
-   صوت انفجار هادئ
-*/
-
-fireworkBoom();
-
-
-/*
-   ألوان طبيعية
-*/
-
-const colors=[
-
-"#ffffff",
-"#facc15",
-"#fde047",
-"#f8fafc",
-"#fb923c",
-"#f472b6"
-
-];
-
-
-/*
-   عدد الشرارات
-   ليس كبيرًا حتى لا يصبح المنظر مبالغًا فيه.
-*/
-
-const count=
-28+Math.floor(
-Math.random()*14
-);
-
-
-for(
-let i=0;
-i<count;
-i++
-){
-
-const spark=
-document.createElement("div");
-
-spark.className=
-"spark";
-
-
-spark.style.color=
-colors[
-Math.floor(
-Math.random()*colors.length
-)
-];
-
-
-spark.style.background=
-colors[
-Math.floor(
-Math.random()*colors.length
-)
-];
-
-
-/*
-   توزيع دائري
-*/
-
-const angle=
-(i/count)*Math.PI*2+
-(Math.random()-.5)*.25;
-
-
-const distance=
-55+Math.random()*95;
-
-
-const dx=
-Math.cos(angle)*distance;
-
-
-const dy=
-Math.sin(angle)*distance;
-
-
-/*
-   جعل بعض الشرارات تسقط إلى أسفل
-*/
-
-const gravity=
-35+Math.random()*55;
-
-
-spark.style.setProperty(
-"--dx",
-dx+"px"
-);
-
-spark.style.setProperty(
-"--dy",
-(dy+gravity)+"px"
-);
-
-
-spark.style.animationDuration=
-(.85+Math.random()*.55)+"s";
-
-
-spark.style.animationDelay=
-(Math.random()*.05)+"s";
-
-
-rocket.appendChild(spark);
-
-}
-
-
-/*
-   دخان خفيف في مركز الانفجار
-*/
-
-for(
-let i=0;
-i<5;
-i++
-){
-
-const smoke=
-document.createElement("div");
-
-smoke.className="smoke";
-
-
-smoke.style.left=
-(-4+Math.random()*8)+"px";
-
-smoke.style.top=
-(-4+Math.random()*8)+"px";
-
-
-smoke.style.animationDelay=
-(i*.05)+"s";
-
-
-rocket.appendChild(smoke);
-
-}
-
-
-/*
-   إزالة اللعبة بعد انتهاء التأثير.
-*/
-
-setTimeout(
-function(){
-
-if(rocket&&rocket.parentNode){
-
-rocket.remove();
-
-}
-
-},
-1900
-);
-
-}
-
-
-/* =========================================================
-   تسلسل الألعاب النارية
-========================================================= */
-
-function startFireworks(){
-
-const container=
-document.getElementById(
-"fireworksContainer"
-);
-
-
-/*
-   تنظيف أي ألعاب قديمة.
-*/
-
-container.innerHTML="";
-
-
-/*
-   إطلاقات متدرجة من الجانبين.
-   لا تنطلق كلها في نفس الوقت.
-*/
-
-launchFirework("left",0);
-
-launchFirework("right",350);
-
-launchFirework("left",1050);
-
-launchFirework("right",1500);
-
-launchFirework("left",2200);
-
-launchFirework("right",2700);
-
-launchFirework("left",3500);
-
-launchFirework("right",3900);
-
-
-/*
-   جولة إضافية خفيفة.
-*/
-
-launchFirework("right",4800);
-
-launchFirework("left",5300);
-
-}
-
-
-/* =========================================================
+/* =================================
    إغلاق الاحتفال
-========================================================= */
+================================= */
 
 function closeCelebration(){
 
@@ -3482,35 +2421,6 @@ overlay
 el=>el.remove()
 );
 
-
-document
-.getElementById(
-"fireworksContainer"
-)
-.innerHTML="";
-
-
-/*
-   إيقاف الصوت تدريجيًا.
-*/
-
-if(
-audioContext &&
-audioContext.state!=="closed"
-){
-
-try{
-
-audioContext.close();
-
-}
-catch(e){}
-
-audioContext=null;
-
-}
-
-
 },
 700
 );
@@ -3518,9 +2428,9 @@ audioContext=null;
 }
 
 
-/* =========================================================
+/* =================================
    بطولة جديدة
-========================================================= */
+================================= */
 
 function newTournament(){
 
@@ -3547,42 +2457,6 @@ rounds=[];
 currentRound=0;
 
 
-/*
-   إيقاف الاحتفال
-*/
-
-document
-.getElementById(
-"celebrationOverlay"
-)
-.classList
-.remove("show");
-
-
-document
-.getElementById(
-"fireworksContainer"
-)
-.innerHTML="";
-
-
-if(
-audioContext &&
-audioContext.state!=="closed"
-){
-
-try{
-
-audioContext.close();
-
-}
-catch(e){}
-
-audioContext=null;
-
-}
-
-
 document
 .getElementById(
 "tournamentScreen"
@@ -3601,6 +2475,14 @@ document
 
 document
 .getElementById(
+"celebrationOverlay"
+)
+.classList
+.remove("show");
+
+
+document
+.getElementById(
 "playersScreen"
 )
 .classList
@@ -3612,9 +2494,9 @@ createPlayerInputs();
 }
 
 
-/* =========================================================
+/* =================================
    تشغيل البرنامج
-========================================================= */
+================================= */
 
 createPlayerInputs();
 
@@ -3623,4 +2505,4 @@ loadTournament();
 </script>
 
 </body>
-   </html>
+</html>
