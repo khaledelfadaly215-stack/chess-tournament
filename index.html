@@ -16,8 +16,16 @@
 box-sizing:border-box
 }
 
+html,
 body{
 margin:0;
+padding:0;
+width:100%;
+max-width:100%;
+overflow-x:hidden;
+}
+
+body{
 font-family:Arial,Tahoma,sans-serif;
 color:#172033;
 
@@ -351,11 +359,14 @@ scale(1)
 ========================================= */
 
 .container{
+width:100%;
 max-width:1450px;
 
 margin:24px auto;
 
-padding:0 20px
+padding:0 20px;
+
+overflow:hidden;
 }
 
 .card{
@@ -521,36 +532,51 @@ display:none!important
 
 
 /* =========================================
-   شجرة البطولة - مقسومة نصفين
+   شجرة البطولة
+   بدون Scroll أفقي
 ========================================= */
 
 .bracket-wrap{
-overflow-x:auto;
 
-padding:20px 10px 30px
+width:100%;
+
+max-width:100%;
+
+overflow:hidden;
+
+padding:20px 4px 30px;
+
 }
 
 .bracket{
 
+width:100%;
+
+max-width:100%;
+
 display:grid;
 
 grid-template-columns:
-repeat(9,minmax(145px,1fr));
+repeat(9,minmax(0,1fr));
 
-gap:18px;
+gap:clamp(5px,1vw,18px);
 
-min-width:1500px;
+align-items:stretch;
 
-align-items:stretch
+min-width:0;
+
 }
 
+/* كل عمود يأخذ نفس المساحة */
 .stage{
 
 display:flex;
 
 flex-direction:column;
 
-min-width:145px
+min-width:0;
+
+width:100%;
 }
 
 .stage h3{
@@ -563,13 +589,19 @@ color:#fff;
 
 border-radius:9px;
 
-padding:10px 6px;
+padding:10px 3px;
 
 margin:0 0 18px;
 
-font-size:14px;
+font-size:clamp(9px,1vw,14px);
 
-white-space:nowrap
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+
+min-width:0;
 }
 
 .stage-list{
@@ -582,7 +614,9 @@ justify-content:space-around;
 
 flex:1;
 
-gap:12px
+gap:clamp(6px,.8vw,12px);
+
+min-width:0;
 }
 
 .bracket-match{
@@ -598,6 +632,10 @@ overflow:hidden;
 box-shadow:0 2px 7px #0001;
 
 min-height:62px;
+
+width:100%;
+
+min-width:0;
 
 transition:
 transform .2s ease,
@@ -615,7 +653,7 @@ box-shadow:0 5px 14px #0002
 
 min-height:30px;
 
-padding:7px 9px;
+padding:7px 5px;
 
 border-bottom:1px solid #e2e8f0;
 
@@ -625,9 +663,15 @@ justify-content:space-between;
 
 align-items:center;
 
-gap:6px;
+gap:3px;
 
-font-size:13px;
+font-size:clamp(8px,.85vw,13px);
+
+line-height:1.25;
+
+min-width:0;
+
+overflow:hidden;
 
 transition:
 background .25s ease,
@@ -637,6 +681,26 @@ color .25s ease
 .bplayer:last-child{
 
 border-bottom:0
+}
+
+/* اسم اللاعب */
+.bplayer{
+
+white-space:nowrap;
+
+text-overflow:ellipsis;
+}
+
+/* رقم التقييم */
+.bplayer .rating{
+
+font-size:clamp(7px,.65vw,11px);
+
+color:#64748b;
+
+flex-shrink:0;
+
+margin-right:2px;
 }
 
 .bplayer.win{
@@ -745,7 +809,7 @@ border:2px solid #facc15;
 
 border-radius:12px;
 
-padding:16px 10px;
+padding:16px 5px;
 
 text-align:center;
 
@@ -754,7 +818,13 @@ font-weight:bold;
 color:#92400e;
 
 box-shadow:
-0 0 15px #facc1555
+0 0 15px #facc1555;
+
+font-size:clamp(9px,1vw,14px);
+
+overflow:hidden;
+
+word-break:break-word;
 }
 
 
@@ -1178,8 +1248,7 @@ transparent 100%
 
 background-size:250% 100%;
 
-animation:
-borderLightMove 2.2s linear infinite;
+animation:borderLightMove 2.2s linear infinite;
 
 z-index:-1;
 
@@ -1403,6 +1472,49 @@ rotate(720deg)
    Responsive
 ========================================= */
 
+@media(max-width:1100px){
+
+.container{
+padding:0 12px;
+}
+
+.card{
+padding:16px;
+}
+
+.bracket-wrap{
+padding-left:2px;
+padding-right:2px;
+}
+
+.bracket{
+gap:5px;
+}
+
+.stage h3{
+font-size:10px;
+padding:8px 2px;
+margin-bottom:12px;
+}
+
+.bracket-match{
+border-radius:7px;
+min-height:50px;
+}
+
+.bplayer{
+min-height:24px;
+padding:5px 3px;
+font-size:8px;
+}
+
+.bplayer .rating{
+display:none;
+}
+
+}
+
+
 @media(max-width:900px){
 
 .stats{
@@ -1451,24 +1563,27 @@ font-size:18px;
 padding:11px 20px
 }
 
+/*
+   الشجرة تظل كاملة بدون Scroll
+*/
 .bracket{
-min-width:1450px;
-
-gap:12px
-}
-
-.stage{
-min-width:140px
+gap:3px;
 }
 
 .stage h3{
-font-size:13px
+font-size:8px;
+padding:7px 1px;
+}
+
+.bracket-match{
+min-height:46px;
+border-radius:6px;
 }
 
 .bplayer{
-font-size:12px;
-
-padding:6px 7px
+font-size:7px;
+padding:4px 2px;
+min-height:22px;
 }
 
 }
@@ -1485,7 +1600,12 @@ grid-template-columns:1fr 1fr
 }
 
 .container{
-padding:0 10px
+padding:0 6px
+}
+
+.card{
+padding:12px;
+border-radius:12px;
 }
 
 .header-inner{
@@ -1549,6 +1669,74 @@ font-size:16px;
 padding:12px 30px;
 
 margin-top:22px
+}
+
+
+/*
+   9 أعمدة على شاشة الموبايل
+   بدون أي Scroll أفقي
+*/
+.bracket-wrap{
+padding:12px 0 20px;
+}
+
+.bracket{
+gap:2px;
+}
+
+.stage h3{
+font-size:6px;
+padding:6px 1px;
+border-radius:5px;
+margin-bottom:8px;
+}
+
+.stage-list{
+gap:3px;
+}
+
+.bracket-match{
+min-height:38px;
+border-radius:4px;
+}
+
+.bplayer{
+font-size:5.5px;
+padding:3px 1px;
+min-height:18px;
+gap:1px;
+}
+
+.bplayer .rating{
+display:none;
+}
+
+}
+
+
+/* =========================================
+   شاشات صغيرة جدًا
+========================================= */
+
+@media(max-width:400px){
+
+.bracket{
+gap:1px;
+}
+
+.stage h3{
+font-size:5px;
+padding:5px 0;
+}
+
+.bplayer{
+font-size:5px;
+padding:2px 1px;
+min-height:16px;
+}
+
+.bracket-match{
+min-height:34px;
 }
 
 }
@@ -2440,12 +2628,6 @@ c.innerHTML="";
 round.matches.forEach(
 (m,i)=>{
 
-/*
-   في الجولات القادمة
-   لا يتم عرض مباريات اللاعبين
-   إلا عندما يصبح الدور الحالي.
-*/
-
 if(!m.player1||!m.player2){
 
 return;
@@ -2669,11 +2851,6 @@ rounds[currentRound+1];
 if(!next)return;
 
 
-/*
-   كل مباراتين من الجولة الحالية
-   ينتج عنهما لاعب واحد في الجولة التالية.
-*/
-
 const nextIndex=
 Math.floor(index/2);
 
@@ -2704,11 +2881,6 @@ winner;
 
 }
 
-
-/*
-   إعادة ضبط نتيجة المباراة التالية
-   في حالة وجود بيانات قديمة.
-*/
 
 next.matches[nextIndex].winner=null;
 
@@ -2749,11 +2921,6 @@ m.player1;
 
 m.draw=false;
 
-
-/*
-   نقل اللاعب فورًا
-*/
-
 moveWinnerToNextRound(
 index,
 m.player1
@@ -2769,11 +2936,6 @@ m.winner=
 m.player2;
 
 m.draw=false;
-
-
-/*
-   نقل اللاعب فورًا
-*/
 
 moveWinnerToNextRound(
 index,
@@ -2796,12 +2958,6 @@ m.draw=true;
 saveTournament();
 
 renderRound();
-
-
-/*
-   لو كانت كل مباريات الجولة
-   حُسمت ننتقل للجولة التالية.
-*/
 
 checkRoundFinished();
 
@@ -2849,10 +3005,6 @@ player===1
 :
 "0 - 1";
 
-
-/*
-   نقل الفائز فورًا
-*/
 
 moveWinnerToNextRound(
 index,
@@ -2911,10 +3063,6 @@ rounds[currentRound];
 if(!current)return;
 
 
-/*
-   النهائي انتهى
-*/
-
 if(
 currentRound===4 &&
 current.matches[0] &&
@@ -2929,10 +3077,6 @@ return;
 
 }
 
-
-/*
-   الانتقال للجولة التالية
-*/
 
 if(
 currentRound<4
@@ -3020,7 +3164,7 @@ c.appendChild(row);
 
 
 /* =========================================
-   شجرة البطولة الجديدة
+   شجرة البطولة
 ========================================= */
 
 function renderBracket(){
@@ -3032,20 +3176,6 @@ document.getElementById(
 
 b.innerHTML="";
 
-
-/*
-   9 أعمدة:
-
-   0 دور 32 يمين
-   1 دور 16 يمين
-   2 ربع النهائي يمين
-   3 نصف النهائي يمين
-   4 النهائي
-   5 نصف النهائي شمال
-   6 ربع النهائي شمال
-   7 دور 16 شمال
-   8 دور 32 شمال
-*/
 
 const stages=[
 
@@ -3232,11 +3362,6 @@ ${match.winner.name}
 `;
 
 
-/*
-   لا نضع البطل داخل النهائي
-   إلا بعد انتهاء النهائي
-*/
-
 if(
 currentRound===4 &&
 match.winner
@@ -3305,10 +3430,6 @@ bm.className=
 let match=null;
 
 
-/*
-   النصف اليمين
-*/
-
 if(s<4){
 
 if(round){
@@ -3320,10 +3441,6 @@ round.matches[i]||null;
 
 }
 
-
-/*
-   النصف الشمال
-*/
 
 else{
 
@@ -3341,10 +3458,6 @@ offset+i
 
 }
 
-
-/*
-   بيانات اللاعبين
-*/
 
 let player1=null;
 
@@ -3367,12 +3480,6 @@ match.winner||null;
 }
 
 
-/*
-   لو المباراة التالية
-   لم يتم إنشاؤها بعد داخل rounds
-   نحاول حساب اللاعبين من الجولة السابقة.
-*/
-
 if(
 !match &&
 roundIndex>0
@@ -3393,10 +3500,6 @@ base;
 let source2=
 base+1;
 
-
-/*
-   النصف الشمال
-*/
 
 if(s>=5){
 
@@ -3437,10 +3540,6 @@ previous.matches[source2]
 
 }
 
-
-/*
-   تحديد التنسيق
-*/
 
 let p1class=
 "bplayer";
@@ -3484,10 +3583,6 @@ p2class+=" empty";
 
 }
 
-
-/*
-   رسم الخانة
-*/
 
 bm.innerHTML=`
 
@@ -3683,11 +3778,6 @@ currentRound=
 Number(d.currentRound)||0;
 
 
-/*
-   توافق مع البطولات القديمة
-   التي لم يكن فيها هيكل كامل للجولات.
-*/
-
 if(
 rounds.length===1 &&
 players.length===32
@@ -3698,10 +3788,6 @@ createTournamentRounds(
 players
 );
 
-
-/*
-   استرجاع نتائج دور الـ32
-*/
 
 if(
 d.rounds[0] &&
@@ -4102,4 +4188,4 @@ loadTournament();
 </script>
 
 </body>
-   </html>
+</html>
